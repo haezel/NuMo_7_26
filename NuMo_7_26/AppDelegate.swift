@@ -16,6 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        Util.copyFile("usda.sql3")
+        
+//        // Return status bar to the screen & set its style.
+//        let application = UIApplication.sharedApplication()
+//        application.setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.None)
+//        application.statusBarStyle = UIStatusBarStyle.LightContent
+//        
+//        // Setup navigation bar appearance.
+//        let navigationBar = UINavigationBar.appearance()
+//        navigationBar.barTintColor = UIColor.colorFromCode(0xDBE6EC)
+//        navigationBar.tintColor = UIColor.whiteColor()
+        
+        //grab food items from sqlite and put into allFoods[]
+        ModelManager.instance.getAllFoodData()
+        
+        //get and start app with todays date in 2015-06-02 format
+        var date = NSDate()
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        var dateInFormat = dateFormatter.stringFromDate(date)
+        
+        //un comment when my day in place...!!!
+        dateChosen = dateInFormat
+        
+        
         return true
     }
 
