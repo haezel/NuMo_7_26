@@ -14,6 +14,9 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
     
     var nutrientsToShow = [204, 203, 208, 262, 291, 318, 621, 629, 675, 304, 305, 306, 307, 323, 601, 855]
     
+    var nutrientsOmega6s = [672, 675, 685, 853, 855]
+    var nutrientsOmega3s = [851, 852, 631, 629, 621]
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     
@@ -93,12 +96,119 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PieChartCollectionViewCell", forIndexPath: indexPath) as! PieChartCollectionViewCell
             println("Cell Pie Created!")
             
+            // proteins-carbs-fats cell
             if indexPath.row == 0 {
-                cell.setTitle("Macronutrients")
+                
+                
+                let color1 = UIColor.colorFromCode(0x3485bf)
+                let color2 = UIColor.colorFromCode(0x0994ff)
+                let color3 = UIColor.colorFromCode(0x555555)
+                
+                let colors = [color1, color2, color3]
+                
+                //cell.backgroundColor = UIColor.colorFromCode(0xc9c9c9)
+                
+                cell.setData("Macronutrients", amounts: [23.0,34.0,51.0], labels: ["Pro","Fat","Carb"], colorsUse : colors)
             }
             
+            // omega ratio cell
             if indexPath.row == 1 {
-                cell.setTitle("Omega Ratio")
+                
+                //variables to hold totals
+                var omega3 : Double = 0.0
+                var omega6 : Double = 0.0
+                
+                
+                //-------Omega-3 Calculation------//
+                //    calculate total omega-3
+                
+                for nutrient in nutrientsOmega3s {
+                    
+                    //get nutrient object for the id
+                    var nutrientCellInfo = self.nutrientTotals![nutrient]
+                    
+                    //if nutrient 851 doesnt exist use 619 instead.
+                    if nutrient == 851 {
+                        if nutrientCellInfo != nil {
+                            omega3 += nutrientCellInfo!.total
+                        } else {
+                            nutrientCellInfo = self.nutrientTotals![619]
+                            if nutrientCellInfo != nil {
+                                omega3 += nutrientCellInfo!.total
+                            }
+                        }
+                    }
+                    
+                    //do this for all the other nutrients
+                    else {
+                        if nutrientCellInfo != nil {
+                            //if it exists, add it to total!
+                            omega3 += nutrientCellInfo!.total
+                        }
+                    }
+                }
+                
+                
+                
+                
+                //-------Omega-6 Calculation------//
+                // calculate total omega-6
+                for nutrient in nutrientsOmega6s {
+                    
+                    //get nutrient object for the id
+                    var nutrientCellInfo = self.nutrientTotals![nutrient]
+                    
+                    //if nutrient 675 doesnt exist use 619 instead.
+                    if nutrient == 675 {
+                        if nutrientCellInfo != nil {
+                            omega6 += nutrientCellInfo!.total
+                        } else { //675 doesnt exist in db
+                            nutrientCellInfo = self.nutrientTotals![618]
+                            if nutrientCellInfo != nil {
+                                omega6 += nutrientCellInfo!.total
+                            }
+                        }
+                    }
+                    
+                    //if nutrient 855 doesnt exist use 619 instead.
+                    else if nutrient == 855 {
+                        if nutrientCellInfo != nil {
+                            omega6 += nutrientCellInfo!.total
+                        } else { //855 doesnt exist in db
+                            nutrientCellInfo = self.nutrientTotals![620]
+                            if nutrientCellInfo != nil {
+                                omega6 += nutrientCellInfo!.total
+                            }
+                        }
+                    }
+                        
+                    //do this for all the other nutrients
+                    else {
+                        if nutrientCellInfo != nil {
+                            //if it exists, add it to total!
+                            omega6 += nutrientCellInfo!.total
+                        }
+                    }
+                }
+                
+             
+                
+                let theOmegasAmounts = [omega6, omega3]
+                let theLabels = ["Omega-6","Omega-3"]
+            
+                
+                let color2 = UIColor.colorFromCode(0x3485bf)
+                let color1 = UIColor.colorFromCode(0xffba00)
+                //let color2 = UIColor.colorFromCode(0x0994ff)
+                
+                let colors = [color1, color2]
+                
+                
+                //cell.backgroundColor = UIColor.colorFromCode(0xc9c9c9)
+                
+                //cell.setData("Omega Ratio", amounts: [2.0,2.0], labels: ["Oh", "kay"])
+                cell.setData("Omega Ratio", amounts: theOmegasAmounts, labels: ["Omega 6","Omega 3 "], colorsUse: colors)
+
             }
             
             return cell
@@ -148,18 +258,18 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             }
 
         
-            if (indexPath.row % 5 == 0){
-                cell.backgroundColor = UIColor.colorFromCode(0xecd3f4)
-            }
-            if (indexPath.row % 5 == 1){
-                cell.backgroundColor = UIColor.colorFromCode(0xf8face)
-            }
-            if (indexPath.row % 5 == 2){
-                cell.backgroundColor = UIColor.colorFromCode(0xa8e3b3)
-            }
-            if (indexPath.row % 5 == 2){
-                cell.backgroundColor = UIColor.colorFromCode(0x9edfd8)
-            }
+//            if (indexPath.row % 5 == 0){
+//                cell.backgroundColor = UIColor.colorFromCode(0xecd3f4)
+//            }
+//            if (indexPath.row % 5 == 1){
+//                cell.backgroundColor = UIColor.colorFromCode(0xf8face)
+//            }
+//            if (indexPath.row % 5 == 2){
+//                cell.backgroundColor = UIColor.colorFromCode(0xa8e3b3)
+//            }
+//            if (indexPath.row % 5 == 2){
+//                cell.backgroundColor = UIColor.colorFromCode(0x9edfd8)
+//            }
             
             cell.animateProgressView()
             

@@ -114,6 +114,8 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
             println("needs to update the amount in db")
             ModelManager.instance.updateFoodItemLogAmount(self.logItem!)
             NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+            navigationController?.popViewControllerAnimated(true)
+
         }
     }
 

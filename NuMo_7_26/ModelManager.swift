@@ -91,7 +91,7 @@ class ModelManager : NSObject
     
     func getNutrientTotals(date : String) -> Dictionary<Int, (nutrient:Nutrient, total:Double)>
     {
-        //var loggedItems = (getLoggedItems()).0
+        
         
         var nt = Dictionary<Int, (nutrient:Nutrient, total:Double)>()
         

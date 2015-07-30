@@ -83,8 +83,8 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="map" translatesAutoresizingMaskIntoConstraints="NO" id="dAh-Rd-Qtm">
                                                     <rect key="frame" x="18" y="4" width="35" height="35"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Log Item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26S-4Y-OdE">
-                                                    <rect key="frame" x="61" y="6" width="70" height="31"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26S-4Y-OdE">
+                                                    <rect key="frame" x="61" y="6" width="73" height="31"/>
                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="22"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -236,7 +236,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bZl-tq-JjM">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.7850248246" green="0.95247829770000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.56994047619047616" green="0.56994047619047616" blue="0.56994047619047616" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hRm-tx-4UZ">
                                     <size key="itemSize" width="300" height="300"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -258,7 +258,6 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" red="0.78431372549019607" green="0.95294117647058818" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="8Vo-dF-sqt" firstAttribute="top" secondItem="mL4-mB-IJU" secondAttribute="topMargin" constant="-8" id="UZM-MZ-b7S"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="8Vo-dF-sqt" secondAttribute="trailing" constant="-8" id="da3-So-ag1"/>
@@ -411,6 +410,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="My Day" id="tfV-OM-iGW">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="LOa-wl-Q9y"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="xQ6-i7-93Y">
+                            <connections>
+                                <segue destination="o1m-8P-blN" kind="show" id="Hjr-1l-Lsl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="dateLabel" destination="jOD-Ch-XjU" id="J39-1B-Vki"/>
@@ -425,7 +429,7 @@
             </objects>
             <point key="canvasLocation" x="2752" y="-970"/>
         </scene>
-        <!--Log Item-->
+        <!--Add Item-->
         <scene sceneID="EIJ-xQ-USz">
             <objects>
                 <viewController id="o1m-8P-blN" customClass="MainSearchController" customModule="NuMo_7_26" customModuleProvider="target" sceneMemberID="viewController">
@@ -465,8 +469,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Jzw-li-zBZ" secondAttribute="trailing" constant="-16" id="uTh-YB-sg6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Log Item" id="pV3-2O-LKC">
+                    <navigationItem key="navigationItem" title="Add Item" id="pV3-2O-LKC">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="FiL-Nf-cJC"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="rpP-EK-R5O">
+                            <connections>
+                                <segue destination="tTl-FL-Ge0" kind="show" id="hOH-Kf-lr5"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="FiL-Nf-cJC" id="SN6-By-cfB"/>
@@ -725,6 +734,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Dw9-Gl-LNs"/>
+        <segue reference="Hjr-1l-Lsl"/>
+        <segue reference="hOH-Kf-lr5"/>
         <segue reference="PoS-4A-SYu"/>
     </inferredMetricsTieBreakers>
 </document>

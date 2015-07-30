@@ -36,19 +36,19 @@ class PieChartCollectionViewCell: UICollectionViewCell {
         //-----end test pie!!!!!-----//
     }
     
-    func setTitle(title : String) {
+    func setData(title : String, amounts : [Double], labels : [String], colorsUse : [UIColor]) {
         
         pieChartView.centerText = title
         
         
+        let theLabels = labels
+        let theValues = amounts
         
-        let months = ["Protein", "Fat", "Carb"]
-        let unitsSold = [20.0, 4.0, 6.0]
-        
-        setChart(months, values: unitsSold)
+        //setChart(labels, values: amounts)
+        setChart(theLabels, values: theValues, colorsUse: colorsUse)
     }
     
-    func setChart(dataPoints: [String], values: [Double]) {
+    func setChart(dataPoints: [String], values: [Double], colorsUse : [UIColor]) {
         
         var dataEntries: [ChartDataEntry] = []
         
@@ -61,28 +61,38 @@ class PieChartCollectionViewCell: UICollectionViewCell {
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         pieChartView.data = pieChartData
         
-        var colors: [UIColor] = []
+//        MAKES RANDOM COLORS
+//        var colors: [UIColor] = []
+//        
+//        //use random color scheme
+//        for i in 0..<dataPoints.count {
+//            let red = Double(arc4random_uniform(256))
+//            let green = Double(arc4random_uniform(256))
+//            let blue = Double(arc4random_uniform(256))
+//            
+//            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+//            colors.append(color)
+//        }
         
-        //use random color scheme
-        for i in 0..<dataPoints.count {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
+        
+        
         //pieChartView.backgroundColor = UIColor.colorFromCode(0x000000)
+        //pieChartView.
+        
         pieChartView.legend.position = .BelowChartCenter
         pieChartView.drawSliceTextEnabled = false
+        
         pieChartView.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
         pieChartView.holeRadiusPercent = 0.75
         pieChartView.drawHoleEnabled = true
-        pieChartView.holeColor = UIColor.colorFromCode(0xC8F3FF)
+        pieChartView.holeColor = UIColor.colorFromCode(0x919191)
         //pieChartView.centerText = "Macronutrients"
-        pieChartView.centerTextFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
+        pieChartView.centerTextFont = UIFont(name: "AvenirNextCondensed-Medium", size: 16.0)!
+        pieChartView.centerTextColor = UIColor.colorFromCode(0xffffff)
         pieChartView.descriptionText = ""
-        pieChartDataSet.colors = colors
+        pieChartDataSet.colors = colorsUse
+        //pieChartDataSet.setDrawValues = false
+    
     }
 
 }

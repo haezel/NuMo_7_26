@@ -79,8 +79,8 @@ import UIKit
 //        
 //    }
     
-    var lineWidth: CGFloat = 6.0
-    var color: UIColor = UIColor.whiteColor()
+    var lineWidth: CGFloat = 7.5
+    var color: UIColor = UIColor.colorFromCode(0x3485BF)
     var scale: CGFloat = 0.9
     
     override func drawRect(rect: CGRect) {
@@ -93,7 +93,7 @@ import UIKit
         var path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/4-20, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
   
         path.lineWidth = lineWidth
-        UIColor.whiteColor().setStroke()
+        UIColor.colorFromCode(0x3485BF).setStroke()
         path.stroke()
     }
     
@@ -115,28 +115,29 @@ import UIKit
         
 
         progressLabel = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 60.0))
-        progressLabel.textColor = .blackColor()
+        progressLabel.textColor = .whiteColor()
         progressLabel.textAlignment = .Center
         progressLabel.text = ""
-        progressLabel.font = UIFont(name: "AvenirNextCondensed-Regular", size: 22.0)
+        progressLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 22.0)
         progressLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         addSubview(progressLabel)
         
         addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
-        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterY, multiplier: 1.0, constant: 5.0))
+        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterY, multiplier: 1.0, constant: 1.0))
         
         
         progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 40.0))
-        progressLabel2.textColor = .blackColor()
+        progressLabel2.textColor = UIColor.colorFromCode(0xffba00)
         progressLabel2.textAlignment = .Center
         //what to say while loading
-        progressLabel2.text = ""
-        progressLabel2.font = UIFont(name: "AvenirNextCondensed-Regular", size: 12.0)
+        
+        progressLabel2.hidden = true
+        progressLabel2.font = UIFont(name: "AvenirNextCondensed-Bold", size: 22.0)
         progressLabel2.setTranslatesAutoresizingMaskIntoConstraints(false)
         addSubview(progressLabel2)
         
-        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterX, multiplier: 1.0, constant: -12.0))
-        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterY, multiplier: 1.0, constant: -17.0))
+        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterX, multiplier: 1.0, constant: -4.0))
+        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterY, multiplier: 1.0, constant: -23.0))
 
         
     }
@@ -183,7 +184,7 @@ import UIKit
         progressLayer.fillColor = nil
         
         progressLayer.strokeColor = UIColor.blackColor().CGColor
-        progressLayer.lineWidth = 6.0
+        progressLayer.lineWidth = 8.0
         progressLayer.strokeStart = 0.0
         progressLayer.strokeEnd = 0.0
         
@@ -200,9 +201,8 @@ import UIKit
         
         //let colorTop: AnyObject = UIColor(red: 255.0/255.0, green: 213.0/255.0, blue: 63.0/255.0, alpha: 1.0).CGColor
         
-        let colorTop: AnyObject = UIColor.colorFromCode(0xfe6ce1).CGColor
-        let colorBottom: AnyObject = UIColor.colorFromCode(0xf51c1c).CGColor
-        
+        let colorTop: AnyObject = UIColor.colorFromCode(0x35a7fe).CGColor
+        let colorBottom: AnyObject = UIColor.colorFromCode(0x0994ff).CGColor
         
         //let colorBottom: AnyObject = UIColor(red: 255.0/255.0, green: 198.0/255.0, blue: 5.0/255.0, alpha: 1.0).CGColor
         let arrayOfColors: [AnyObject] = [colorTop, colorBottom]
@@ -219,18 +219,23 @@ import UIKit
     
     func animateProgressView() {
         
-            progressLabel.text = nutrientNameLabel
-            progressLayer.strokeEnd = 0.0
-            
-            let animation = CABasicAnimation(keyPath: "strokeEnd")
-            animation.fromValue = CGFloat(0.0)
-            animation.toValue = CGFloat(percentComplete)
-            animation.duration = 0.7 //***was 1.0
-            animation.delegate = self
-            animation.removedOnCompletion = false
-            animation.additive = true
-            animation.fillMode = kCAFillModeForwards
-            progressLayer.addAnimation(animation, forKey: "strokeEnd")
+        var percentToShow = percentComplete * 100
+        progressLabel2.hidden = false
+        progressLabel2.text = String(format: "%.0f%%", percentToShow)
+        
+        //progressLabel2.hidden = true
+        progressLabel.text = nutrientNameLabel
+        progressLayer.strokeEnd = 0.0
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = CGFloat(0.0)
+        animation.toValue = CGFloat(percentComplete)
+        animation.duration = 0.7 //***was 1.0
+        animation.delegate = self
+        animation.removedOnCompletion = false
+        animation.additive = true
+        animation.fillMode = kCAFillModeForwards
+        progressLayer.addAnimation(animation, forKey: "strokeEnd")
         
       
     }
@@ -238,7 +243,10 @@ import UIKit
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
         progressLabel.text = nutrientNameLabel
         //progressLabel2.text = "\(percentComplete) percent"
-        progressLabel2.text = String(format: "%.2f percent", percentComplete)
+        
+//        var percentToShow = percentComplete * 100
+//        progressLabel2.hidden = false
+//        progressLabel2.text = String(format: "%.0f%%", percentToShow)
 
     }
     
