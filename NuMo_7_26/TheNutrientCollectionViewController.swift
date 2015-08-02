@@ -12,10 +12,45 @@ import Charts
 
 class TheNutrientCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    var nutrientsToShow = [204, 203, 208, 262, 291, 318, 621, 629, 675, 304, 305, 306, 307, 323, 601, 855]
+    let nutrientsToShow = [204, 203, 208, 262, 291, 318, 621, 629, 675, 304, 305, 306, 307, 323, 601, 855]
     
-    var nutrientsOmega6s = [672, 675, 685, 853, 855]
-    var nutrientsOmega3s = [851, 852, 631, 629, 621]
+    let nutrientsOmega6s = [672, 675, 685, 853, 855]
+    let nutrientsOmega3s = [851, 852, 631, 629, 621]
+    
+    let nutrientCommonNames = [
+        203 : "Protein",
+        204 : "Fat",
+        205 : "Carbohydrate",
+        208 : "Calories",
+        209 : "Starch",
+        210 : "Sucrose",
+        211 : "Glucose",
+        212 : "Fructose",
+        255 : "Water",
+        262 : "Caffeine",
+        269 : "Sugar",
+        291 : "Fiber",
+        301 : "Calcium",
+        303 : "Iron",
+        304 : "Magnesium",
+        305 : "Phosphorus",
+        306 : "Potassium",
+        307 : "Sodium",
+        309 : "Zinc",
+        312 : "Copper",
+        313 : "Fluoride",
+        315 : "Manganese",
+        317 : "Selenium",
+        318 : "Vitamin A",
+        321 : "Beta Carotene",
+        322 : "Alpha Carotene",
+        323 : "Vitamin E",
+        417 : "Folate",
+        418 : "Vitamin B-12",
+        601 : "Cholesterol",
+        605 : "Trans Fats",
+        606 : "Saturated Fat"	
+    ]
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -33,11 +68,14 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        //register a pie chart cell
-        //collectionView.registerClass(NSClassFromString("PieChartCollectionViewCell"),forCellWithReuseIdentifier:"PieChartCollectionViewCell")
         //in order to use our custom nutrient cell nib
         var nib = UINib(nibName: "PieChartCollectionViewCell", bundle: nil)
         collectionView.registerNib(nib, forCellWithReuseIdentifier: "PieChartCollectionViewCell")
+        
+        //customize back button text
+        let backItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backItem
+        
         
         self.nutrientRDAs = makePlayRDAs()
         
@@ -115,82 +153,8 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             if indexPath.row == 1 {
                 
                 //variables to hold totals
-                var omega3 : Double = 0.0
-                var omega6 : Double = 0.0
-                
-                
-                //-------Omega-3 Calculation------//
-                //    calculate total omega-3
-                
-                for nutrient in nutrientsOmega3s {
-                    
-                    //get nutrient object for the id
-                    var nutrientCellInfo = self.nutrientTotals![nutrient]
-                    
-                    //if nutrient 851 doesnt exist use 619 instead.
-                    if nutrient == 851 {
-                        if nutrientCellInfo != nil {
-                            omega3 += nutrientCellInfo!.total
-                        } else {
-                            nutrientCellInfo = self.nutrientTotals![619]
-                            if nutrientCellInfo != nil {
-                                omega3 += nutrientCellInfo!.total
-                            }
-                        }
-                    }
-                    
-                    //do this for all the other nutrients
-                    else {
-                        if nutrientCellInfo != nil {
-                            //if it exists, add it to total!
-                            omega3 += nutrientCellInfo!.total
-                        }
-                    }
-                }
-                
-                
-                
-                
-                //-------Omega-6 Calculation------//
-                // calculate total omega-6
-                for nutrient in nutrientsOmega6s {
-                    
-                    //get nutrient object for the id
-                    var nutrientCellInfo = self.nutrientTotals![nutrient]
-                    
-                    //if nutrient 675 doesnt exist use 619 instead.
-                    if nutrient == 675 {
-                        if nutrientCellInfo != nil {
-                            omega6 += nutrientCellInfo!.total
-                        } else { //675 doesnt exist in db
-                            nutrientCellInfo = self.nutrientTotals![618]
-                            if nutrientCellInfo != nil {
-                                omega6 += nutrientCellInfo!.total
-                            }
-                        }
-                    }
-                    
-                    //if nutrient 855 doesnt exist use 619 instead.
-                    else if nutrient == 855 {
-                        if nutrientCellInfo != nil {
-                            omega6 += nutrientCellInfo!.total
-                        } else { //855 doesnt exist in db
-                            nutrientCellInfo = self.nutrientTotals![620]
-                            if nutrientCellInfo != nil {
-                                omega6 += nutrientCellInfo!.total
-                            }
-                        }
-                    }
-                        
-                    //do this for all the other nutrients
-                    else {
-                        if nutrientCellInfo != nil {
-                            //if it exists, add it to total!
-                            omega6 += nutrientCellInfo!.total
-                        }
-                    }
-                }
-                
+                var omega3 : Double = getOmega3()
+                var omega6 : Double = getOmega6()
              
                 
                 let theOmegasAmounts = [omega6, omega3]
@@ -235,12 +199,16 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             if nutrientCellInfo != nil {
                 
                 //grab the title String from nutrientTotals
-                var title = nutrientCellInfo!.nutrient.name
+                //var title = nutrientCellInfo!.nutrient.name
+                var title = self.nutrientCommonNames[nutrientId]
+                if title == nil {
+                    title = nutrientCellInfo!.nutrient.name
+                }
                 
                 var unit = nutrientCellInfo!.nutrient.units
                 var totalAmount = nutrientCellInfo!.total //the total in the correct unit
                 
-                cell.setNutrientTitle(title)
+                cell.setNutrientTitle(title!)
                 
                 var thePercent = totalAmount/self.nutrientRDAs![nutrientId]!
                 
@@ -251,8 +219,18 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             }
             else //there is no amount recorded yet for this nutrient
             {
-                var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
-                cell.setNutrientTitle(emptyNutrient.name)
+//                var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+//                cell.setNutrientTitle(emptyNutrient.name)
+                
+                var title = self.nutrientCommonNames[nutrientId]
+                
+                if title != nil {
+                    cell.setNutrientTitle(title!)
+                }
+                else { //if its not in common names, get it from the db
+                    var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                    cell.setNutrientTitle(emptyNutrient.name)
+                }
                 cell.setThePercent(0.0)
                 //cell.percentNutrientLabel.text = String("0.00 \(emptyNutrient.units)")
             }
@@ -297,12 +275,36 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        let alert = UIAlertController(title: "didSelectItemAtIndexPath:", message: "Indexpath = \(indexPath)", preferredStyle: .Alert)
+//        let alert = UIAlertController(title: "didSelectItemAtIndexPath:", message: "Indexpath = \(indexPath)", preferredStyle: .Alert)
+//        
+//        let alertAction = UIAlertAction(title: "Dismiss", style: .Destructive, handler: nil)
+//        alert.addAction(alertAction)
+//        
+//        self.presentViewController(alert, animated: true, completion: nil)
         
-        let alertAction = UIAlertAction(title: "Dismiss", style: .Destructive, handler: nil)
-        alert.addAction(alertAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        if indexPath.row == 1 {
+            
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
+                performSegueWithIdentifier("goToOmegasGraphDetail", sender: cell)
+            } else {
+                // Error indexPath is not on screen: this should never happen.
+            }
+            
+        }
+        
+        
+        
+        if indexPath.row > 1 {
+        
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
+                performSegueWithIdentifier("goToNutrientGraphDetail", sender: cell)
+            } else {
+                // Error indexPath is not on screen: this should never happen.
+            }
+            
+        }
+
     }
     
     
@@ -364,14 +366,165 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
     
     
     
-    /*
-    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // MARK: - Navigation
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+
+        
+        assert(sender as? UICollectionViewCell != nil, "sender is not a collection view")
+        
+        if let indexPath = self.collectionView?.indexPathForCell(sender as! UICollectionViewCell) {
+            
+            
+            //omegas cell clicked
+            if segue.identifier == "goToOmegasGraphDetail" {
+            
+                
+                
+                
+                
+                
+                
+            }
+            
+            
+            
+            
+            if segue.identifier == "goToNutrientGraphDetail" {
+                
+                
+                let detailVC: NutrientGraphViewController = segue.destinationViewController as! NutrientGraphViewController
+                
+                
+                //omega ratio cell clicked
+                if indexPath.row == 1 {
+                    
+                    
+                    
+                }
+                
+                
+                if indexPath.row > 1 {
+                    
+                    detailVC.nutrientId = self.nutrientsToShow[indexPath.row-2]
+        
+                    var nutrientId = self.nutrientsToShow[indexPath.row-2]
+                    var nutrientCellInfo = self.nutrientTotals![nutrientId]
+                    
+                    if nutrientCellInfo != nil {
+                        var unit = nutrientCellInfo!.nutrient.units
+                        detailVC.nutrientUnit = unit
+                    }
+
+                    
+                    var title = self.nutrientCommonNames[nutrientId]
+                    
+                    if title != nil {
+                        detailVC.nutrientTitle = title!
+                    }
+                    else {
+                        var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                        detailVC.nutrientTitle = emptyNutrient.name
+                    }
+                
+                }
+                
+                
+                
+                
+                //detailVC.selectedLabel = cellLabels[indexPath.row]
+            }
+        } else {
+            // Error sender is not a cell or cell is not in collectionView.
+        }
+
+        
     }
-    */
+    
+    func getOmega3() -> Double {
+        
+        //variables to hold totals
+        var omega3 : Double = 0.0
+        
+        
+        //-------Omega-3 Calculation------//
+        //    calculate total omega-3
+        
+        for nutrient in nutrientsOmega3s {
+            
+            //get nutrient object for the id
+            var nutrientCellInfo = self.nutrientTotals![nutrient]
+            
+            //if nutrient 851 doesnt exist use 619 instead.
+            if nutrient == 851 {
+                if nutrientCellInfo != nil {
+                    omega3 += nutrientCellInfo!.total
+                } else {
+                    nutrientCellInfo = self.nutrientTotals![619]
+                    if nutrientCellInfo != nil {
+                        omega3 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //do this for all the other nutrients
+            else {
+                if nutrientCellInfo != nil {
+                    //if it exists, add it to total!
+                    omega3 += nutrientCellInfo!.total
+                }
+            }
+        }
+        
+        return omega3
+    }
+
+    func getOmega6() -> Double {
+        
+        
+        var omega6 : Double = 0.0
+        
+        //-------Omega-6 Calculation------//
+        // calculate total omega-6
+        for nutrient in nutrientsOmega6s {
+            
+            //get nutrient object for the id
+            var nutrientCellInfo = self.nutrientTotals![nutrient]
+            
+            //if nutrient 675 doesnt exist use 619 instead.
+            if nutrient == 675 {
+                if nutrientCellInfo != nil {
+                    omega6 += nutrientCellInfo!.total
+                } else { //675 doesnt exist in db
+                    nutrientCellInfo = self.nutrientTotals![618]
+                    if nutrientCellInfo != nil {
+                        omega6 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //if nutrient 855 doesnt exist use 619 instead.
+            else if nutrient == 855 {
+                if nutrientCellInfo != nil {
+                    omega6 += nutrientCellInfo!.total
+                } else { //855 doesnt exist in db
+                    nutrientCellInfo = self.nutrientTotals![620]
+                    if nutrientCellInfo != nil {
+                        omega6 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //do this for all the other nutrients
+            else {
+                if nutrientCellInfo != nil {
+                    //if it exists, add it to total!
+                    omega6 += nutrientCellInfo!.total
+                }
+            }
+        }
+        return omega6
+    }
     
 }

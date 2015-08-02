@@ -54,6 +54,7 @@
 		8A72AD251B681EA20027C909 /* PieChartCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A72AD231B681EA20027C909 /* PieChartCollectionViewCell.xib */; };
 		8A72AD2C1B6825F10027C909 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72AD2B1B6825790027C909 /* Charts.framework */; };
 		8A72AD2D1B6825F10027C909 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72AD2B1B6825790027C909 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8A72AD3A1B6D4D2F0027C909 /* NutrientGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		8A72AD221B681EA20027C909 /* PieChartCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A72AD231B681EA20027C909 /* PieChartCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PieChartCollectionViewCell.xib; sourceTree = "<group>"; };
 		8A72AD261B6825790027C909 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../Downloads/ios-charts-master 2/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
+		8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientGraphViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				8A72AD201B66EFB70027C909 /* TheNutrientCollectionViewController.swift */,
 				8A72AD221B681EA20027C909 /* PieChartCollectionViewCell.swift */,
 				8A72AD231B681EA20027C909 /* PieChartCollectionViewCell.xib */,
+				8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */,
 			);
 			path = NuMo_7_26;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A72ACD81B65B7990027C909 /* FMDatabaseQueue.m in Sources */,
+				8A72AD3A1B6D4D2F0027C909 /* NutrientGraphViewController.swift in Sources */,
 				8A72ACE61B65C7490027C909 /* PhotoReminderViewController.swift in Sources */,
 				8A72ACF01B65CDB80027C909 /* ModelManager.swift in Sources */,
 				8A72ACF81B65CE380027C909 /* FoodForTable.swift in Sources */,

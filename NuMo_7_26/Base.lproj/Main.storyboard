@@ -174,53 +174,71 @@
             </objects>
             <point key="canvasLocation" x="971" y="291"/>
         </scene>
-        <!--Nutrient Collection View Controller-->
-        <scene sceneID="hJ5-IN-d5q">
+        <!--View Controller-->
+        <scene sceneID="sMN-DV-OMC">
             <objects>
-                <collectionViewController id="tmw-rw-m7j" customClass="NutrientCollectionViewController" customModule="NuMo_7_26" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Wn4-f3-sfx">
+                <viewController id="Pd3-J2-dpg" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vf5-L9-lEv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vmh-c7-aVg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jQn-gf-arn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4F4-em-vfl">
-                            <size key="itemSize" width="76" height="76"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NutrientCell" id="4zP-QM-4yK" customClass="NutrientCollectionViewCell" customModule="NuMo_7_26" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="76" height="76"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EEA-Am-SFc">
-                                            <rect key="frame" x="8" y="8" width="60" height="60"/>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="EEA-Am-SFc" firstAttribute="top" secondItem="4zP-QM-4yK" secondAttribute="topMargin" id="5yP-Y0-Z8A"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="EEA-Am-SFc" secondAttribute="bottom" id="bww-Bd-gbM"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="EEA-Am-SFc" secondAttribute="trailing" id="ejJ-f8-tN7"/>
-                                    <constraint firstItem="EEA-Am-SFc" firstAttribute="leading" secondItem="4zP-QM-4yK" secondAttribute="leadingMargin" id="rua-Am-v1y"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="imageView" destination="EEA-Am-SFc" id="fbH-tj-0Zb"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="tmw-rw-m7j" id="fPu-C3-Qbp"/>
-                            <outlet property="delegate" destination="tmw-rw-m7j" id="Hgi-ws-tdb"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y4Z-1B-bNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w7g-jx-h2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4428" y="-2346"/>
+            <point key="canvasLocation" x="3636" y="-2622"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="PNz-uw-EzU">
+            <objects>
+                <viewController id="Bkj-K8-JGh" customClass="NutrientGraphViewController" customModule="NuMo_7_26" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e6d-wP-neR"/>
+                        <viewControllerLayoutGuide type="bottom" id="WnQ-5D-jgJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="648-Hm-nDj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-3j-exY">
+                                <rect key="frame" x="272" y="25" width="56.5" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="nhe-O0-ndl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="29"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kuK-d7-SZ6" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="6" y="65" width="588" height="240"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="5Rp-xH-7aG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="kuK-d7-SZ6" secondAttribute="trailing" constant="-10" id="1Ra-1s-s6c"/>
+                            <constraint firstItem="weL-3j-exY" firstAttribute="top" secondItem="e6d-wP-neR" secondAttribute="bottom" constant="5" id="5Jf-5i-imM"/>
+                            <constraint firstItem="kuK-d7-SZ6" firstAttribute="top" secondItem="weL-3j-exY" secondAttribute="bottom" id="Sy0-g8-dWD"/>
+                            <constraint firstItem="kuK-d7-SZ6" firstAttribute="leading" secondItem="648-Hm-nDj" secondAttribute="leadingMargin" constant="-10" id="Utw-fj-tUQ"/>
+                            <constraint firstAttribute="centerX" secondItem="weL-3j-exY" secondAttribute="centerX" id="uDI-ld-YlT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="Bfs-UG-O1U"/>
+                    <connections>
+                        <outlet property="lineChart" destination="kuK-d7-SZ6" id="HUC-S0-c2X"/>
+                        <outlet property="titleLabel" destination="weL-3j-exY" id="o68-rl-fnB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ugG-gJ-2PY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3636" y="-1952"/>
         </scene>
         <!--The Nutrient Collection View Controller-->
         <scene sceneID="N5j-31-YI3">
@@ -285,6 +303,8 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="bZl-tq-JjM" id="Cf8-14-TyQ"/>
+                        <segue destination="Bkj-K8-JGh" kind="show" identifier="goToNutrientGraphDetail" id="kgD-Bz-yYZ"/>
+                        <segue destination="Pd3-J2-dpg" kind="show" identifier="goToOmegasGraphDetail" id="IBq-2o-HP4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M63-vO-G56" userLabel="First Responder" sceneMemberID="firstResponder"/>

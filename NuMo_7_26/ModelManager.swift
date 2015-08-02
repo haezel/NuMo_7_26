@@ -12,6 +12,8 @@ let sharedInstance = ModelManager()
 
 class ModelManager : NSObject
 {
+    let daysInMonths = [0,31,28,31,30,31,30,31,31,30,31,30,31]
+    
     var database : FMDatabase? = nil
     
     class var instance : ModelManager
@@ -420,4 +422,116 @@ class ModelManager : NSObject
         return theNutrient
     }
     
+    
+    //-------Create Data for a period of time for A Nutrient--------//
+    
+    func getChartDataForNutrient(nId: Int, startDate: String, nOfDays : Int) -> (labels: [String], values: [Double]) {
+    
+        var oneDay = Dictionary<Int, (nutrient:Nutrient, total:Double)>()
+        var allDays = [Dictionary<Int, (nutrient:Nutrient, total:Double)>]()
+        
+        var chartData = (labels: [String](), values: [Double]())
+        
+        
+        //days from current to most past (this is backwards of what we want)
+        var labels = [String]()
+        var values = [Double]()
+        
+        
+        
+        var currentDate = startDate
+        
+        for i in 1...nOfDays {
+            
+            oneDay = getNutrientTotals(currentDate)
+            
+            allDays.append(oneDay)
+            
+            labels.append(currentDate)
+            
+            //currentDate is now the one before
+            currentDate = getPreviousDate(currentDate)
+        }
+        println("HOW MAnY DayS")
+        println(allDays.count)
+        
+        for i in allDays {
+            
+            var totalOfTheDay : Double
+            
+            //get the tuple for the nutrient id
+            var tuple = i[nId]
+            
+            if tuple != nil {
+                totalOfTheDay = tuple!.total
+                values.append(totalOfTheDay)
+            }
+            else {
+                println("No Value Exists for this nutrient on this day")
+                values.append(0.0)
+            }
+
+        }
+        
+        chartData = (labels, values)
+        
+        return chartData
+    }
+    
+    
+    
+    
+    
+    //----------returns previous day date string----------//
+    
+    func getPreviousDate(currentDate: String) -> String {
+        
+        var newDate : String
+        
+        var myStringArr = currentDate.componentsSeparatedByString("-")
+        var oldyear = myStringArr[0].toInt()
+        var oldmonth = myStringArr[1].toInt()
+        var oldday = myStringArr[2].toInt()
+        
+        var newday = 100
+        var newmonth = 100
+        var newyear = -99
+        
+        if oldday == 1
+        {
+            //newday = 30
+            if oldmonth == 1 {
+                newmonth = 12
+                newday = daysInMonths[newmonth]
+                newyear = oldyear! - 1
+            }
+            else {
+                newmonth = oldmonth! - 1
+                newday = daysInMonths[newmonth]
+                newyear = oldyear!
+            }
+        }
+        else
+        {
+            newday = oldday! - 1
+            newmonth = oldmonth!
+            newyear = oldyear!
+        }
+        
+        if newday < 10 {
+            if newmonth < 10 {
+                newDate = "\(newyear)-0\(newmonth)-0\(newday)"
+            } else {
+                newDate = "\(newyear)-\(newmonth)-0\(newday)"
+            }
+        } else {
+            if newmonth < 10 {
+                newDate = "\(newyear)-0\(newmonth)-\(newday)"
+            } else {
+                newDate = "\(newyear)-\(newmonth)-\(newday)"
+            }
+        }
+        
+        return newDate
+    }
 }

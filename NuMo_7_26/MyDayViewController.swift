@@ -109,7 +109,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     //--------Change Calendar Day Methods--------//
-    //--------These need to be implemented better...only works for 30 day months...
+    //--------These dont take into account leap year yet...
   
     
     @IBAction func goBackADay(sender: AnyObject) {
@@ -122,27 +122,43 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         var newday = 100
         var newmonth = 100
+        var newyear = -99
         
         if oldday == 1
         {
-            newday = 30
-            newmonth = oldmonth! - 1
+            //newday = 30
+            if oldmonth == 1 {
+                newmonth = 12
+                newday = daysInMonths[newmonth]
+                newyear = oldyear! - 1
+            }
+            else {
+                newmonth = oldmonth! - 1
+                newday = daysInMonths[newmonth]
+                newyear = oldyear!
+            }
         }
         else
         {
             newday = oldday! - 1
             newmonth = oldmonth!
+            newyear = oldyear!
         }
         
-        if newday < 10
-        {
-            dateChosen = "\(oldyear!)-0\(newmonth)-0\(newday)"
+        if newday < 10 {
+            if newmonth < 10 {
+                dateChosen = "\(newyear)-0\(newmonth)-0\(newday)"
+            } else {
+                dateChosen = "\(newyear)-\(newmonth)-0\(newday)"
+            }
+        } else {
+            if newmonth < 10 {
+                dateChosen = "\(newyear)-0\(newmonth)-\(newday)"
+            } else {
+                dateChosen = "\(newyear)-\(newmonth)-\(newday)"
+            }
         }
-        else
-        //println("\(oldyear!)-\(newmonth)-\(newday)")
-        {
-            dateChosen = "\(oldyear!)-0\(newmonth)-\(newday)"
-        }
+
         
         let todaysDate = getTodaysDateString()
         if todaysDate == dateChosen
@@ -166,25 +182,41 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         var newday = 100
         var newmonth = 100
+        var newyear = -99
         
-        if oldday == 30
+        if oldday == daysInMonths[oldmonth!] //last day of the month?
         {
-            newday = 1
-            newmonth = oldmonth! + 1
+            
+            if oldmonth == 12 {
+                newmonth = 1
+                newday = 1
+                newyear = oldyear! + 1
+            }
+            else {
+                newmonth = oldmonth! + 1
+                newday = 1
+                newyear = oldyear!
+            }
         }
         else
         {
             newday = oldday! + 1
             newmonth = oldmonth!
+            newyear = oldyear!
         }
-        if newday < 10
-        {
-            dateChosen = "\(oldyear!)-0\(newmonth)-0\(newday)"
-        }
-        //println("\(oldyear!)-\(newmonth)-\(newday)")
-        else
-        {
-            dateChosen = "\(oldyear!)-0\(newmonth)-\(newday)"
+        
+        if newday < 10 {
+            if newmonth < 10 {
+                dateChosen = "\(newyear)-0\(newmonth)-0\(newday)"
+            } else {
+                dateChosen = "\(newyear)-\(newmonth)-0\(newday)"
+            }
+        } else {
+            if newmonth < 10 {
+                dateChosen = "\(newyear)-0\(newmonth)-\(newday)"
+            } else {
+                dateChosen = "\(newyear)-\(newmonth)-\(newday)"
+            }
         }
         
         let todaysDate = getTodaysDateString()

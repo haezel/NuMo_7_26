@@ -81,7 +81,7 @@ class PieChartCollectionViewCell: UICollectionViewCell {
         
         pieChartView.legend.position = .BelowChartCenter
         pieChartView.drawSliceTextEnabled = false
-        
+        pieChartView.userInteractionEnabled = false
         pieChartView.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
         pieChartView.holeRadiusPercent = 0.75
         pieChartView.drawHoleEnabled = true
