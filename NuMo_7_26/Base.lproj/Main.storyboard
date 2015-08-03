@@ -2,8 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -338,12 +336,13 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOD-Ch-XjU">
-                                <rect key="frame" x="282" y="125" width="35.5" height="23"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
+                                <rect key="frame" x="271" y="149" width="58" height="38.5"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="28"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JHp-MD-bd1">
-                                <rect key="frame" x="221" y="123" width="30" height="30"/>
+                                <rect key="frame" x="210" y="141" width="30" height="47"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <state key="normal" title="←">
                                     <color key="titleColor" red="0.97254901959999995" green="0.27058823529999998" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -353,7 +352,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MiP-B6-BLA">
-                                <rect key="frame" x="349" y="122" width="30" height="30"/>
+                                <rect key="frame" x="360" y="141" width="30" height="47"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <state key="normal" title="→">
                                     <color key="titleColor" red="0.97254901959999995" green="0.27058823529999998" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -363,7 +363,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vMR-6q-DgX">
-                                <rect key="frame" x="0.0" y="170" width="600" height="430"/>
+                                <rect key="frame" x="0.0" y="199" width="600" height="400.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="421" id="cAb-kH-CZh"/>
@@ -400,9 +400,10 @@
                                     <outlet property="delegate" destination="tTl-FL-Ge0" id="da3-TS-UZQ"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zjz-w7-EAj">
-                                <rect key="frame" x="16" y="98" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zjz-w7-EAj">
+                                <rect key="frame" x="272" y="111" width="56" height="37"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
+                                <state key="normal" title="Visualize">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -413,20 +414,28 @@
                         <color key="backgroundColor" red="0.7850248246" green="0.95247829770000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="vMR-6q-DgX" firstAttribute="leading" secondItem="uIf-ts-2fZ" secondAttribute="leadingMargin" constant="-16" id="2bP-lp-Kf8"/>
-                            <constraint firstAttribute="centerX" secondItem="jOD-Ch-XjU" secondAttribute="centerX" id="9ko-bm-EEe"/>
-                            <constraint firstItem="MiP-B6-BLA" firstAttribute="leading" secondItem="jOD-Ch-XjU" secondAttribute="trailing" constant="31" id="Cvq-mo-BMw"/>
-                            <constraint firstItem="MiP-B6-BLA" firstAttribute="firstBaseline" secondItem="jOD-Ch-XjU" secondAttribute="baseline" constant="1" id="Drh-vf-oh5"/>
                             <constraint firstAttribute="centerX" secondItem="fU0-hj-Ni5" secondAttribute="centerX" id="EIX-0Q-Rhn"/>
+                            <constraint firstItem="Zjz-w7-EAj" firstAttribute="top" secondItem="fU0-hj-Ni5" secondAttribute="bottom" constant="11" id="Fej-hp-Y3H"/>
+                            <constraint firstItem="vMR-6q-DgX" firstAttribute="top" secondItem="JHp-MD-bd1" secondAttribute="bottom" constant="11" id="H7w-J0-r1b"/>
+                            <constraint firstAttribute="centerX" secondItem="jOD-Ch-XjU" secondAttribute="centerX" id="Imh-U9-Qct"/>
                             <constraint firstItem="fU0-hj-Ni5" firstAttribute="top" secondItem="BUi-mg-WZN" secondAttribute="bottom" constant="8" id="Jmy-iq-4L9"/>
-                            <constraint firstItem="MiP-B6-BLA" firstAttribute="baseline" secondItem="jOD-Ch-XjU" secondAttribute="baseline" constant="1" id="a3e-o6-xjf"/>
+                            <constraint firstItem="vMR-6q-DgX" firstAttribute="top" secondItem="jOD-Ch-XjU" secondAttribute="bottom" constant="12" id="TSa-cQ-ljD"/>
+                            <constraint firstItem="jOD-Ch-XjU" firstAttribute="leading" secondItem="JHp-MD-bd1" secondAttribute="trailing" constant="31" id="VZ2-bE-JHU"/>
+                            <constraint firstItem="jOD-Ch-XjU" firstAttribute="top" secondItem="Zjz-w7-EAj" secondAttribute="bottom" constant="1" id="ady-ye-cz7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vMR-6q-DgX" secondAttribute="trailing" constant="-16" id="bFa-4Y-qOD"/>
                             <constraint firstItem="jOD-Ch-XjU" firstAttribute="top" secondItem="fU0-hj-Ni5" secondAttribute="bottom" constant="25" id="c9j-M4-QKW"/>
-                            <constraint firstItem="MiP-B6-BLA" firstAttribute="centerY" secondItem="jOD-Ch-XjU" secondAttribute="centerY" id="cPU-WP-NtE"/>
                             <constraint firstItem="Sg4-f9-pcr" firstAttribute="top" secondItem="vMR-6q-DgX" secondAttribute="bottom" id="eUS-7M-7yI"/>
-                            <constraint firstItem="jOD-Ch-XjU" firstAttribute="leading" secondItem="JHp-MD-bd1" secondAttribute="trailing" constant="31" id="o2b-KJ-qIs"/>
-                            <constraint firstItem="vMR-6q-DgX" firstAttribute="top" secondItem="jOD-Ch-XjU" secondAttribute="bottom" constant="22" id="tvw-CB-63N"/>
+                            <constraint firstItem="MiP-B6-BLA" firstAttribute="leading" secondItem="jOD-Ch-XjU" secondAttribute="trailing" constant="31.5" id="hGE-zQ-OSh"/>
+                            <constraint firstAttribute="centerX" secondItem="Zjz-w7-EAj" secondAttribute="centerX" id="uWy-Lw-Gnl"/>
                             <constraint firstItem="MiP-B6-BLA" firstAttribute="baseline" secondItem="JHp-MD-bd1" secondAttribute="baseline" constant="-1" id="uZg-SC-Gua"/>
+                            <constraint firstItem="vMR-6q-DgX" firstAttribute="top" secondItem="MiP-B6-BLA" secondAttribute="bottom" constant="11" id="xer-DE-w85"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="c9j-M4-QKW"/>
+                                <exclude reference="uZg-SC-Gua"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="My Day" id="tfV-OM-iGW">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="LOa-wl-Q9y"/>
@@ -753,9 +762,9 @@
         <image name="tag" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dw9-Gl-LNs"/>
-        <segue reference="Hjr-1l-Lsl"/>
+        <segue reference="a6O-RW-IOs"/>
         <segue reference="hOH-Kf-lr5"/>
+        <segue reference="Hjr-1l-Lsl"/>
         <segue reference="PoS-4A-SYu"/>
     </inferredMetricsTieBreakers>
 </document>

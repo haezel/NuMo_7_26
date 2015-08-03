@@ -67,6 +67,8 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Nutrients"
     
         //in order to use our custom nutrient cell nib
         var nib = UINib(nibName: "PieChartCollectionViewCell", bundle: nil)
@@ -323,7 +325,9 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             return CGSize(width: self.view.frame.size.width/2.0, height: self.view.frame.size.width/1.7)
         }
         
-        let cellWidthDimension = self.view.frame.size.width / 2.0
+        //SSSS
+        //let cellWidthDimension = self.view.frame.size.width / 2.0
+        let cellWidthDimension = self.view.frame.size.width / 4.0
         self.cellDimension = cellWidthDimension
         
         println("cell dimension decided")

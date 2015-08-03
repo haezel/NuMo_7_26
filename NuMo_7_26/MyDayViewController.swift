@@ -256,7 +256,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         else if itemOrNutrientFlag == "nutrient"
         {
-            self.tableView.separatorColor = UIColor.clearColor()
+            self.tableView.separatorColor = UIColor.colorFromCode(0xDBE6EC)
             self.nutrientTotals = ModelManager.instance.getNutrientTotals(dateChosen)
            
             return nutrientsToShow.count

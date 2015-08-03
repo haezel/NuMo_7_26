@@ -79,8 +79,8 @@ import UIKit
 //        
 //    }
     
-    var lineWidth: CGFloat = 7.5
-    var color: UIColor = UIColor.colorFromCode(0x3485BF)
+    var lineWidth: CGFloat = 4.5
+    //var color: UIColor = UIColor.colorFromCode(0x3485BF)
     var scale: CGFloat = 0.9
     
     override func drawRect(rect: CGRect) {
@@ -90,7 +90,9 @@ import UIKit
 
         
         //var path = UIBezierPath(ovalInRect: rect)
-        var path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/4-20, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
+        //SSSS
+        //var path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/4-20, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
+        var path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/8-10, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
   
         path.lineWidth = lineWidth
         UIColor.colorFromCode(0x3485BF).setStroke()
@@ -113,31 +115,33 @@ import UIKit
         println("orig thingy")
         println(CGRectGetWidth(frame))
         
-
-        progressLabel = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 60.0))
+        //SSSS
+        //progressLabel = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 60.0))
+        progressLabel = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/4, 60.0))
         progressLabel.textColor = .whiteColor()
         progressLabel.textAlignment = .Center
         progressLabel.text = ""
-        progressLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 22.0)
+        progressLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 12.0)
         progressLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         addSubview(progressLabel)
         
         addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
-        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterY, multiplier: 1.0, constant: 1.0))
+        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterY, multiplier: 1.0, constant: 6.0))
         
-        
-        progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 40.0))
+        //SSSS
+        //progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 40.0))
+        progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/4, 40.0))
         progressLabel2.textColor = UIColor.colorFromCode(0xffba00)
         progressLabel2.textAlignment = .Center
         //what to say while loading
         
         progressLabel2.hidden = true
-        progressLabel2.font = UIFont(name: "AvenirNextCondensed-Bold", size: 22.0)
+        progressLabel2.font = UIFont(name: "AvenirNextCondensed-Bold", size: 16.0)
         progressLabel2.setTranslatesAutoresizingMaskIntoConstraints(false)
         addSubview(progressLabel2)
         
         addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterX, multiplier: 1.0, constant: -4.0))
-        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterY, multiplier: 1.0, constant: -23.0))
+        addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterY, multiplier: 1.0, constant: -8.0))
 
         
     }
@@ -170,21 +174,23 @@ import UIKit
 
     
         
-      
-        centerPoint = CGPointMake(screenWidth/4 , screenWidth/4)
+      //SSSS
+        //centerPoint = CGPointMake(screenWidth/4 , screenWidth/4)
+        centerPoint = CGPointMake(screenWidth/8 , screenWidth/8)
         
         
         var gradientMaskLayer = gradientMask()
         
-    
-        progressLayer.path = UIBezierPath(arcCenter:centerPoint, radius: screenWidth/4-20, startAngle:startAngle, endAngle:endAngle, clockwise: true).CGPath
+    //SSSS
+        //progressLayer.path = UIBezierPath(arcCenter:centerPoint, radius: screenWidth/4-20, startAngle:startAngle, endAngle:endAngle, clockwise: true).CGPath
+        progressLayer.path = UIBezierPath(arcCenter:centerPoint, radius: screenWidth/8-10, startAngle:startAngle, endAngle:endAngle, clockwise: true).CGPath
         
         
         progressLayer.backgroundColor = UIColor.clearColor().CGColor
         progressLayer.fillColor = nil
         
         progressLayer.strokeColor = UIColor.blackColor().CGColor
-        progressLayer.lineWidth = 8.0
+        progressLayer.lineWidth = 5.0
         progressLayer.strokeStart = 0.0
         progressLayer.strokeEnd = 0.0
         
