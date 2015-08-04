@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import XLForm
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: XLFormViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -38,4 +39,70 @@ class SettingsViewController: UIViewController {
     }
     */
 
+    
+    private enum Tags : String {
+        case RealExample = "RealExamples"
+        case TextFieldAndTextView = "TextFieldAndTextView"
+        case Selectors = "Selectors"
+        case Othes = "Others"
+        case Dates = "Dates"
+        case Predicates = "BasicPredicates"
+        case BlogExample = "BlogPredicates"
+        case Multivalued = "Multivalued"
+        case MultivaluedOnlyReorder = "MultivaluedOnlyReorder"
+        case MultivaluedOnlyInsert = "MultivaluedOnlyInsert"
+        case MultivaluedOnlyDelete = "MultivaluedOnlyDelete"
+        case Validations = "Validations"
+        case UICusomization = "Customization"
+        case Custom = "Custom"
+        case AccessoryView = "Accessory View"
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.initializeForm()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initializeForm()
+    }
+    
+    
+    // MARK: Helpers
+    
+    func initializeForm() {
+        let form : XLFormDescriptor
+        var section : XLFormSectionDescriptor
+        var row: XLFormRowDescriptor
+        
+        form = XLFormDescriptor()
+        
+        section = XLFormSectionDescriptor.formSectionWithTitle("profile")
+        form.addFormSection(section)
+        
+        // TextFieldAndTextView
+        row = XLFormRowDescriptor(tag: Tags.TextFieldAndTextView.rawValue, rowType: XLFormRowDescriptorTypeButton, title: "About Me")
+        row.action.viewControllerClass = InputsTextViewController.self
+        section.addFormRow(row)
+        
+        section = XLFormSectionDescriptor.formSectionWithTitle("Nutrients")
+        //section.footerTitle = "ExamplesFormViewController.swift, Select an option to view another example"
+        form.addFormSection(section)
+        
+        
+        // TextFieldAndTextView
+        row = XLFormRowDescriptor(tag: Tags.TextFieldAndTextView.rawValue, rowType: XLFormRowDescriptorTypeButton, title: "Recommended Daily Intakes")
+        row.action.viewControllerClass = ChooseRDIsViewController.self
+        section.addFormRow(row)
+//
+//        // TextFieldAndTextView
+//        row = XLFormRowDescriptor(tag: Tags.TextFieldAndTextView.rawValue, rowType: XLFormRowDescriptorTypeButton, title: "Set RDIs")
+//        row.action.viewControllerClass = ChooseRDIsViewController.self
+//        section.addFormRow(row)
+        
+        
+        
+        self.form = form
+    }
 }

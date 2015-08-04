@@ -38,8 +38,6 @@
 		8A72AD011B65E1130027C909 /* MyDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD001B65E1130027C909 /* MyDayViewController.swift */; };
 		8A72AD041B65E1F00027C909 /* NutrientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD021B65E1F00027C909 /* NutrientTableViewCell.swift */; };
 		8A72AD051B65E1F00027C909 /* nutrientTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A72AD031B65E1F00027C909 /* nutrientTableCell.xib */; };
-		8A72AD071B66CD830027C909 /* NutrientCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD061B66CD830027C909 /* NutrientCollectionViewController.swift */; };
-		8A72AD091B66CE300027C909 /* NutrientCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD081B66CE300027C909 /* NutrientCollectionViewCell.swift */; };
 		8A72AD0F1B66D8080027C909 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A72AD0A1B66D8080027C909 /* 1.jpg */; };
 		8A72AD101B66D8080027C909 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A72AD0B1B66D8080027C909 /* 2.jpg */; };
 		8A72AD111B66D8080027C909 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A72AD0C1B66D8080027C909 /* 3.jpg */; };
@@ -47,7 +45,6 @@
 		8A72AD131B66D8080027C909 /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A72AD0E1B66D8080027C909 /* 5.jpg */; };
 		8A72AD191B66E0160027C909 /* NutrientItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD181B66E0160027C909 /* NutrientItemCollectionViewCell.swift */; };
 		8A72AD1B1B66E0710027C909 /* NutrientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD1A1B66E0710027C909 /* NutrientItem.swift */; };
-		8A72AD1D1B66E1BA0027C909 /* NutrientCollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD1C1B66E1B90027C909 /* NutrientCollViewController.swift */; };
 		8A72AD1F1B66EF540027C909 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD1E1B66EF540027C909 /* ProgressView.swift */; };
 		8A72AD211B66EFB70027C909 /* TheNutrientCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD201B66EFB70027C909 /* TheNutrientCollectionViewController.swift */; };
 		8A72AD241B681EA20027C909 /* PieChartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD221B681EA20027C909 /* PieChartCollectionViewCell.swift */; };
@@ -55,6 +52,9 @@
 		8A72AD2C1B6825F10027C909 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72AD2B1B6825790027C909 /* Charts.framework */; };
 		8A72AD2D1B6825F10027C909 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72AD2B1B6825790027C909 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8A72AD3A1B6D4D2F0027C909 /* NutrientGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */; };
+		8A72ADE61B703D260027C909 /* InputsTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADE51B703D260027C909 /* InputsTextViewController.swift */; };
+		8A72ADE81B703F8D0027C909 /* ChooseRDIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */; };
+		8DCBCC372DFF43462D6659FA /* Pods_NuMo_7_26.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A638A75CFBD2338510A89C /* Pods_NuMo_7_26.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +96,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		239FC9A359934328E840F94F /* Pods-NuMo_7_26.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NuMo_7_26.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NuMo_7_26/Pods-NuMo_7_26.debug.xcconfig"; sourceTree = "<group>"; };
+		73A638A75CFBD2338510A89C /* Pods_NuMo_7_26.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NuMo_7_26.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7654A1320AB7BC20440EFA3E /* Pods-NuMo_7_26.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NuMo_7_26.release.xcconfig"; path = "Pods/Target Support Files/Pods-NuMo_7_26/Pods-NuMo_7_26.release.xcconfig"; sourceTree = "<group>"; };
 		8A72ACA21B65B71F0027C909 /* NuMo_7_26.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuMo_7_26.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A72ACA61B65B71F0027C909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A72ACA71B65B71F0027C909 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,8 +142,6 @@
 		8A72AD001B65E1130027C909 /* MyDayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDayViewController.swift; sourceTree = "<group>"; };
 		8A72AD021B65E1F00027C909 /* NutrientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientTableViewCell.swift; sourceTree = "<group>"; };
 		8A72AD031B65E1F00027C909 /* nutrientTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = nutrientTableCell.xib; sourceTree = "<group>"; };
-		8A72AD061B66CD830027C909 /* NutrientCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientCollectionViewController.swift; sourceTree = "<group>"; };
-		8A72AD081B66CE300027C909 /* NutrientCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A72AD0A1B66D8080027C909 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		8A72AD0B1B66D8080027C909 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		8A72AD0C1B66D8080027C909 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
@@ -148,13 +149,14 @@
 		8A72AD0E1B66D8080027C909 /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
 		8A72AD181B66E0160027C909 /* NutrientItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A72AD1A1B66E0710027C909 /* NutrientItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientItem.swift; sourceTree = "<group>"; };
-		8A72AD1C1B66E1B90027C909 /* NutrientCollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientCollViewController.swift; sourceTree = "<group>"; };
 		8A72AD1E1B66EF540027C909 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		8A72AD201B66EFB70027C909 /* TheNutrientCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheNutrientCollectionViewController.swift; sourceTree = "<group>"; };
 		8A72AD221B681EA20027C909 /* PieChartCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A72AD231B681EA20027C909 /* PieChartCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PieChartCollectionViewCell.xib; sourceTree = "<group>"; };
 		8A72AD261B6825790027C909 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../Downloads/ios-charts-master 2/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
 		8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientGraphViewController.swift; sourceTree = "<group>"; };
+		8A72ADE51B703D260027C909 /* InputsTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputsTextViewController.swift; sourceTree = "<group>"; };
+		8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseRDIsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			files = (
 				8A72ACC81B65B76C0027C909 /* libsqlite3.dylib in Frameworks */,
 				8A72AD2C1B6825F10027C909 /* Charts.framework in Frameworks */,
+				8DCBCC372DFF43462D6659FA /* Pods_NuMo_7_26.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +180,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		458737CED146D635C5A2ACDB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				73A638A75CFBD2338510A89C /* Pods_NuMo_7_26.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		838106AADF1D4A734BA1C3B9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				239FC9A359934328E840F94F /* Pods-NuMo_7_26.debug.xcconfig */,
+				7654A1320AB7BC20440EFA3E /* Pods-NuMo_7_26.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8A72AC991B65B71F0027C909 = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +206,8 @@
 				8A72ACBA1B65B71F0027C909 /* NuMo_7_26Tests */,
 				8A72ACA31B65B71F0027C909 /* Products */,
 				8A72AD261B6825790027C909 /* Charts.xcodeproj */,
+				838106AADF1D4A734BA1C3B9 /* Pods */,
+				458737CED146D635C5A2ACDB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +237,8 @@
 				8A72ACE31B65C7350027C909 /* CreateItemViewController.swift */,
 				8A72ACE51B65C7490027C909 /* PhotoReminderViewController.swift */,
 				8A72ACE71B65C76F0027C909 /* SettingsViewController.swift */,
+				8A72ADE51B703D260027C909 /* InputsTextViewController.swift */,
+				8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */,
 				8A72ACE91B65CA8B0027C909 /* MainSearchController.swift */,
 				8A72ACFE1B65D1680027C909 /* PickAmountViewController.swift */,
 				8A72AD001B65E1130027C909 /* MyDayViewController.swift */,
@@ -222,10 +246,8 @@
 				8A72AD1E1B66EF540027C909 /* ProgressView.swift */,
 				8A72AD171B66DE170027C909 /* Helpers */,
 				8A72AD151B66DDDE0027C909 /* Model */,
-				8A72AD141B66DDC60027C909 /* BrokeCollView */,
 				8A72AD181B66E0160027C909 /* NutrientItemCollectionViewCell.swift */,
 				8A72AD1A1B66E0710027C909 /* NutrientItem.swift */,
-				8A72AD1C1B66E1B90027C909 /* NutrientCollViewController.swift */,
 				8A72AD201B66EFB70027C909 /* TheNutrientCollectionViewController.swift */,
 				8A72AD221B681EA20027C909 /* PieChartCollectionViewCell.swift */,
 				8A72AD231B681EA20027C909 /* PieChartCollectionViewCell.xib */,
@@ -292,15 +314,6 @@
 			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
-		8A72AD141B66DDC60027C909 /* BrokeCollView */ = {
-			isa = PBXGroup;
-			children = (
-				8A72AD061B66CD830027C909 /* NutrientCollectionViewController.swift */,
-				8A72AD081B66CE300027C909 /* NutrientCollectionViewCell.swift */,
-			);
-			name = BrokeCollView;
-			sourceTree = "<group>";
-		};
 		8A72AD151B66DDDE0027C909 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,10 +358,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A72ACC11B65B71F0027C909 /* Build configuration list for PBXNativeTarget "NuMo_7_26" */;
 			buildPhases = (
+				FCFBB189EF4B29889A07F3AD /* Check Pods Manifest.lock */,
 				8A72AC9E1B65B71F0027C909 /* Sources */,
 				8A72AC9F1B65B71F0027C909 /* Frameworks */,
 				8A72ACA01B65B71F0027C909 /* Resources */,
 				8A72AD301B6825F10027C909 /* Embed Frameworks */,
+				897AA0D6886D152F56962AA2 /* Embed Pods Frameworks */,
+				DB284C674529E85C72B63610 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -459,6 +475,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		897AA0D6886D152F56962AA2 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NuMo_7_26/Pods-NuMo_7_26-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB284C674529E85C72B63610 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NuMo_7_26/Pods-NuMo_7_26-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCFBB189EF4B29889A07F3AD /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8A72AC9E1B65B71F0027C909 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -475,13 +539,14 @@
 				8A72ACE21B65C7140027C909 /* LogItemViewController.swift in Sources */,
 				8A72AD211B66EFB70027C909 /* TheNutrientCollectionViewController.swift in Sources */,
 				8A72AD011B65E1130027C909 /* MyDayViewController.swift in Sources */,
+				8A72ADE81B703F8D0027C909 /* ChooseRDIsViewController.swift in Sources */,
 				8A72ACAA1B65B71F0027C909 /* ViewController.swift in Sources */,
 				8A72ACDE1B65B8620027C909 /* SWRevealViewController.m in Sources */,
 				8A72ACF41B65CE0F0027C909 /* Nutrient.swift in Sources */,
 				8A72ACE41B65C7350027C909 /* CreateItemViewController.swift in Sources */,
 				8A72ACFA1B65CE4D0027C909 /* Util.swift in Sources */,
 				8A72AD1B1B66E0710027C909 /* NutrientItem.swift in Sources */,
-				8A72AD1D1B66E1BA0027C909 /* NutrientCollViewController.swift in Sources */,
+				8A72ADE61B703D260027C909 /* InputsTextViewController.swift in Sources */,
 				8A72ACD71B65B7990027C909 /* FMResultSet.m in Sources */,
 				8A72ACDA1B65B7990027C909 /* FMDatabasePool.m in Sources */,
 				8A72AD1F1B66EF540027C909 /* ProgressView.swift in Sources */,
@@ -491,9 +556,7 @@
 				8A72AD041B65E1F00027C909 /* NutrientTableViewCell.swift in Sources */,
 				8A72AD191B66E0160027C909 /* NutrientItemCollectionViewCell.swift in Sources */,
 				8A72ACA81B65B71F0027C909 /* AppDelegate.swift in Sources */,
-				8A72AD091B66CE300027C909 /* NutrientCollectionViewCell.swift in Sources */,
 				8A72ACD91B65B7990027C909 /* FMDatabaseAdditions.m in Sources */,
-				8A72AD071B66CD830027C909 /* NutrientCollectionViewController.swift in Sources */,
 				8A72ACFF1B65D1680027C909 /* PickAmountViewController.swift in Sources */,
 				8A72ACF61B65CE220027C909 /* FoodLog.swift in Sources */,
 				8A72ACF21B65CDE40027C909 /* Weight.swift in Sources */,
@@ -628,6 +691,7 @@
 		};
 		8A72ACC21B65B71F0027C909 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 239FC9A359934328E840F94F /* Pods-NuMo_7_26.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -641,6 +705,7 @@
 		};
 		8A72ACC31B65B71F0027C909 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7654A1320AB7BC20440EFA3E /* Pods-NuMo_7_26.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

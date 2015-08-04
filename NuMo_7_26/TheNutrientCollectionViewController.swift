@@ -12,7 +12,7 @@ import Charts
 
 class TheNutrientCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    let nutrientsToShow = [204, 203, 208, 262, 291, 318, 621, 629, 675, 304, 305, 306, 307, 323, 601, 855]
+    let nutrientsToShow = [203, 204, 205, 208, 262, 269, 291, 301, 303, 304, 305, 306, 307, 309, 312, 315, 317, 318, 401, 324, 323, 417, 418, 601, 606]
     
     let nutrientsOmega6s = [672, 675, 685, 853, 855]
     let nutrientsOmega3s = [851, 852, 631, 629, 621]
@@ -49,7 +49,9 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         418 : "Vitamin B-12",
         601 : "Cholesterol",
         605 : "Trans Fats",
-        606 : "Saturated Fat"	
+        606 : "Saturated Fat",
+        401 : "Vitamin C",
+        324 : "Vitamin D"
     ]
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -63,6 +65,8 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
     
     //hold rda's. key is nutrient Id (recommended amount in proper unit)
     var nutrientRDAs : Dictionary<Int, (Double)>?
+    
+    var nRDAs : Dictionary<Int, (Double)>?
     
     
     override func viewDidLoad() {
@@ -80,6 +84,8 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         
         
         self.nutrientRDAs = makePlayRDAs()
+        self.nRDAs = ModelManager.instance.getAllNutrientRDAs()
+        println(self.nRDAs)
         
     }
     
@@ -139,6 +145,12 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             // proteins-carbs-fats cell
             if indexPath.row == 0 {
                 
+                //need to get total carb * 4
+                //total protein * 4
+                //total fat * 9
+                var carb = getCarb()
+                var protein = getProtein()
+                var fat = getFat()
                 
                 let color1 = UIColor.colorFromCode(0x3485bf)
                 let color2 = UIColor.colorFromCode(0x0994ff)
@@ -148,7 +160,7 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
                 
                 //cell.backgroundColor = UIColor.colorFromCode(0xc9c9c9)
                 
-                cell.setData("Macronutrients", amounts: [23.0,34.0,51.0], labels: ["Pro","Fat","Carb"], colorsUse : colors)
+                cell.setData("Macronutrients", amounts: [protein, fat, carb], labels: ["Protein","Fat","Carb"], colorsUse : colors)
             }
             
             // omega ratio cell
@@ -212,7 +224,7 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
                 
                 cell.setNutrientTitle(title!)
                 
-                var thePercent = totalAmount/self.nutrientRDAs![nutrientId]!
+                var thePercent = totalAmount/self.nRDAs![nutrientId]!
                 
                 cell.setThePercent(thePercent)
                 //println("**** \(totalAmount)")
@@ -529,6 +541,39 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             }
         }
         return omega6
+    }
+    
+    //get number of calories from carbs
+    func getCarb() -> Double {
+        
+        var carb = 0.0
+        let nutrientCellInfo = self.nutrientTotals![205]
+        if nutrientCellInfo != nil {
+            carb = nutrientCellInfo!.total * 4
+        }
+        return carb
+    }
+    
+    //get number of calories from protein
+    func getProtein() -> Double {
+        
+        var pro = 0.0
+        let nutrientCellInfo = self.nutrientTotals![203]
+        if nutrientCellInfo != nil {
+            pro = nutrientCellInfo!.total * 4
+        }
+        return pro
+    }
+    
+    //get number of calories from fat
+    func getFat() -> Double {
+        
+        var fat = 0.0
+        let nutrientCellInfo = self.nutrientTotals![204]
+        if nutrientCellInfo != nil {
+            fat = nutrientCellInfo!.total * 9
+        }
+        return fat
     }
     
 }

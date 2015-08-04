@@ -386,6 +386,58 @@ class ModelManager : NSObject
         return nutrients
     }
     
+    //---------Get Nutrient RDAs--------//
+    
+    func getAllNutrientRDAs() -> Dictionary<Int, (Double)> {
+        
+        var rdas = Dictionary<Int, (Double)>()
+        
+        sharedInstance.database!.open()
+        
+        let query = "SELECT * FROM nutrient_rdas"
+        
+        var result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
+        
+        if result != nil {
+            
+            while result.next()
+            {
+                let nutrientId = result.stringForColumn("id")
+                let nutrientIdInt = nutrientId.toInt()!
+                
+                let rda = result.doubleForColumn("daily_value")
+                
+                                
+                rdas[nutrientIdInt] = rda
+            }
+        }
+        
+        
+        sharedInstance.database!.close()
+        return rdas
+    
+    }
+    
+    //---------Update Nutrient RDAs--------//
+    
+    func updateRDAs(new : [Int:Double]) -> [Bool] {
+    
+        sharedInstance.database!.open()
+        
+        var isUpdated = [Bool]()
+        
+        
+        for update in new {
+        
+            let updated = sharedInstance.database!.executeUpdate("UPDATE nutrient_rdas SET daily_value=? WHERE id=?", withArgumentsInArray: [update.1, update.0])
+            isUpdated.append(updated)
+        }
+        
+        return isUpdated
+    }
+    
+    
+    
     //---------Get 1 Nutrient Info--------//
     
     func getANutrientInfo(nId : Int) -> Nutrient

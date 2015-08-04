@@ -22,11 +22,20 @@ class NutrientGraphViewController: UIViewController {
     
     var nutrientGraphData = (labels: [String](), values: [Double]())
     
+    //for target lines
+    var nRDAs : Dictionary<Int, (Double)>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         println(nutrientTitle)
         titleLabel.text = nutrientTitle!
+        
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveChart:")
+        
+        
+        self.nRDAs = ModelManager.instance.getAllNutrientRDAs()
         
         lineChart.noDataText = "Loading Chart..."
         lineChart.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
@@ -100,9 +109,14 @@ class NutrientGraphViewController: UIViewController {
         let lineChartDataSet = LineChartDataSet(yVals: dataEntries, label: "\(nutrientTitle!), \(theUnit)")
         let lineChartData = LineChartData(xVals: dataPoints, dataSet: lineChartDataSet)
         
+  
+        
         //use these to make a Target Line
-//        let ll = ChartLimitLine(limit: 10.0, label: "Target")
-//        barChartView.rightAxis.addLimitLine(ll)
+        let target = nRDAs![nutrientId!]!
+        println("Target! \(target)")
+        let ll = ChartLimitLine(limit: target, label: "RDI")
+        lineChart.rightAxis.addLimitLine(ll)
+        
         
         
         //lineChartDataSet.colors = colors
@@ -130,6 +144,11 @@ class NutrientGraphViewController: UIViewController {
     }
     
     
+    
+    func saveChart(sender: UIBarButtonItem) {
+       
+        lineChart.saveToCameraRoll()
+    }
     
     
     
