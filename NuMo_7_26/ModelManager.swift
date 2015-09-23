@@ -49,6 +49,36 @@ class ModelManager : NSObject
         sharedInstance.database!.close()
     }
     
+    //---------Check for added food items?!?!-----------//
+    // call this when a custum item has been added to the database
+    // adds the new food to the allFoods array
+    
+    func aFoodWasAdded(foodId : Int)
+    {
+        sharedInstance.database!.open()
+        
+        var query : String = "SELECT * FROM food WHERE id=\(foodId)"
+        var resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
+        
+        //var nutrientIdColumn: String = "short_desc"
+        
+        if (resultSet != nil) {
+            while resultSet.next() {
+                
+                let id = resultSet.stringForColumn("id")
+                let idInt = id.toInt()!
+                let desc = resultSet.stringForColumn("long_desc")
+                let descR = String(desc)
+                
+                let foodItem : Food = Food(desc: descR, id: idInt)
+                allFoods.append(foodItem)
+                
+            }
+        }
+        
+        sharedInstance.database!.close()
+    }
+    
     //-----------Get an Array of Weights for a particular food------------//
     
     func getMeasures(foodId : Int) -> [Weight]
@@ -220,6 +250,9 @@ class ModelManager : NSObject
                 nutrients.append(theNutrient)
             }
             sharedInstance.database!.close()
+            println("*k*k*k*")
+            println(foodId)
+            println(nutrients[0].amountPerHundredGrams)
             return nutrients
         }
         else
@@ -532,6 +565,76 @@ class ModelManager : NSObject
     
     
     
+    //OMEGAS
+    func getOmegasChartData(startDate: String, nOfDays : Int) -> (labels: [String], values: [Double]) {
+    
+        let nutrientsOmega6s = [672, 675, 685, 853, 855]
+        let nutrientsOmega3s = [851, 852, 631, 629, 621]
+        
+        var oneDay = Dictionary<Int, (nutrient:Nutrient, total:Double)>()
+        //all nutrient data for all of the days desired
+        var allDays = [Dictionary<Int, (nutrient:Nutrient, total:Double)>]()
+        
+        var chartData = (labels: [String](), values: [Double]())
+        
+        var labels = [String]()
+        var values = [Double]()
+        
+        
+        var currentDate = startDate
+        
+        for i in 1...nOfDays {
+            
+            oneDay = getNutrientTotals(currentDate)
+            
+            allDays.append(oneDay)
+            
+            labels.append(currentDate)
+            
+            //currentDate is now the one before
+            currentDate = getPreviousDate(currentDate)
+        }
+
+        
+        for i in allDays {
+            
+            var ratio : Double
+            
+            //variables to hold totals, get the daily totals for each omega
+            var omega3 : Double = getOmega3(nutrientsOmega3s, nutrientTotals: i)
+            var omega6 : Double = getOmega6(nutrientsOmega6s, nutrientTotals: i)
+            
+            
+            if omega3 != 0.0 {
+                ratio  = omega6/omega3
+            } else  {//we would divide by zero
+                ratio = omega6/0.01
+            }
+            values.append(ratio)
+            
+            
+//            var totalOfTheDay : Double
+//            
+//            //get the tuple for the nutrient id
+//            var tuple = i[nId]
+//            
+//            if tuple != nil {
+//                totalOfTheDay = tuple!.total
+//                values.append(totalOfTheDay)
+//            }
+//            else {
+//                println("No Value Exists for this nutrient on this day")
+//                values.append(0.0)
+//            }
+            
+        }
+        
+        chartData = (labels, values)
+        
+        return chartData
+        
+    }
+    
     
     
     //----------returns previous day date string----------//
@@ -586,4 +689,218 @@ class ModelManager : NSObject
         
         return newDate
     }
+    
+    
+    
+//    func getNutrientsForOneItem(id : String) -> Dictionary<Int, (Double)> {
+//        
+//        sharedInstance.database!.open()
+//        
+//        var dict = Dictionary<Int, (Double)>()
+//        
+//        let query = "SELECT * FROM nutrition WHERE food_id=?"
+//        var result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray : [id])
+//        
+//        
+//        if result != nil {
+//
+//            for nutrient in nutrientsToShow {
+//                
+//                var nutrientId = result.stringForColumn("nutrient_id")
+//                var nutrientIdInt = nutrientId.toInt()!
+//                
+//                amountPerGram = result.doubleForColumn("amount")
+//            }
+//        }
+//   
+//    
+//    }
+    func getOmega3(nutrientsOmega3s : [Int], nutrientTotals : Dictionary<Int, (nutrient:Nutrient, total:Double)>) -> Double {
+        
+        //variables to hold totals
+        var omega3 : Double = 0.0
+        
+        
+        //-------Omega-3 Calculation------//
+        //    calculate total omega-3
+        
+        for nutrient in nutrientsOmega3s {
+            
+            //get nutrient object for the id
+            var nutrientCellInfo = nutrientTotals[nutrient]
+            
+            //if nutrient 851 doesnt exist use 619 instead.
+            if nutrient == 851 {
+                if nutrientCellInfo != nil {
+                    omega3 += nutrientCellInfo!.total
+                } else {
+                    nutrientCellInfo = nutrientTotals[619]
+                    if nutrientCellInfo != nil {
+                        omega3 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //do this for all the other nutrients
+            else {
+                if nutrientCellInfo != nil {
+                    //if it exists, add it to total!
+                    omega3 += nutrientCellInfo!.total
+                }
+            }
+        }
+        
+        return omega3
+    }
+    
+    func getOmega6(nutrientsOmega6s : [Int], nutrientTotals : Dictionary<Int, (nutrient:Nutrient, total:Double)>) -> Double {
+        
+        
+        var omega6 : Double = 0.0
+        
+        //-------Omega-6 Calculation------//
+        // calculate total omega-6
+        for nutrient in nutrientsOmega6s {
+            
+            //get nutrient object for the id
+            var nutrientCellInfo = nutrientTotals[nutrient]
+            
+            //if nutrient 675 doesnt exist use 619 instead.
+            if nutrient == 675 {
+                if nutrientCellInfo != nil {
+                    omega6 += nutrientCellInfo!.total
+                } else { //675 doesnt exist in db
+                    nutrientCellInfo = nutrientTotals[618]
+                    if nutrientCellInfo != nil {
+                        omega6 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //if nutrient 855 doesnt exist use 619 instead.
+            else if nutrient == 855 {
+                if nutrientCellInfo != nil {
+                    omega6 += nutrientCellInfo!.total
+                } else { //855 doesnt exist in db
+                    nutrientCellInfo = nutrientTotals[620]
+                    if nutrientCellInfo != nil {
+                        omega6 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //do this for all the other nutrients
+            else {
+                if nutrientCellInfo != nil {
+                    //if it exists, add it to total!
+                    omega6 += nutrientCellInfo!.total
+                }
+            }
+        }
+        return omega6
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    //--------CREATING FOOD ENTRY FUNCTIONS---------//
+    
+    
+    func createFoodEntry(groupAndName : (Int, String), serving : String, nutrients : [Int : Double]) -> Int {
+        
+        sharedInstance.database!.open()
+        
+        let query = "SELECT COUNT(*) as cnt FROM food WHERE id>99000"
+        var resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
+        
+        var count : Int32 = 0
+        if resultSet != nil
+        {
+            while resultSet.next()
+            {
+                count = resultSet.intForColumn("cnt")
+                println("There are \(count) custom food items.")
+            }
+        }
+        
+        let uniqueId : Int = 99001 + Int(count)
+        println(uniqueId)
+        
+        
+        //insert the food into the food table
+        
+        let isInserted = sharedInstance.database!.executeUpdate("INSERT INTO food (id, food_group_id, long_desc, short_desc, refuse, nitrogen_factor, protein_factor, fat_factor, calorie_factor) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsInArray: [uniqueId, groupAndName.0, groupAndName.1, groupAndName.1, 0, 0.0, 0.0, 0.0, 0.0])
+        
+        if isInserted == true {
+            
+            println("The item was added: \(isInserted)")
+        
+            //instant delete for testing
+//            let isDeleted = sharedInstance.database!.executeUpdate("DELETE FROM food WHERE id=\(99001)", withArgumentsInArray: nil)
+//            
+//            println("The item was then deleted: \(isDeleted)")
+            
+            //WE KNOW THE ITEM WAS ADDED SUCCESSFULLY! 
+            //NOW WE WANT TO MAKE A CORRESPONDING weight TABLE ENTRY!
+            
+            let isWeightInserted = sharedInstance.database!.executeUpdate("INSERT INTO weight (food_id, seq, amount_unitmod, measure_description, gram_weight) VALUES (?,?,?,?,?)", withArgumentsInArray: [uniqueId, 1, 1.0, serving, 100.0])
+            
+            if isWeightInserted == true {
+                println("The weight was added: \(isWeightInserted)")
+                
+                
+                //WE KNOW THE ITEM WAS ADDED TO THE WEIGHT TABLE SUCCESSFULLY!
+                //NOW WE WANT TO ADD THE NUTRIENTS TO THE NUTRITION TABLE
+                
+                //var areNutrientsAddedSuccessfully = [Bool]()
+                
+                for nutrient in nutrients {
+                    
+                    let isNutrientAdded = sharedInstance.database!.executeUpdate("INSERT INTO nutrition (food_id, nutrient_id, amount, num_data_points, source_code) VALUES (?,?,?,?,?)", withArgumentsInArray: [uniqueId, nutrient.0, nutrient.1, 0, "na"])
+                    
+                    //areNutrientsAddedSuccessfully.append(isNutrientAdded)
+                    println("Nutrient added: \(isNutrientAdded)")
+                }
+                
+                
+                
+                
+        
+                
+                
+                
+                
+//                let isDeleted = sharedInstance.database!.executeUpdate("DELETE FROM weight WHERE food_id=\(99001)", withArgumentsInArray: nil)
+//    
+//                println("The weight was then deleted: \(isDeleted)")
+//                
+//                
+//                let isDeleted2 = sharedInstance.database!.executeUpdate("DELETE FROM food WHERE id=\(99001)", withArgumentsInArray: nil)
+//                
+//                println("The item was then deleted: \(isDeleted2)")
+//        
+//                let isDeleted3 = sharedInstance.database!.executeUpdate("DELETE FROM nutrition WHERE food_id=\(99001)", withArgumentsInArray: nil)
+//        
+//                println("The nutrients have been deleted: \(isDeleted3)")
+            
+            }
+        
+        } else {
+            println("Failed to put item into food table")
+        }
+
+        
+        
+        
+        
+        sharedInstance.database!.close()
+        
+        //return the food id for the new item
+        return uniqueId
+    }
+
 }

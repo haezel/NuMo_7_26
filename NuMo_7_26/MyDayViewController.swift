@@ -13,9 +13,10 @@ var dateChosen : String = "2015-06-30"
 class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let daysInMonths = [0,31,28,31,30,31,30,31,31,30,31,30,31]
+    let daysInMonthsLeap = [0,31,29,31,30,31,30,31,31,30,31,30,31]
     let daysInYear = 365
     //hardcoded nutrients to show
-    var nutrientsToShow = [204, 203, 208, 262, 291, 318, 621, 629, 675, 304, 305, 306, 307, 573, 601, 855]
+    var nutrientsToShow = [208, 204, 203, 205, 209, 212, 210, 291, 303, 309, 301, 418, 401, 306, 307, 601, 269]
     
     var itemOrNutrientFlag = "item"
     
@@ -27,6 +28,42 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     
+    let nutrientCommonNames = [
+        203 : "Protein",
+        204 : "Fat",
+        205 : "Carbohydrate",
+        208 : "Calories",
+        209 : "Starch",
+        210 : "Sucrose",
+        211 : "Glucose",
+        212 : "Fructose",
+        255 : "Water",
+        262 : "Caffeine",
+        269 : "Sugar",
+        291 : "Fiber",
+        301 : "Calcium",
+        303 : "Iron",
+        304 : "Magnesium",
+        305 : "Phosphorus",
+        306 : "Potassium",
+        307 : "Sodium",
+        309 : "Zinc",
+        312 : "Copper",
+        313 : "Fluoride",
+        315 : "Manganese",
+        317 : "Selenium",
+        318 : "Vitamin A",
+        321 : "Beta Carotene",
+        322 : "Alpha Carotene",
+        323 : "Vitamin E",
+        417 : "Folate",
+        418 : "Vitamin B-12",
+        601 : "Cholesterol",
+        605 : "Trans Fats",
+        606 : "Saturated Fat",
+        401 : "Vitamin C",
+        324 : "Vitamin D"
+    ]
     
     
     //need to use a UI element to chose this String date
@@ -43,7 +80,8 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+
+        
         //in order to use our custom nutrient cell nib
         var nib = UINib(nibName: "nutrientTableCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "nutrientCell")
@@ -55,7 +93,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
        // tableView.backgroundColor = UIColor.grayColor()
         tableView.tableFooterView = UIView(frame:CGRectZero)
-       // tableView.separatorColor = UIColor.clearColor()
+        tableView.separatorColor = UIColor.clearColor()
         
         //get rid of 1 cell space at top and bottom of tableview - not best solution
         self.automaticallyAdjustsScrollViewInsets = false
@@ -240,7 +278,8 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if itemOrNutrientFlag == "item"
         {
-            self.tableView.separatorColor = UIColor.colorFromCode(0xDBE6EC)
+            //self.tableView.separatorColor = UIColor.colorFromCode(0xDBE6EC)
+            self.tableView.separatorColor = UIColor.clearColor()
             //get the logged food items from the db
             self.logInfo =  ModelManager.instance.getLoggedItems(dateChosen)
             if self.logInfo != nil
@@ -256,7 +295,8 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         else if itemOrNutrientFlag == "nutrient"
         {
-            self.tableView.separatorColor = UIColor.colorFromCode(0xDBE6EC)
+            //self.tableView.separatorColor = UIColor.colorFromCode(0xDBE6EC)
+            self.tableView.separatorColor = UIColor.clearColor()
             self.nutrientTotals = ModelManager.instance.getNutrientTotals(dateChosen)
            
             return nutrientsToShow.count
@@ -284,12 +324,27 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if nutrientCellInfo != nil {
             
                 //grab the title String from nutrientTotals
-                var title = nutrientCellInfo!.nutrient.name
+                
+                var id = nutrientCellInfo!.nutrient.nutrientId
+                var title = nutrientCommonNames[id]
+                
+                if title == nil {
+                    var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                    title = emptyNutrient.name
+                }
+                
+                //var title = nutrientCellInfo!.nutrient.name
                 
                 var unit = nutrientCellInfo!.nutrient.units
                 var totalAmount = nutrientCellInfo!.total
                 
                 cell.nutrientNameLabel.text = title
+                
+                
+                
+//                let hue = CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count)
+//                cell.nutrientNameLabel.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
+                //cell.nutrientNameLabel.textColor =
                 //println("**** \(totalAmount)")
                 cell.percentNutrientLabel.text = String(format: "%.2f \(unit)", totalAmount)
             
@@ -297,9 +352,26 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             else //there is no amount recorded yet for this nutrient
             {
                 var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
-                cell.nutrientNameLabel.text = emptyNutrient.name
+                
+                
+                var id = emptyNutrient.nutrientId
+                var title = nutrientCommonNames[id]
+                
+                if title == nil {
+                    var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                    title = emptyNutrient.name
+                }
+                
+                
+                cell.nutrientNameLabel.text = title
+                //cell.nutrientNameLabel.text = emptyNutrient.name
+                
                 cell.percentNutrientLabel.text = String("0.00 \(emptyNutrient.units)")
             }
+            
+            let hue = CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count)
+            cell.nutrientNameLabel.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
+            cell.percentNutrientLabel.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
 
             cell.backgroundColor = UIColor.clearColor()
     
@@ -330,6 +402,10 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.detailTextLabel?.text = "\(frac) \(measure)"
             }
             
+            let hue = CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count)
+            cell.detailTextLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
+            cell.textLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
+
             return cell
         }
     }

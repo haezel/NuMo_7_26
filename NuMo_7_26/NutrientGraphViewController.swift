@@ -28,6 +28,8 @@ class NutrientGraphViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = ""
+        
         println(nutrientTitle)
         titleLabel.text = nutrientTitle!
         
@@ -39,7 +41,7 @@ class NutrientGraphViewController: UIViewController {
         
         lineChart.noDataText = "Loading Chart..."
         lineChart.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
-        lineChart.infoTextColor = UIColor.colorFromCode(0xdd24df)
+        lineChart.infoTextColor = UIColor.colorFromCode(0x0040ff)
         
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -120,9 +122,9 @@ class NutrientGraphViewController: UIViewController {
         
         
         //lineChartDataSet.colors = colors
-        lineChart.borderColor = UIColor.colorFromCode(0xdd24df)
+        lineChart.borderColor = UIColor.colorFromCode(0x0040ff)
         //background around the graph
-        //lineChart.backgroundColor = UIColor.colorFromCode(0xdd24df)
+        lineChart.backgroundColor = UIColor.colorFromCode(0xAAAAAA)
         //background of just gridded area
         lineChart.gridBackgroundColor = UIColor.colorFromCode(0xffd8ff)
         //??
@@ -131,13 +133,13 @@ class NutrientGraphViewController: UIViewController {
         lineChart.drawGridBackgroundEnabled = false
         lineChart.noDataText = "Loading Chart..."
         lineChart.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
-        lineChart.infoTextColor = UIColor.colorFromCode(0xdd24df)
+        lineChart.infoTextColor = UIColor.colorFromCode(0x0040ff)
         
         lineChart.animate(xAxisDuration: 1.5, yAxisDuration: 1.5)
         lineChart.xAxis.labelPosition = .Bottom
         lineChart.descriptionText = ""
-        lineChartDataSet.colors = [UIColor.colorFromCode(0xdd24df)]
-        lineChartDataSet.circleColors = [UIColor.colorFromCode(0xdd24df)]
+        lineChartDataSet.colors = [UIColor.colorFromCode(0x0040ff)]
+        lineChartDataSet.circleColors = [UIColor.colorFromCode(0x0040ff)]
 
         lineChart.data = lineChartData
         
@@ -150,6 +152,34 @@ class NutrientGraphViewController: UIViewController {
         lineChart.saveToCameraRoll()
     }
     
+    
+    @IBAction func monthPressed(sender: AnyObject) {
+        
+        
+        self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 30)
+        
+        let labels = self.nutrientGraphData.labels.reverse()
+        let values = self.nutrientGraphData.values.reverse()
+        
+        
+        
+        self.setChart(labels, values: values)
+        
+    }
+    
+    
+    @IBAction func weekPressed(sender: AnyObject) {
+        
+        self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 7)
+        
+        let labels = self.nutrientGraphData.labels.reverse()
+        let values = self.nutrientGraphData.values.reverse()
+        
+        
+        
+        self.setChart(labels, values: values)
+        
+    }
     
     
 

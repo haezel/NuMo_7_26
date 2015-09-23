@@ -177,8 +177,9 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func filterContentForSearchText(searchBarText : String) {
         self.filteredFoods = allFoods.filter({(food : Food) -> Bool in
-            //let stringMatch = food.desc.rangeOfString(searchBarText)
-            let stringMatch = food.desc.uppercaseString.rangeOfString(searchBarText.uppercaseString)
+            let stringMatch = food.desc.rangeOfString(searchBarText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            
+            //let stringMatch = food.desc.uppercaseString.rangeOfString(searchBarText.uppercaseString)
             return (stringMatch != nil)
         })
     }

@@ -95,7 +95,7 @@ import UIKit
         var path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/8-10, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
   
         path.lineWidth = lineWidth
-        UIColor.colorFromCode(0x3485BF).setStroke()
+        UIColor.colorFromCode(0x555555).setStroke()
         path.stroke()
     }
     
@@ -131,7 +131,7 @@ import UIKit
         //SSSS
         //progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 40.0))
         progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/4, 40.0))
-        progressLabel2.textColor = UIColor.colorFromCode(0xffba00)
+        progressLabel2.textColor = UIColor.colorFromCode(0x48C8F0)
         progressLabel2.textAlignment = .Center
         //what to say while loading
         
@@ -207,8 +207,10 @@ import UIKit
         
         //let colorTop: AnyObject = UIColor(red: 255.0/255.0, green: 213.0/255.0, blue: 63.0/255.0, alpha: 1.0).CGColor
         
-        let colorTop: AnyObject = UIColor.colorFromCode(0x35a7fe).CGColor
-        let colorBottom: AnyObject = UIColor.colorFromCode(0x0994ff).CGColor
+        //let colorTop: AnyObject = UIColor.colorFromCode(0x48C8F0).CGColor
+        
+        let colorTop: AnyObject = UIColor.colorFromCode(0x0040ff).CGColor
+        let colorBottom: AnyObject = UIColor.colorFromCode(0x8000ff).CGColor
         
         //let colorBottom: AnyObject = UIColor(red: 255.0/255.0, green: 198.0/255.0, blue: 5.0/255.0, alpha: 1.0).CGColor
         let arrayOfColors: [AnyObject] = [colorTop, colorBottom]

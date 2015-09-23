@@ -152,9 +152,9 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
                 var protein = getProtein()
                 var fat = getFat()
                 
-                let color1 = UIColor.colorFromCode(0x3485bf)
-                let color2 = UIColor.colorFromCode(0x0994ff)
-                let color3 = UIColor.colorFromCode(0x555555)
+                let color1 = UIColor.colorFromCode(0x00ffff)
+                let color2 = UIColor.colorFromCode(0x00e38d)
+                let color3 = UIColor.colorFromCode(0x009fff)
                 
                 let colors = [color1, color2, color3]
                 
@@ -175,8 +175,8 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
                 let theLabels = ["Omega-6","Omega-3"]
             
                 
-                let color2 = UIColor.colorFromCode(0x3485bf)
-                let color1 = UIColor.colorFromCode(0xffba00)
+                let color2 = UIColor.colorFromCode(0xdf00ff)
+                let color1 = UIColor.colorFromCode(0x8000ff)
                 //let color2 = UIColor.colorFromCode(0x0994ff)
                 
                 let colors = [color1, color2]
