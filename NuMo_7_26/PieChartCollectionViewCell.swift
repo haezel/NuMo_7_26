@@ -85,7 +85,7 @@ class PieChartCollectionViewCell: UICollectionViewCell {
         pieChartView.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
         pieChartView.holeRadiusPercent = 0.75
         pieChartView.drawHoleEnabled = true
-        pieChartView.holeColor = UIColor.colorFromCode(0x919191)
+        pieChartView.holeColor = UIColor.colorFromCode(0x000000)
         //pieChartView.centerText = "Macronutrients"
         pieChartView.centerTextFont = UIFont(name: "AvenirNextCondensed-Medium", size: 16.0)!
         pieChartView.centerTextColor = UIColor.colorFromCode(0xffffff)

@@ -54,6 +54,7 @@
 		8A72AD3A1B6D4D2F0027C909 /* NutrientGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */; };
 		8A72ADE61B703D260027C909 /* InputsTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADE51B703D260027C909 /* InputsTextViewController.swift */; };
 		8A72ADE81B703F8D0027C909 /* ChooseRDIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */; };
+		8A72ADEB1B73B44A0027C909 /* OmegaGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADEA1B73B44A0027C909 /* OmegaGraphViewController.swift */; };
 		8DCBCC372DFF43462D6659FA /* Pods_NuMo_7_26.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A638A75CFBD2338510A89C /* Pods_NuMo_7_26.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -157,6 +158,7 @@
 		8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientGraphViewController.swift; sourceTree = "<group>"; };
 		8A72ADE51B703D260027C909 /* InputsTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputsTextViewController.swift; sourceTree = "<group>"; };
 		8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseRDIsViewController.swift; sourceTree = "<group>"; };
+		8A72ADEA1B73B44A0027C909 /* OmegaGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmegaGraphViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 				8A72AD221B681EA20027C909 /* PieChartCollectionViewCell.swift */,
 				8A72AD231B681EA20027C909 /* PieChartCollectionViewCell.xib */,
 				8A72AD391B6D4D2F0027C909 /* NutrientGraphViewController.swift */,
+				8A72ADEA1B73B44A0027C909 /* OmegaGraphViewController.swift */,
 			);
 			path = NuMo_7_26;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 		8A72AC9A1B65B71F0027C909 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = kathrynmanning;
 				TargetAttributes = {
@@ -543,6 +547,7 @@
 				8A72ACAA1B65B71F0027C909 /* ViewController.swift in Sources */,
 				8A72ACDE1B65B8620027C909 /* SWRevealViewController.m in Sources */,
 				8A72ACF41B65CE0F0027C909 /* Nutrient.swift in Sources */,
+				8A72ADEB1B73B44A0027C909 /* OmegaGraphViewController.swift in Sources */,
 				8A72ACE41B65C7350027C909 /* CreateItemViewController.swift in Sources */,
 				8A72ACFA1B65CE4D0027C909 /* Util.swift in Sources */,
 				8A72AD1B1B66E0710027C909 /* NutrientItem.swift in Sources */,
@@ -696,10 +701,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NuMo_7_26/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NuMo_7_26/NuMo_7_26-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -710,9 +717,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NuMo_7_26/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NuMo_7_26/NuMo_7_26-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

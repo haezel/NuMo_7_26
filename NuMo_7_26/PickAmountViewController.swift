@@ -137,10 +137,10 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
             return (self.view.frame.size.width * 20 ) / 100
         }
         else if component == 1 {
-            return (self.view.frame.size.width * 25 ) / 100
+            return (self.view.frame.size.width * 20 ) / 100
         }
         else {
-            return (self.view.frame.size.width * 55 ) / 100
+            return (self.view.frame.size.width * 60 ) / 100
         }
     }
     
@@ -183,29 +183,70 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     
 //    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-//        let titleData = wholeNumbers[row]
-//        var myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Georgia", size: 15.0)!,NSForegroundColorAttributeName:UIColor.blueColor()])
+//        
+//        var titleData : String = ""
+//        
+//        if component == 0 {
+//            titleData = wholeNumbers[row]
+//        }
+//        else if component == 1 {
+//            titleData = fractionNumbers[row]
+//        }
+//        else {
+//            titleData = measures![row].measure
+//        }
+//        
+//        
+//        
+//        //let titleData = wholeNumbers[row]
+//        var myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "AvenirNextCondensed-Bold", size: 13.0)!,NSForegroundColorAttributeName:UIColor.blueColor()])
 //        return myTitle
 //    }
-//    
-//    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
-//        var pickerLabel = view as! UILabel!
-//        if view == nil {  //if no label there yet
-//            pickerLabel = UILabel()
-//            
-//            //color  and center the label's background
-//            let hue = CGFloat(row)/CGFloat(measures!.count)
-//            pickerLabel.backgroundColor = UIColor(hue: hue, saturation: 1.0, brightness:1.0, alpha: 1.0)
-//            pickerLabel.textAlignment = .Center
-//            
-//        }
-//        let titleData = wholeNumbers[row]
-//        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Georgia", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
-//        pickerLabel!.attributedText = myTitle
-//        
-//        return pickerLabel
-//        
-//    }
+    
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+        var pickerLabel = view as! UILabel!
+        if view == nil {  //if no label there yet
+            
+                pickerLabel = UILabel()
+                
+                //color  and center the label's background
+                let hue = CGFloat(row)/CGFloat(measures!.count)
+                //pickerLabel.backgroundColor = UIColor(hue: hue, saturation: 1.0, brightness:1.0, alpha: 1.0)
+            if component > 1 {
+                pickerLabel.textAlignment = .Left
+            }
+            else {
+               pickerLabel.textAlignment = .Center
+            }
+            
+        }
+        //let titleData = wholeNumbers[row]
+        
+        var titleData : String = ""
+        
+        if component == 0 {
+            titleData = wholeNumbers[row]
+        }
+        else if component == 1 {
+            titleData = fractionNumbers[row]
+        }
+        else {
+            titleData = measures![row].measure
+        }
+        
+        if component > 1 {
+            let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "AvenirNextCondensed-Regular", size: 19.0)!,NSForegroundColorAttributeName:UIColor.blueColor()])
+            pickerLabel!.attributedText = myTitle
+        }
+        
+        else {
+            let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "AvenirNextCondensed-Regular", size: 24.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
+            pickerLabel!.attributedText = myTitle
+        }
+        
+        return pickerLabel
+        
+    }
     
 //    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
 //        let titleData = measures![row].measure

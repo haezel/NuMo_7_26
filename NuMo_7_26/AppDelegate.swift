@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        // Setup navigation bar appearance.
 //        let navigationBar = UINavigationBar.appearance()
 //        navigationBar.barTintColor = UIColor.colorFromCode(0xDBE6EC)
-//        navigationBar.tintColor = UIColor.whiteColor()
+//        //navigationBar.tintColor = UIColor.whiteColor()
         
         //grab food items from sqlite and put into allFoods[]
         ModelManager.instance.getAllFoodData()
