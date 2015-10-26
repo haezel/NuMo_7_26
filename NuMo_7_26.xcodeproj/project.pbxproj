@@ -14,11 +14,11 @@
 		8A72ACB21B65B71F0027C909 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A72ACB01B65B71F0027C909 /* LaunchScreen.xib */; };
 		8A72ACBE1B65B71F0027C909 /* NuMo_7_26Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACBD1B65B71F0027C909 /* NuMo_7_26Tests.swift */; };
 		8A72ACC81B65B76C0027C909 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A72ACC71B65B76C0027C909 /* libsqlite3.dylib */; };
-		8A72ACD61B65B7990027C909 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACCD1B65B7990027C909 /* FMDatabase.m */; };
-		8A72ACD71B65B7990027C909 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACCF1B65B7990027C909 /* FMResultSet.m */; };
-		8A72ACD81B65B7990027C909 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACD11B65B7990027C909 /* FMDatabaseQueue.m */; };
-		8A72ACD91B65B7990027C909 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACD31B65B7990027C909 /* FMDatabaseAdditions.m */; };
-		8A72ACDA1B65B7990027C909 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACD51B65B7990027C909 /* FMDatabasePool.m */; };
+		8A72ACD61B65B7990027C909 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACCD1B65B7990027C909 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8A72ACD71B65B7990027C909 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACCF1B65B7990027C909 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8A72ACD81B65B7990027C909 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACD11B65B7990027C909 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8A72ACD91B65B7990027C909 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACD31B65B7990027C909 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8A72ACDA1B65B7990027C909 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACD51B65B7990027C909 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8A72ACDE1B65B8620027C909 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACDD1B65B8620027C909 /* SWRevealViewController.m */; };
 		8A72ACE21B65C7140027C909 /* LogItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACE11B65C7140027C909 /* LogItemViewController.swift */; };
 		8A72ACE41B65C7350027C909 /* CreateItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ACE31B65C7350027C909 /* CreateItemViewController.swift */; };
