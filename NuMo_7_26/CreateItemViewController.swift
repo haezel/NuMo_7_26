@@ -168,7 +168,7 @@ class CreateItemViewController: XLFormViewController {
         self.initializeForm()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initializeForm()
     }
@@ -501,14 +501,14 @@ class CreateItemViewController: XLFormViewController {
         if let foodGrp = form.formRowWithTag(Tags.GroupSelector.rawValue)!.value as? String {
             //look up actual food group number
             grpNumber = foodGroupDict[foodGrp]!
-            println(grpNumber)
+            print(grpNumber)
         } else {grpNumber = 0}
         
         var name : String
         
         if let nameChosen = form.formRowWithTag(Tags.Name.rawValue)!.value as? String {
             name = nameChosen
-            println(name)
+            print(name)
         } else {name = "na"}
         
         
@@ -516,7 +516,7 @@ class CreateItemViewController: XLFormViewController {
         //tuple of the (food group number, name chosen)
         let groupAndName = (grpNumber, name)
         
-        println(groupAndName)
+        print(groupAndName)
         
  
         
@@ -742,7 +742,7 @@ class CreateItemViewController: XLFormViewController {
         
 
        
-        println(nutrientAmounts)
+        print(nutrientAmounts)
         
         
         //use model manager to create the food item in the food table

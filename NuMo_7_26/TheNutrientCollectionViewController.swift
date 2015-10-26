@@ -75,7 +75,7 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         self.title = "Nutrients"
     
         //in order to use our custom nutrient cell nib
-        var nib = UINib(nibName: "PieChartCollectionViewCell", bundle: nil)
+        let nib = UINib(nibName: "PieChartCollectionViewCell", bundle: nil)
         collectionView.registerNib(nib, forCellWithReuseIdentifier: "PieChartCollectionViewCell")
         
         //customize back button text
@@ -85,7 +85,7 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         
         self.nutrientRDAs = makePlayRDAs()
         self.nRDAs = ModelManager.instance.getAllNutrientRDAs()
-        println(self.nRDAs)
+        print(self.nRDAs)
         
     }
     
@@ -140,7 +140,7 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         if (indexPath.row == 0 || indexPath.row == 1)
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PieChartCollectionViewCell", forIndexPath: indexPath) as! PieChartCollectionViewCell
-            println("Cell Pie Created!")
+            print("Cell Pie Created!")
             
             // proteins-carbs-fats cell
             if indexPath.row == 0 {
@@ -148,9 +148,9 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
                 //need to get total carb * 4
                 //total protein * 4
                 //total fat * 9
-                var carb = getCarb()
-                var protein = getProtein()
-                var fat = getFat()
+                let carb = getCarb()
+                let protein = getProtein()
+                let fat = getFat()
                 
                 let color1 = UIColor.colorFromCode(0x00ffff)
                 let color2 = UIColor.colorFromCode(0x00e38d)
@@ -167,8 +167,8 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
             if indexPath.row == 1 {
                 
                 //variables to hold totals
-                var omega3 : Double = getOmega3()
-                var omega6 : Double = getOmega6()
+                let omega3 : Double = getOmega3()
+                let omega6 : Double = getOmega6()
              
                 
                 let theOmegasAmounts = [omega6, omega3]
@@ -195,20 +195,20 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         else
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("NutrientItemCollectionViewCell", forIndexPath: indexPath) as! NutrientItemCollectionViewCell
-            println("Cell Nutrient Circle Created!")
+            print("Cell Nutrient Circle Created!")
         
 
         
         
             //grab nutrient from of array of nutrients to show
             //subtract one due to top cell being not in nutrientsToShow array
-            var nutrientId = self.nutrientsToShow[indexPath.row - 2]
+            let nutrientId = self.nutrientsToShow[indexPath.row - 2]
             
             //grab associated element from dictionary of all nutrient totals
             //**** this dictionary should start out with all totals being 0
             //if there is no record in the nutrient total dictionary for this nutrientID
             //need to just say 0.0!
-            var nutrientCellInfo = self.nutrientTotals![nutrientId]
+            let nutrientCellInfo = self.nutrientTotals![nutrientId]
             
             if nutrientCellInfo != nil {
                 
@@ -220,11 +220,11 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
                 }
                 
                 var unit = nutrientCellInfo!.nutrient.units
-                var totalAmount = nutrientCellInfo!.total //the total in the correct unit
+                let totalAmount = nutrientCellInfo!.total //the total in the correct unit
                 
                 cell.setNutrientTitle(title!)
                 
-                var thePercent = totalAmount/self.nRDAs![nutrientId]!
+                let thePercent = totalAmount/self.nRDAs![nutrientId]!
                 
                 cell.setThePercent(thePercent)
                 //println("**** \(totalAmount)")
@@ -236,13 +236,13 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
 //                var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
 //                cell.setNutrientTitle(emptyNutrient.name)
                 
-                var title = self.nutrientCommonNames[nutrientId]
+                let title = self.nutrientCommonNames[nutrientId]
                 
                 if title != nil {
                     cell.setNutrientTitle(title!)
                 }
                 else { //if its not in common names, get it from the db
-                    var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                    let emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
                     cell.setNutrientTitle(emptyNutrient.name)
                 }
                 cell.setThePercent(0.0)
@@ -342,7 +342,7 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         let cellWidthDimension = self.view.frame.size.width / 4.0
         self.cellDimension = cellWidthDimension
         
-        println("cell dimension decided")
+        print("cell dimension decided")
        
         collectionView.reloadData()
         
@@ -368,10 +368,10 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
     
     func getTodaysDateString() -> String {
         
-        var date = NSDate()
-        var dateFormatter = NSDateFormatter()
+        let date = NSDate()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        var dateInFormat = dateFormatter.stringFromDate(date)
+        let dateInFormat = dateFormatter.stringFromDate(date)
         return dateInFormat
     }
     
@@ -425,22 +425,22 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
                     
                     detailVC.nutrientId = self.nutrientsToShow[indexPath.row-2]
         
-                    var nutrientId = self.nutrientsToShow[indexPath.row-2]
-                    var nutrientCellInfo = self.nutrientTotals![nutrientId]
+                    let nutrientId = self.nutrientsToShow[indexPath.row-2]
+                    let nutrientCellInfo = self.nutrientTotals![nutrientId]
                     
                     if nutrientCellInfo != nil {
-                        var unit = nutrientCellInfo!.nutrient.units
+                        let unit = nutrientCellInfo!.nutrient.units
                         detailVC.nutrientUnit = unit
                     }
 
                     
-                    var title = self.nutrientCommonNames[nutrientId]
+                    let title = self.nutrientCommonNames[nutrientId]
                     
                     if title != nil {
                         detailVC.nutrientTitle = title!
                     }
                     else {
-                        var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                        let emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
                         detailVC.nutrientTitle = emptyNutrient.name
                     }
                 

@@ -27,7 +27,7 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         
-        println("*****VIEW DID LOAD******")
+        print("*****VIEW DID LOAD******")
         super.viewDidLoad()
         
         self.title = "Search Item"
@@ -71,12 +71,12 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(animated: Bool) {
         
         //deselect any selected rows
-        if self.tableView.indexPathForSelectedRow() != nil {
-            var indexPath = self.tableView.indexPathForSelectedRow()
+        if self.tableView.indexPathForSelectedRow != nil {
+            let indexPath = self.tableView.indexPathForSelectedRow
             tableView.deselectRowAtIndexPath(indexPath!, animated: true)
         }
-        if self.searchResultsController?.tableView.indexPathForSelectedRow() != nil {
-            var indexPath = self.searchResultsController?.tableView.indexPathForSelectedRow()
+        if self.searchResultsController?.tableView.indexPathForSelectedRow != nil {
+            let indexPath = self.searchResultsController?.tableView.indexPathForSelectedRow
             self.searchResultsController?.tableView.deselectRowAtIndexPath(indexPath!, animated: true)
         }
 
@@ -86,7 +86,7 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        println("memory warning!")
+        print("memory warning!")
     }
     //-------Table View Methods-------//
     
@@ -113,7 +113,7 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.identifier) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.identifier)! as UITableViewCell
         
         var text: String?
         if tableView == self.searchResultsController?.tableView {
@@ -147,13 +147,13 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
             //sender is the filtered results table
             if sender as? UITableView == self.searchResultsController?.tableView {
                 
-                let indexPath = (sender as? UITableView)!.indexPathForSelectedRow()!
+                let indexPath = (sender as? UITableView)!.indexPathForSelectedRow!
                 let chosenItemId = self.filteredFoods[indexPath.row]
                 destinationVC.foodItem = chosenItemId
             }
             else //sender is the original table
             {
-                let indexPath = self.tableView.indexPathForSelectedRow()!
+                let indexPath = self.tableView.indexPathForSelectedRow!
                 let chosenItem = allFoods[indexPath.row]
                 destinationVC.foodItem = chosenItem
             }
@@ -164,11 +164,11 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
     //--------UISearchResultsUpdating methods--------//
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        if self.searchController?.searchBar.text.lengthOfBytesUsingEncoding(NSUTF32StringEncoding) > 0 {
+        if self.searchController?.searchBar.text!.lengthOfBytesUsingEncoding(NSUTF32StringEncoding) > 0 {
             
             let searchBarText = self.searchController!.searchBar.text
             
-            self.filterContentForSearchText(searchBarText)
+            self.filterContentForSearchText(searchBarText!)
             
             // Reload a table with results.
             self.searchResultsController?.tableView.reloadData()

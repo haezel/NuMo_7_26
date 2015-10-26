@@ -29,7 +29,7 @@ class OmegaGraphViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println(nutrientTitle)
+        print(nutrientTitle)
         titleLabel.text = "Omega-6 / Omega-3 Ratio"
         
         
@@ -53,8 +53,8 @@ class OmegaGraphViewController: UIViewController {
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 7)
             dispatch_async(dispatch_get_main_queue()) {
-                let labels = self.nutrientGraphData.labels.reverse()
-                let values = self.nutrientGraphData.values.reverse()
+                let labels = Array(self.nutrientGraphData.labels.reverse())
+                let values = Array(self.nutrientGraphData.values.reverse())
                 
                 
                 
@@ -91,8 +91,8 @@ class OmegaGraphViewController: UIViewController {
         
             self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 30)
         
-            let labels = self.nutrientGraphData.labels.reverse()
-            let values = self.nutrientGraphData.values.reverse()
+            let labels = Array(self.nutrientGraphData.labels.reverse())
+            let values = Array(self.nutrientGraphData.values.reverse())
                 
                 
                 
@@ -105,8 +105,8 @@ class OmegaGraphViewController: UIViewController {
         
         self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 7)
         
-        let labels = self.nutrientGraphData.labels.reverse()
-        let values = self.nutrientGraphData.values.reverse()
+        let labels = Array(self.nutrientGraphData.labels.reverse())
+        let values = Array(self.nutrientGraphData.values.reverse())
         
         
         
@@ -159,7 +159,7 @@ class OmegaGraphViewController: UIViewController {
         //use these to make a Target Line
         //let target = nRDAs![nutrientId!]!
         let target = 1.0
-        println("Target! \(target)")
+        print("Target! \(target)")
         let ll = ChartLimitLine(limit: target, label: "1:1 Ratio")
         lineChart.rightAxis.addLimitLine(ll)
         

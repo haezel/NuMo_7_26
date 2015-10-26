@@ -111,7 +111,7 @@ class ChooseRDIsViewController : XLFormViewController {
         self.initializeForm()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initializeForm()
     }
@@ -320,10 +320,10 @@ class ChooseRDIsViewController : XLFormViewController {
     {
         super.viewDidLoad()
         
-        var button1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "savePressed:")
-        var button2 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshPressed:")
+        let button1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "savePressed:")
+        let button2 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshPressed:")
         
-        var arrayOfButtons = [button1,button2]
+        let arrayOfButtons = [button1,button2]
 
         //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "savePressed:")
         
@@ -500,11 +500,11 @@ class ChooseRDIsViewController : XLFormViewController {
         
         
         
-        println(results)
+        print(results)
         //results are now in a dict [Int : Double] (nutrientId: daily rec value)
         //now need to send results dict to model manager to update the values in the db
         let arr = ModelManager.instance.updateRDAs(results)
-        println(arr)
+        print(arr)
         
         
         
@@ -545,7 +545,7 @@ class ChooseRDIsViewController : XLFormViewController {
     
     
     func refreshPressed(button : UIBarButtonItem) {
-        println("refresh values")
+        print("refresh values")
         
         // reload form with default RDI values...
         self.defaultForm()

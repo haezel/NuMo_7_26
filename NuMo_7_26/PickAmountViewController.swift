@@ -39,8 +39,8 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("View with tag -1")
-        println(self.view.viewWithTag(-1))
+        print("View with tag -1")
+        print(self.view.viewWithTag(-1))
         
 //        let navigationBar = (self.view.viewWithTag(-1) as! UINavigationBar)
 //        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addItemToLog")
@@ -56,7 +56,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         self.titleItemChosen.text = foodItem?.desc
         
-        var id : Int = foodItem!.id
+        let id : Int = foodItem!.id
         getUnits(id)
         getNutrients(id)
         
@@ -73,7 +73,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
 //            var addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addItemToLog") //Use a selector
 //            navigationItem.rightBarButtonItem = addButton
         }
-        println(toggleAdjustOrAdd)
+        print(toggleAdjustOrAdd)
         if toggleAdjustOrAdd == "adjust"
         {
             self.title = "Adjust Amount"
@@ -111,7 +111,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         }
         else //we are trying to adjust an amount...
         {
-            println("needs to update the amount in db")
+            print("needs to update the amount in db")
             ModelManager.instance.updateFoodItemLogAmount(self.logItem!)
             NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
             navigationController?.popViewControllerAnimated(true)
@@ -171,7 +171,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             updateAmounts()
-            println(self.logItem?.amountConsumedGrams)
+            print(self.logItem?.amountConsumedGrams)
   
        
 
@@ -203,7 +203,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
 //        return myTitle
 //    }
     
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         var pickerLabel = view as! UILabel!
         if view == nil {  //if no label there yet
             
@@ -262,7 +262,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         if wholeNumber != "—"
         {
-            wholeNumberInt = (wholeNumber).toInt()!
+            wholeNumberInt = Int((wholeNumber))!
         }
         
         else
@@ -283,7 +283,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         let weightConsumed = (weightInGrams/amountPerMeasure) * chosenConsumedAmount
         
-        println("Chosen amount: \(chosenConsumedAmount) and weight is \(weightConsumed).")
+        print("Chosen amount: \(chosenConsumedAmount) and weight is \(weightConsumed).")
         
         makeFoodLogItem(weightConsumed, whole: Double(wholeNumberInt), frac: fraction, measure: measureDesc)
         
@@ -303,8 +303,8 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         if toggleAdjustOrAdd == "add"
         {
-            var date = NSDate()
-            var dateFormatter = NSDateFormatter()
+            let date = NSDate()
+            let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             
     //        //get todays date in 2015-06-02 format
@@ -313,7 +313,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
             dateInFormat = dateChosen
             
             ////get todays time in 17:07:40 format
-            var dateFormatter2 = NSDateFormatter()
+            let dateFormatter2 = NSDateFormatter()
             dateFormatter2.dateFormat = "HH:mm:ss"
             timeInFormat = dateFormatter2.stringFromDate(date)
         }

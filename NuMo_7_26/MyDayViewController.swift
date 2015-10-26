@@ -83,7 +83,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         
         //in order to use our custom nutrient cell nib
-        var nib = UINib(nibName: "nutrientTableCell", bundle: nil)
+        let nib = UINib(nibName: "nutrientTableCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "nutrientCell")
         
         //customize back button text
@@ -139,10 +139,10 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func getTodaysDateString() -> String {
         
-        var date = NSDate()
-        var dateFormatter = NSDateFormatter()
+        let date = NSDate()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        var dateInFormat = dateFormatter.stringFromDate(date)
+        let dateInFormat = dateFormatter.stringFromDate(date)
         return dateInFormat
     }
     
@@ -152,11 +152,11 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func goBackADay(sender: AnyObject) {
     
-        var currentDate = dateChosen
+        let currentDate = dateChosen
         var myStringArr = currentDate.componentsSeparatedByString("-")
-        var oldyear = myStringArr[0].toInt()
-        var oldmonth = myStringArr[1].toInt()
-        var oldday = myStringArr[2].toInt()
+        let oldyear = Int(myStringArr[0])
+        let oldmonth = Int(myStringArr[1])
+        let oldday = Int(myStringArr[2])
         
         var newday = 100
         var newmonth = 100
@@ -212,11 +212,11 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func goForwardADay(sender: AnyObject) {
    
-        var currentDate = dateChosen
+        let currentDate = dateChosen
         var myStringArr = currentDate.componentsSeparatedByString("-")
-        var oldyear = myStringArr[0].toInt()
-        var oldmonth = myStringArr[1].toInt()
-        var oldday = myStringArr[2].toInt()
+        let oldyear = Int(myStringArr[0])
+        let oldmonth = Int(myStringArr[1])
+        let oldday = Int(myStringArr[2])
         
         var newday = 100
         var newmonth = 100
@@ -289,7 +289,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             else //have not logged any foods
             {
-                println("no foods are logged")
+                print("no foods are logged")
                 return 0
             }
         }
@@ -381,14 +381,15 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         else
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
+            
             
             let foodItem = self.logInfo!.0[indexPath.row]
             
             cell.textLabel?.text = foodItem.foodDesc
             cell.backgroundColor = UIColor.clearColor()
             
-            var wholeNum : Int = Int(foodItem.wholeNumber)
+            let wholeNum : Int = Int(foodItem.wholeNumber)
             
             let frac : String = fracToString(foodItem.fraction)
             let measure = foodItem.measureDesc
@@ -446,12 +447,12 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if itemOrNutrientFlag == "nutrient"
         {
-            println("flag was nutrient")
+            print("flag was nutrient")
             self.performSegueWithIdentifier("goToNutrientDetail", sender: tableView)
         }
         else
         {
-            println("flag was not nutrient")
+            print("flag was not nutrient")
             self.performSegueWithIdentifier("goToAdjustFoodAmount", sender: tableView)
         }
     }
@@ -465,7 +466,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         {
             let destinationVC = segue.destinationViewController as! PickAmountViewController
             
-            let indexPath = self.tableView.indexPathForSelectedRow()!
+            let indexPath = self.tableView.indexPathForSelectedRow!
             let chosenItemId = self.logInfo!.0[indexPath.row].foodId
             //now get the Food object for this id
             //from the allFoods[] global array...

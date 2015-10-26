@@ -19,9 +19,9 @@ class ModelManager : NSObject
     class var instance : ModelManager
     {
         sharedInstance.database = FMDatabase(path: Util.getPath("usda.sql3"))
-        var path = Util.getPath("usda.sql3")
+        let path = Util.getPath("usda.sql3")
         
-        println("!!!!!!!path: \(path)")
+        print("!!!!!!!path: \(path)")
         return sharedInstance
     }
     
@@ -29,7 +29,7 @@ class ModelManager : NSObject
     func getAllFoodData()
     {
         sharedInstance.database!.open()
-        var resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT * FROM food", withArgumentsInArray: nil)
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("SELECT * FROM food", withArgumentsInArray: nil)
         
         //var nutrientIdColumn: String = "short_desc"
         
@@ -37,7 +37,7 @@ class ModelManager : NSObject
             while resultSet.next() {
                 
                 let id = resultSet.stringForColumn("id")
-                let idInt = id.toInt()!
+                let idInt = Int(id)!
                 let desc = resultSet.stringForColumn("long_desc")
                 let descR = String(desc)
                 
@@ -57,8 +57,8 @@ class ModelManager : NSObject
     {
         sharedInstance.database!.open()
         
-        var query : String = "SELECT * FROM food WHERE id=\(foodId)"
-        var resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
+        let query : String = "SELECT * FROM food WHERE id=\(foodId)"
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
         
         //var nutrientIdColumn: String = "short_desc"
         
@@ -66,7 +66,7 @@ class ModelManager : NSObject
             while resultSet.next() {
                 
                 let id = resultSet.stringForColumn("id")
-                let idInt = id.toInt()!
+                let idInt = Int(id)!
                 let desc = resultSet.stringForColumn("long_desc")
                 let descR = String(desc)
                 
@@ -84,8 +84,8 @@ class ModelManager : NSObject
     func getMeasures(foodId : Int) -> [Weight]
     {
         sharedInstance.database!.open()
-        var query : String = "SELECT * FROM weight WHERE food_id=\(foodId)"
-        var resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
+        let query : String = "SELECT * FROM weight WHERE food_id=\(foodId)"
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
         
         var measures = [Weight]()
         
@@ -93,10 +93,10 @@ class ModelManager : NSObject
             while resultSet.next() {
                 
                 let foodId = resultSet.stringForColumn("food_id")
-                println(foodId)
-                let idInt = foodId.toInt()!
+                print(foodId)
+                let idInt = Int(foodId)!
                 let seq = resultSet.stringForColumn("seq")
-                let seqInt = seq.toInt()!
+                let seqInt = Int(seq)!
                 let amount = resultSet.doubleForColumn("amount_unitmod")
                 let measure = resultSet.stringForColumn("measure_description")
                 let weightGrams = resultSet.doubleForColumn("gram_weight")
@@ -110,7 +110,7 @@ class ModelManager : NSObject
         }
         else
         {
-            println("Weight info for food id \(foodId) not found.")
+            print("Weight info for food id \(foodId) not found.")
         }
         sharedInstance.database!.close()
         return measures
@@ -133,17 +133,17 @@ class ModelManager : NSObject
         sharedInstance.database!.open()
         
         let query2 = "SELECT * FROM food_log WHERE date_logged=?"
-        var resultSet2: FMResultSet! = sharedInstance.database!.executeQuery(query2, withArgumentsInArray: [date])
+        let resultSet2: FMResultSet! = sharedInstance.database!.executeQuery(query2, withArgumentsInArray: [date])
         
         if resultSet2 != nil
         {
             while resultSet2.next()
             {   let foodId = resultSet2.stringForColumn("food_id")
-                println(foodId)
-                let foodIdInt = foodId.toInt()
+                print(foodId)
+                let foodIdInt = Int(foodId)
                 
                 let amountConsumed = resultSet2.doubleForColumn("amount_consumed_grams")
-                println(amountConsumed)
+                print(amountConsumed)
                 
                 arrayOfLogged.append((foodIdInt!, amountConsumed))
             }
@@ -166,7 +166,7 @@ class ModelManager : NSObject
                     
                     var previousTotal = 0.0
                     
-                    var prevNutrient = nt[nutrientId]
+                    let prevNutrient = nt[nutrientId]
                     
                     if prevNutrient != nil
                     {
@@ -186,7 +186,7 @@ class ModelManager : NSObject
             
             for nutrient in allNutrients
             {
-                var nutrientId = nutrient.nutrientId
+                let nutrientId = nutrient.nutrientId
                 
                 nt[nutrientId] = (nutrient, 0.0)
             }
@@ -206,9 +206,9 @@ class ModelManager : NSObject
     func getNutrients(foodId : Int) -> [Nutrient]
     {
         sharedInstance.database!.open()
-        var queryNutrition : String = "SELECT * FROM nutrition WHERE food_id=\(foodId)"
+        let queryNutrition : String = "SELECT * FROM nutrition WHERE food_id=\(foodId)"
         var queryNutrient : String = ""
-        var resultSetA: FMResultSet! = sharedInstance.database!.executeQuery(queryNutrition, withArgumentsInArray: nil)
+        let resultSetA: FMResultSet! = sharedInstance.database!.executeQuery(queryNutrition, withArgumentsInArray: nil)
         
         var nutrients = [Nutrient]()
         
@@ -217,9 +217,9 @@ class ModelManager : NSObject
             while resultSetA.next() //each associated nutrient
             {
                 let foodId = resultSetA.stringForColumn("food_id")
-                let idInt = foodId.toInt()!
+                let idInt = Int(foodId)!
                 let nutrientId = resultSetA.stringForColumn("nutrient_id")
-                let nutrientIdInt = nutrientId.toInt()!
+                let nutrientIdInt = Int(nutrientId)!
                 let amountPerHundredGrams = resultSetA.doubleForColumn("amount")
                 var name : String = ""
                 var units : String = ""
@@ -227,7 +227,7 @@ class ModelManager : NSObject
                 
                 
                 let queryNutrient : String = "SELECT * FROM nutrient WHERE id=\(nutrientId)"
-                var resultSetB: FMResultSet! = sharedInstance.database!.executeQuery(queryNutrient, withArgumentsInArray: nil)
+                let resultSetB: FMResultSet! = sharedInstance.database!.executeQuery(queryNutrient, withArgumentsInArray: nil)
                 
                 if (resultSetB != nil)
                 {
@@ -241,7 +241,7 @@ class ModelManager : NSObject
                 }
                 else
                 {
-                    println("Nutrient Info for nutrient \(nutrientId) not found.")
+                    print("Nutrient Info for nutrient \(nutrientId) not found.")
                 }
                 
                 //let theNutrient : Nutrient = Nutrient(foodId: idInt, nutrientId: nutrientIdInt, amountPerHundredGrams: amountPerHundredGrams, units: units, name: name, tagName: tagName)
@@ -250,14 +250,14 @@ class ModelManager : NSObject
                 nutrients.append(theNutrient)
             }
             sharedInstance.database!.close()
-            println("*k*k*k*")
-            println(foodId)
-            println(nutrients[0].amountPerHundredGrams)
+            print("*k*k*k*")
+            print(foodId)
+            print(nutrients[0].amountPerHundredGrams)
             return nutrients
         }
         else
         {
-            println("Nutrition info for food id \(foodId) not found.")
+            print("Nutrition info for food id \(foodId) not found.")
         }
         sharedInstance.database!.close()
         return nutrients
@@ -282,13 +282,13 @@ class ModelManager : NSObject
     
         sharedInstance.database!.open()
         
-        println(item.amountConsumedGrams)
-        println(item.wholeNumber)
-        println(item.fraction)
-        println(item.measure)
-        println(item.date)
-        println(item.time)
-        println(item.foodId)
+        print(item.amountConsumedGrams)
+        print(item.wholeNumber)
+        print(item.fraction)
+        print(item.measure)
+        print(item.date)
+        print(item.time)
+        print(item.foodId)
 
         
 //        let query = "UPDATE food_log SET amount_consumed_grams=?, whole_number=?, fraction=? WHERE date_logged=? AND time_logged=?"
@@ -313,7 +313,7 @@ class ModelManager : NSObject
         var foodsForTable = [FoodForTable]()
         
         let query = "SELECT COUNT(*) as cnt FROM food_log WHERE date_logged=?"
-        var resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: [date])
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: [date])
         
         var count : Int32 = 0
         if resultSet != nil
@@ -321,21 +321,21 @@ class ModelManager : NSObject
             while resultSet.next()
             {
                 count = resultSet.intForColumn("cnt")
-                println("There are \(count) items logged on date \(date).")
+                print("There are \(count) items logged on date \(date).")
             }
         }
         
         let query2 = "SELECT * FROM food_log WHERE date_logged=?"
-        var resultSet2: FMResultSet! = sharedInstance.database!.executeQuery(query2, withArgumentsInArray: [date])
+        let resultSet2: FMResultSet! = sharedInstance.database!.executeQuery(query2, withArgumentsInArray: [date])
         
         if resultSet2 != nil
         {
             while resultSet2.next()
             {
                 let foodId = resultSet2.stringForColumn("food_id")
-                let foodIdInt : Int = foodId.toInt()!
+                let foodIdInt : Int = Int(foodId)!
                 
-                var descResult : FMResultSet! = sharedInstance.database!.executeQuery("SELECT long_desc FROM food WHERE id=?", withArgumentsInArray: [foodId])
+                let descResult : FMResultSet! = sharedInstance.database!.executeQuery("SELECT long_desc FROM food WHERE id=?", withArgumentsInArray: [foodId])
                 
                 var foodDesc = ""
                 if descResult != nil
@@ -348,7 +348,7 @@ class ModelManager : NSObject
                 
                 
                 let time = resultSet2.stringForColumn("time_logged")
-                println("Time of this item added: \(time)")
+                print("Time of this item added: \(time)")
                 let wholeNo = resultSet2.doubleForColumn("whole_number")
                 
                 let fraction = resultSet2.doubleForColumn("fraction")
@@ -363,7 +363,7 @@ class ModelManager : NSObject
         
         sharedInstance.database!.close()
         
-        var count2 : Int = Int(count)
+        let count2 : Int = Int(count)
         
         return (foodsForTable, count2)
         
@@ -394,14 +394,14 @@ class ModelManager : NSObject
         
         let query = "SELECT * FROM nutrient"
         
-        var result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray : nil)
+        let result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray : nil)
         
         if result != nil
         {
             while result.next()
             {
                 let nutrientId = result.stringForColumn("id")
-                let nutrientIdInt = nutrientId.toInt()!
+                let nutrientIdInt = Int(nutrientId)!
                 
                 let units = result.stringForColumn("units")
                 let name = result.stringForColumn("name")
@@ -429,14 +429,14 @@ class ModelManager : NSObject
         
         let query = "SELECT * FROM nutrient_rdas"
         
-        var result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
+        let result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
         
         if result != nil {
             
             while result.next()
             {
                 let nutrientId = result.stringForColumn("id")
-                let nutrientIdInt = nutrientId.toInt()!
+                let nutrientIdInt = Int(nutrientId)!
                 
                 let rda = result.doubleForColumn("daily_value")
                 
@@ -479,7 +479,7 @@ class ModelManager : NSObject
         
         let query = "SELECT * FROM nutrient WHERE id=?"
         
-        var result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray : [nId])
+        let result : FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray : [nId])
         var nutrientIdInt : Int = 99999999
         var units : String = "empty"
         var name : String = "empty"
@@ -490,8 +490,8 @@ class ModelManager : NSObject
         {
             while result.next()
             {
-                var nutrientId = result.stringForColumn("id")
-                nutrientIdInt = nutrientId.toInt()!
+                let nutrientId = result.stringForColumn("id")
+                nutrientIdInt = Int(nutrientId)!
                 
                 units = result.stringForColumn("units")
                 name = result.stringForColumn("name")
@@ -537,22 +537,22 @@ class ModelManager : NSObject
             //currentDate is now the one before
             currentDate = getPreviousDate(currentDate)
         }
-        println("HOW MAnY DayS")
-        println(allDays.count)
+        print("HOW MAnY DayS")
+        print(allDays.count)
         
         for i in allDays {
             
             var totalOfTheDay : Double
             
             //get the tuple for the nutrient id
-            var tuple = i[nId]
+            let tuple = i[nId]
             
             if tuple != nil {
                 totalOfTheDay = tuple!.total
                 values.append(totalOfTheDay)
             }
             else {
-                println("No Value Exists for this nutrient on this day")
+                print("No Value Exists for this nutrient on this day")
                 values.append(0.0)
             }
 
@@ -601,8 +601,8 @@ class ModelManager : NSObject
             var ratio : Double
             
             //variables to hold totals, get the daily totals for each omega
-            var omega3 : Double = getOmega3(nutrientsOmega3s, nutrientTotals: i)
-            var omega6 : Double = getOmega6(nutrientsOmega6s, nutrientTotals: i)
+            let omega3 : Double = getOmega3(nutrientsOmega3s, nutrientTotals: i)
+            let omega6 : Double = getOmega6(nutrientsOmega6s, nutrientTotals: i)
             
             
             if omega3 != 0.0 {
@@ -644,9 +644,9 @@ class ModelManager : NSObject
         var newDate : String
         
         var myStringArr = currentDate.componentsSeparatedByString("-")
-        var oldyear = myStringArr[0].toInt()
-        var oldmonth = myStringArr[1].toInt()
-        var oldday = myStringArr[2].toInt()
+        let oldyear = Int(myStringArr[0])
+        let oldmonth = Int(myStringArr[1])
+        let oldday = Int(myStringArr[2])
         
         var newday = 100
         var newmonth = 100
@@ -815,7 +815,7 @@ class ModelManager : NSObject
         sharedInstance.database!.open()
         
         let query = "SELECT COUNT(*) as cnt FROM food WHERE id>99000"
-        var resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery(query, withArgumentsInArray: nil)
         
         var count : Int32 = 0
         if resultSet != nil
@@ -823,12 +823,12 @@ class ModelManager : NSObject
             while resultSet.next()
             {
                 count = resultSet.intForColumn("cnt")
-                println("There are \(count) custom food items.")
+                print("There are \(count) custom food items.")
             }
         }
         
         let uniqueId : Int = 99001 + Int(count)
-        println(uniqueId)
+        print(uniqueId)
         
         
         //insert the food into the food table
@@ -837,7 +837,7 @@ class ModelManager : NSObject
         
         if isInserted == true {
             
-            println("The item was added: \(isInserted)")
+            print("The item was added: \(isInserted)")
         
             //instant delete for testing
 //            let isDeleted = sharedInstance.database!.executeUpdate("DELETE FROM food WHERE id=\(99001)", withArgumentsInArray: nil)
@@ -850,7 +850,7 @@ class ModelManager : NSObject
             let isWeightInserted = sharedInstance.database!.executeUpdate("INSERT INTO weight (food_id, seq, amount_unitmod, measure_description, gram_weight) VALUES (?,?,?,?,?)", withArgumentsInArray: [uniqueId, 1, 1.0, serving, 100.0])
             
             if isWeightInserted == true {
-                println("The weight was added: \(isWeightInserted)")
+                print("The weight was added: \(isWeightInserted)")
                 
                 
                 //WE KNOW THE ITEM WAS ADDED TO THE WEIGHT TABLE SUCCESSFULLY!
@@ -863,7 +863,7 @@ class ModelManager : NSObject
                     let isNutrientAdded = sharedInstance.database!.executeUpdate("INSERT INTO nutrition (food_id, nutrient_id, amount, num_data_points, source_code) VALUES (?,?,?,?,?)", withArgumentsInArray: [uniqueId, nutrient.0, nutrient.1, 0, "na"])
                     
                     //areNutrientsAddedSuccessfully.append(isNutrientAdded)
-                    println("Nutrient added: \(isNutrientAdded)")
+                    print("Nutrient added: \(isNutrientAdded)")
                 }
                 
                 
@@ -890,7 +890,7 @@ class ModelManager : NSObject
             }
         
         } else {
-            println("Failed to put item into food table")
+            print("Failed to put item into food table")
         }
 
         

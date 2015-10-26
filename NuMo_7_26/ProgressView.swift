@@ -21,7 +21,7 @@ import UIKit
     
     var cellSize : CGFloat?
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         progressLabel = UILabel()
         progressLabel2 = UILabel()
         super.init(coder: aDecoder)
@@ -92,7 +92,7 @@ import UIKit
         //var path = UIBezierPath(ovalInRect: rect)
         //SSSS
         //var path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/4-20, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
-        var path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/8-10, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
+        let path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/8-10, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
   
         path.lineWidth = lineWidth
         UIColor.colorFromCode(0x555555).setStroke()
@@ -112,8 +112,8 @@ import UIKit
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width
         
-        println("orig thingy")
-        println(CGRectGetWidth(frame))
+        print("orig thingy")
+        print(CGRectGetWidth(frame))
         
         //SSSS
         //progressLabel = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 60.0))
@@ -122,7 +122,7 @@ import UIKit
         progressLabel.textAlignment = .Center
         progressLabel.text = ""
         progressLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 12.0)
-        progressLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        progressLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(progressLabel)
         
         addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
@@ -137,7 +137,7 @@ import UIKit
         
         progressLabel2.hidden = true
         progressLabel2.font = UIFont(name: "AvenirNextCondensed-Bold", size: 16.0)
-        progressLabel2.setTranslatesAutoresizingMaskIntoConstraints(false)
+        progressLabel2.translatesAutoresizingMaskIntoConstraints = false
         addSubview(progressLabel2)
         
         addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel2, attribute: .CenterX, multiplier: 1.0, constant: -4.0))
@@ -179,7 +179,7 @@ import UIKit
         centerPoint = CGPointMake(screenWidth/8 , screenWidth/8)
         
         
-        var gradientMaskLayer = gradientMask()
+        let gradientMaskLayer = gradientMask()
         
     //SSSS
         //progressLayer.path = UIBezierPath(arcCenter:centerPoint, radius: screenWidth/4-20, startAngle:startAngle, endAngle:endAngle, clockwise: true).CGPath
@@ -227,7 +227,7 @@ import UIKit
     
     func animateProgressView() {
         
-        var percentToShow = percentComplete * 100
+        let percentToShow = percentComplete * 100
         progressLabel2.hidden = false
         progressLabel2.text = String(format: "%.0f%%", percentToShow)
         
@@ -248,7 +248,7 @@ import UIKit
       
     }
     
-    override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         progressLabel.text = nutrientNameLabel
         //progressLabel2.text = "\(percentComplete) percent"
         

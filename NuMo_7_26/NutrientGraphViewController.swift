@@ -9,6 +9,7 @@
 import UIKit
 import Charts
 
+
 class NutrientGraphViewController: UIViewController {
 
     @IBOutlet weak var lineChart: LineChartView!
@@ -30,7 +31,7 @@ class NutrientGraphViewController: UIViewController {
         
         self.title = ""
         
-        println(nutrientTitle)
+        print(nutrientTitle)
         titleLabel.text = nutrientTitle!
         
         
@@ -47,8 +48,8 @@ class NutrientGraphViewController: UIViewController {
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             self.nutrientGraphData = ModelManager.instance.getChartDataForNutrient(self.nutrientId!, startDate : dateChosen, nOfDays : 7)
             dispatch_async(dispatch_get_main_queue()) {
-                let labels = self.nutrientGraphData.labels.reverse()
-                let values = self.nutrientGraphData.values.reverse()
+                let labels = Array(self.nutrientGraphData.labels.reverse())
+                let values = Array(self.nutrientGraphData.values.reverse())
                 
                 
                 
@@ -62,7 +63,7 @@ class NutrientGraphViewController: UIViewController {
         //self.nutrientGraphData = ModelManager.instance.getWeekDataForNutrient(self.nutrientId!, startDate : currentDate, nOfDays : 7)
         
         
-        println(self.nutrientId)
+        print(self.nutrientId)
         //self.nutrientGraphData = ModelManager.instance.getChartDataForNutrient(self.nutrientId!, startDate : dateChosen, nOfDays : 7)
 //        
 //        let labels = self.nutrientGraphData.labels.reverse()
@@ -115,7 +116,7 @@ class NutrientGraphViewController: UIViewController {
         
         //use these to make a Target Line
         let target = nRDAs![nutrientId!]!
-        println("Target! \(target)")
+        print("Target! \(target)")
         let ll = ChartLimitLine(limit: target, label: "RDI")
         lineChart.rightAxis.addLimitLine(ll)
         
@@ -158,8 +159,8 @@ class NutrientGraphViewController: UIViewController {
         
         self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 30)
         
-        let labels = self.nutrientGraphData.labels.reverse()
-        let values = self.nutrientGraphData.values.reverse()
+        let labels = Array(self.nutrientGraphData.labels.reverse())
+        let values = Array(self.nutrientGraphData.values.reverse())
         
         
         
@@ -172,8 +173,8 @@ class NutrientGraphViewController: UIViewController {
         
         self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 7)
         
-        let labels = self.nutrientGraphData.labels.reverse()
-        let values = self.nutrientGraphData.values.reverse()
+        let labels = Array(self.nutrientGraphData.labels.reverse())
+        let values = Array(self.nutrientGraphData.values.reverse())
         
         
         

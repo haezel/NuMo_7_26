@@ -34,10 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ModelManager.instance.getAllFoodData()
         
         //get and start app with todays date in 2015-06-02 format
-        var date = NSDate()
-        var dateFormatter = NSDateFormatter()
+        let date = NSDate()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        var dateInFormat = dateFormatter.stringFromDate(date)
+        let dateInFormat = dateFormatter.stringFromDate(date)
         
         //un comment when my day in place...!!!
         dateChosen = dateInFormat
