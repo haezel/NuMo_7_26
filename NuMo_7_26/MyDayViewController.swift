@@ -151,121 +151,89 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
   
     
     @IBAction func goBackADay(sender: AnyObject) {
-    
-        let currentDate = dateChosen
-        var myStringArr = currentDate.componentsSeparatedByString("-")
-        let oldyear = Int(myStringArr[0])
-        let oldmonth = Int(myStringArr[1])
-        let oldday = Int(myStringArr[2])
         
-        var newday = 100
-        var newmonth = 100
-        var newyear = -99
+        let calendar = NSCalendar.currentCalendar()
         
-        if oldday == 1
-        {
-            //newday = 30
-            if oldmonth == 1 {
-                newmonth = 12
-                newday = daysInMonths[newmonth]
-                newyear = oldyear! - 1
-            }
-            else {
-                newmonth = oldmonth! - 1
-                newday = daysInMonths[newmonth]
-                newyear = oldyear!
-            }
-        }
-        else
-        {
-            newday = oldday! - 1
-            newmonth = oldmonth!
-            newyear = oldyear!
-        }
         
-        if newday < 10 {
-            if newmonth < 10 {
-                dateChosen = "\(newyear)-0\(newmonth)-0\(newday)"
-            } else {
-                dateChosen = "\(newyear)-\(newmonth)-0\(newday)"
-            }
-        } else {
-            if newmonth < 10 {
-                dateChosen = "\(newyear)-0\(newmonth)-\(newday)"
-            } else {
-                dateChosen = "\(newyear)-\(newmonth)-\(newday)"
-            }
-        }
-
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.dateFromString(dateChosen)
+        
+        
+        let components = NSDateComponents()
+        components.day = -1
+        
+        print("-1 from \(dateChosen): \(calendar.dateByAddingComponents(components, toDate: date!, options: []))")
+        print("-1 from \(dateChosen): \(dateFormatter.stringFromDate(calendar.dateByAddingComponents(components, toDate: date!, options: [])!))")
+        
+        dateChosen = dateFormatter.stringFromDate(calendar.dateByAddingComponents(components, toDate: date!, options: [])!)
         
         let todaysDate = getTodaysDateString()
         if todaysDate == dateChosen
         {
             self.dateLabel.text = "Today"
         }
+        else if dateChosen == findRealYesterday(){
+            self.dateLabel.text = "Yesterday"
+        }
         else {
             self.dateLabel.text = dateChosen
         }
         self.tableView.reloadData()
+        
     }
     
     
     @IBAction func goForwardADay(sender: AnyObject) {
-   
-        let currentDate = dateChosen
-        var myStringArr = currentDate.componentsSeparatedByString("-")
-        let oldyear = Int(myStringArr[0])
-        let oldmonth = Int(myStringArr[1])
-        let oldday = Int(myStringArr[2])
+
         
-        var newday = 100
-        var newmonth = 100
-        var newyear = -99
+        let calendar = NSCalendar.currentCalendar()
         
-        if oldday == daysInMonths[oldmonth!] //last day of the month?
-        {
-            
-            if oldmonth == 12 {
-                newmonth = 1
-                newday = 1
-                newyear = oldyear! + 1
-            }
-            else {
-                newmonth = oldmonth! + 1
-                newday = 1
-                newyear = oldyear!
-            }
-        }
-        else
-        {
-            newday = oldday! + 1
-            newmonth = oldmonth!
-            newyear = oldyear!
-        }
         
-        if newday < 10 {
-            if newmonth < 10 {
-                dateChosen = "\(newyear)-0\(newmonth)-0\(newday)"
-            } else {
-                dateChosen = "\(newyear)-\(newmonth)-0\(newday)"
-            }
-        } else {
-            if newmonth < 10 {
-                dateChosen = "\(newyear)-0\(newmonth)-\(newday)"
-            } else {
-                dateChosen = "\(newyear)-\(newmonth)-\(newday)"
-            }
-        }
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.dateFromString(dateChosen)
+        
+        
+        let components = NSDateComponents()
+        components.day = 1
+        
+        print("1 from \(dateChosen): \(calendar.dateByAddingComponents(components, toDate: date!, options: []))")
+        print("1 from \(dateChosen): \(dateFormatter.stringFromDate(calendar.dateByAddingComponents(components, toDate: date!, options: [])!))")
+        
+        dateChosen = dateFormatter.stringFromDate(calendar.dateByAddingComponents(components, toDate: date!, options: [])!)
         
         let todaysDate = getTodaysDateString()
         if todaysDate == dateChosen
         {
             self.dateLabel.text = "Today"
         }
+        else if dateChosen == findRealYesterday(){
+            self.dateLabel.text = "Yesterday"
+        }
         else {
             self.dateLabel.text = dateChosen
         }
         self.tableView.reloadData()
+
+    }
+    
+    
+    //returns actual yesterday's string date
+    func findRealYesterday() -> String {
+        
+        let calendar = NSCalendar.currentCalendar()
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.dateFromString(getTodaysDateString())
+        
+        
+        let components = NSDateComponents()
+        components.day = -1
+        
+        return dateFormatter.stringFromDate(calendar.dateByAddingComponents(components, toDate: date!, options: [])!)
+
     }
     
     //--------Table View Methods---------//
@@ -329,14 +297,14 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 var title = nutrientCommonNames[id]
                 
                 if title == nil {
-                    var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                    let emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
                     title = emptyNutrient.name
                 }
                 
                 //var title = nutrientCellInfo!.nutrient.name
                 
-                var unit = nutrientCellInfo!.nutrient.units
-                var totalAmount = nutrientCellInfo!.total
+                let unit = nutrientCellInfo!.nutrient.units
+                let totalAmount = nutrientCellInfo!.total
                 
                 cell.nutrientNameLabel.text = title
                 
@@ -351,14 +319,14 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             else //there is no amount recorded yet for this nutrient
             {
-                var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                let emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
                 
                 
-                var id = emptyNutrient.nutrientId
+                let id = emptyNutrient.nutrientId
                 var title = nutrientCommonNames[id]
                 
                 if title == nil {
-                    var emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
+                    let emptyNutrient = ModelManager.instance.getANutrientInfo(nutrientId)
                     title = emptyNutrient.name
                 }
                 
@@ -369,9 +337,28 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.percentNutrientLabel.text = String("0.00 \(emptyNutrient.units)")
             }
             
-            let hue = CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count)
-            cell.nutrientNameLabel.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
-            cell.percentNutrientLabel.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
+            //---test other colors
+            
+
+//                let row = CGFloat(indexPath.row)
+//                let section = CGFloat(indexPath.section)
+//                //compute row as hue and section as saturation
+//                let saturation  = 1.0 - row / CGFloat(nutrientsToShow.count)
+//                let hue =  section / CGFloat(5)
+//                let theColor = UIColor(hue: hue, saturation: saturation, brightness: 1.0, alpha: 1.0)
+//            
+//            cell.nutrientNameLabel.textColor = theColor
+//            cell.percentNutrientLabel.textColor = theColor
+            
+            
+            //----end test
+            
+            
+            
+            let hue = 1 - (CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count))
+            //print("THE HUE IS: \(hue)")
+            cell.nutrientNameLabel.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9, alpha: 1.0)
+            cell.percentNutrientLabel.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9, alpha: 1.0)
 
             cell.backgroundColor = UIColor.clearColor()
     
@@ -403,9 +390,11 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.detailTextLabel?.text = "\(frac) \(measure)"
             }
             
-            let hue = CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count)
-            cell.detailTextLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
-            cell.textLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.5, alpha: 1.0)
+            
+            let hue = 1 - (CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count))
+
+            cell.detailTextLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9, alpha: 1.0)
+            cell.textLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9, alpha: 1.0)
 
             return cell
         }

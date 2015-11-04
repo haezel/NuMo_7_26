@@ -125,7 +125,7 @@ class NutrientGraphViewController: UIViewController {
         //lineChartDataSet.colors = colors
         lineChart.borderColor = UIColor.colorFromCode(0x0040ff)
         //background around the graph
-        lineChart.backgroundColor = UIColor.colorFromCode(0xAAAAAA)
+        lineChart.backgroundColor = UIColor.clearColor()
         //background of just gridded area
         lineChart.gridBackgroundColor = UIColor.colorFromCode(0xffd8ff)
         //??
@@ -157,7 +157,9 @@ class NutrientGraphViewController: UIViewController {
     @IBAction func monthPressed(sender: AnyObject) {
         
         
-        self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 30)
+        //self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 30)
+        
+        self.nutrientGraphData = ModelManager.instance.getChartDataForNutrient(self.nutrientId!, startDate : dateChosen, nOfDays : 30)
         
         let labels = Array(self.nutrientGraphData.labels.reverse())
         let values = Array(self.nutrientGraphData.values.reverse())
@@ -171,7 +173,9 @@ class NutrientGraphViewController: UIViewController {
     
     @IBAction func weekPressed(sender: AnyObject) {
         
-        self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 7)
+        //self.nutrientGraphData = ModelManager.instance.getOmegasChartData(dateChosen, nOfDays : 7)
+        
+        self.nutrientGraphData = ModelManager.instance.getChartDataForNutrient(self.nutrientId!, startDate : dateChosen, nOfDays : 7)
         
         let labels = Array(self.nutrientGraphData.labels.reverse())
         let values = Array(self.nutrientGraphData.values.reverse())

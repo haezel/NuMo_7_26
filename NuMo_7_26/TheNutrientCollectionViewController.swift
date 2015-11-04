@@ -12,7 +12,7 @@ import Charts
 
 class TheNutrientCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    let nutrientsToShow = [203, 204, 205, 208, 262, 269, 291, 301, 303, 304, 305, 306, 307, 309, 312, 315, 317, 318, 401, 324, 323, 417, 418, 601, 606]
+    let nutrientsToShow = [203, 204, 205, 208, 262, 269, 291, 301, 303, 304, 305, 306, 307, 309, 312, 317, 318, 401, 324, 323, 417, 418, 601, 606]
     
     let nutrientsOmega6s = [672, 675, 685, 853, 855]
     let nutrientsOmega3s = [851, 852, 631, 629, 621]

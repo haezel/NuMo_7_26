@@ -168,7 +168,7 @@ class OmegaGraphViewController: UIViewController {
         //lineChartDataSet.colors = colors
         lineChart.borderColor = UIColor.colorFromCode(0xdd24df)
         //background around the graph
-        lineChart.backgroundColor = UIColor.colorFromCode(0xAAAAAA)
+        lineChart.backgroundColor = UIColor.clearColor()
         //background of just gridded area
         lineChart.gridBackgroundColor = UIColor.colorFromCode(0xffd8ff)
         //??

@@ -62,22 +62,6 @@ class Util: NSObject {
             alert.show()
         }
         
-        
-        
-        
-//        
-//        let dbPath : NSString = getPath(fileName as String)
-//        let fileManager = NSFileManager.defaultManager()
-//        if !fileManager.fileExistsAtPath(dbPath as String)
-//        {
-//            print("File didnt already exist")
-//            let fromPath : String? = (NSBundle.mainBundle().resourcePath! as NSString).stringByAppendingPathComponent(fileName as String)
-//            do {
-//                try fileManager.copyItemAtPath(fromPath!, toPath: dbPath as String)
-//            } catch _ {
-//            }
-//        }
-//        else{print("File already existed")}
     }
     
     
@@ -90,6 +74,62 @@ class Util: NSObject {
         alert.delegate = delegate
         alert.addButtonWithTitle("Ok")
         alert.show()
+    }
+    
+    
+    
+    
+    
+    //--------------Photo Functions--------------//
+    
+    
+    
+    func saveImage (image: UIImage, path: String ) -> Bool{
+        
+        let pngImageData = UIImagePNGRepresentation(image)
+        //let jpgImageData = UIImageJPEGRepresentation(image, 1.0)   // if you want to save as JPEG
+        let result = pngImageData!.writeToFile(path, atomically: true)
+        
+        return result
+        
+    }
+    
+    
+    func loadImageFromPath(path: String) -> UIImage? {
+        
+        let image = UIImage(contentsOfFile: path)
+        
+        if image == nil {
+            
+            print("missing image at: (path)")
+        }
+        print("(path)") // this is just for you to see the path in case you want to go to the directory, using Finder.
+        return image
+        
+    }
+    
+    
+            //----------Creating the image path----------//
+    
+
+    // Get the documents Directory
+    
+    private func getDocumentsURL() -> NSURL {
+        let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        return documentsURL
+    }
+    
+    private func fileInDocumentsDirectory(filename: String) -> String {
+        
+        let fileURL = getDocumentsURL().URLByAppendingPathComponent(filename)
+        return fileURL.path!
+        
+    }
+    
+    // Define the specific path, image name
+    func makeImagePath(imageName: String) -> String {
+        let imagePath = fileInDocumentsDirectory(imageName)
+        return imagePath
     }
 
 }

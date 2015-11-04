@@ -40,6 +40,8 @@ class PieChartCollectionViewCell: UICollectionViewCell {
         
         pieChartView.centerText = title
         
+
+        
         
         let theLabels = labels
         let theValues = amounts
@@ -56,6 +58,8 @@ class PieChartCollectionViewCell: UICollectionViewCell {
             let dataEntry = ChartDataEntry(value: values[i], xIndex: i)
             dataEntries.append(dataEntry)
         }
+        
+        
         
         let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "")
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
@@ -79,14 +83,20 @@ class PieChartCollectionViewCell: UICollectionViewCell {
         //pieChartView.backgroundColor = UIColor.colorFromCode(0x000000)
         //pieChartView.
         
+        //pieChartView.legend.setCustom(colors: [UIColor.colorFromCode(0xFFFFFF)], labels: ["FF"])
+        pieChartView.legend.textColor = UIColor.colorFromCode(0x555555)
+        
+        pieChartView.data?.setValueTextColor(UIColor.clearColor())
+    
+        
         pieChartView.legend.position = .BelowChartCenter
         pieChartView.drawSliceTextEnabled = false
         pieChartView.userInteractionEnabled = false
         pieChartView.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
         pieChartView.holeRadiusPercent = 0.75
         pieChartView.drawHoleEnabled = true
-        pieChartView.holeColor = UIColor.colorFromCode(0x000000)
-        pieChartView.centerText = "Macronutrients"
+        pieChartView.holeColor = UIColor.colorFromCode(0xEFEFF4)
+//        pieChartView.centerText = "Macronutrients"
         
         //pieChartView.centerTextFont = UIFont(name: "AvenirNextCondensed-Medium", size: 16.0)!
         //pieChartView.centerTextColor = UIColor.colorFromCode(0xffffff)

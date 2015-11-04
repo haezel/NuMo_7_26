@@ -95,7 +95,7 @@ import UIKit
         let path = UIBezierPath(arcCenter: convertPoint(center, fromView: superview), radius: screenWidth/8-10, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
   
         path.lineWidth = lineWidth
-        UIColor.colorFromCode(0x555555).setStroke()
+        UIColor.colorFromCode(0xc6c6c6).setStroke()
         path.stroke()
     }
     
@@ -115,10 +115,10 @@ import UIKit
         print("orig thingy")
         print(CGRectGetWidth(frame))
         
-        //SSSS
+        //progressLabel is name of nutrient
         //progressLabel = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 60.0))
         progressLabel = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/4, 60.0))
-        progressLabel.textColor = .whiteColor()
+        progressLabel.textColor = UIColor.colorFromCode(0x555555)
         progressLabel.textAlignment = .Center
         progressLabel.text = ""
         progressLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 12.0)
@@ -128,11 +128,12 @@ import UIKit
         addConstraint(NSLayoutConstraint(item: self, attribute: .CenterX, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
         addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: progressLabel, attribute: .CenterY, multiplier: 1.0, constant: 6.0))
         
-        //SSSS
+
         //progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/2, 40.0))
         progressLabel2 = UILabel(frame: CGRectMake(0.0, 0.0, screenWidth/4, 40.0))
         progressLabel2.textColor = UIColor.colorFromCode(0x48C8F0)
         progressLabel2.textAlignment = .Center
+        
         //what to say while loading
         
         progressLabel2.hidden = true
@@ -209,8 +210,8 @@ import UIKit
         
         //let colorTop: AnyObject = UIColor.colorFromCode(0x48C8F0).CGColor
         
-        let colorTop: AnyObject = UIColor.colorFromCode(0x0040ff).CGColor
-        let colorBottom: AnyObject = UIColor.colorFromCode(0x8000ff).CGColor
+        let colorTop: AnyObject = UIColor.colorFromCode(0x5586ff).CGColor
+        let colorBottom: AnyObject = UIColor.colorFromCode(0xffffff).CGColor
         
         //let colorBottom: AnyObject = UIColor(red: 255.0/255.0, green: 198.0/255.0, blue: 5.0/255.0, alpha: 1.0).CGColor
         let arrayOfColors: [AnyObject] = [colorTop, colorBottom]
