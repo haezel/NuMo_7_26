@@ -10,7 +10,9 @@ import UIKit
 
 var dateChosen : String = "2015-06-30"
 
-class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+    
+    let imagePicker = UIImagePickerController()
     
     let daysInMonths = [0,31,28,31,30,31,30,31,31,30,31,30,31]
     let daysInMonthsLeap = [0,31,29,31,30,31,30,31,31,30,31,30,31]
@@ -84,6 +86,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        imagePicker.delegate = self
         
         //in order to use our custom nutrient cell nib
         let nib = UINib(nibName: "nutrientTableCell", bundle: nil)
@@ -411,9 +414,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
                 cell.textLabel?.text = "Reminder"
                 cell.detailTextLabel?.text = "Meal"
-                
-                //return cell
-                
+
             }
             
             else{
@@ -466,6 +467,19 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             print("HHHHHHMMMM")
             return cell
         }
+    }
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        var numOfPhotosToday = 0
+        if photosToday != nil {
+            numOfPhotosToday = (photosToday?.count)!
+        }
+        //for now photo cells are not highlightable
+        if indexPath.row < numOfPhotosToday {
+            return false
+        }
+        
+        return true
     }
     
     func resizeImage(image:UIImage, toTheSize size:CGSize)->UIImage{
@@ -544,7 +558,18 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         else
         {
             print("flag was not nutrient")
-            self.performSegueWithIdentifier("goToAdjustFoodAmount", sender: tableView)
+            
+            var numOfPhotosToday = 0
+            if photosToday != nil {
+                numOfPhotosToday = (photosToday?.count)!
+            }
+            
+            if indexPath.row < numOfPhotosToday {
+                //for photo selections...
+            }
+            else {
+                self.performSegueWithIdentifier("goToAdjustFoodAmount", sender: tableView)
+            }
         }
     }
     
@@ -564,6 +589,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 numOfPhotosToday = (photosToday?.count)!
             }
             
+           
             let chosenItemId = self.logInfo!.0[indexPath.row - numOfPhotosToday].foodId
             //now get the Food object for this id
             //from the allFoods[] global array...
@@ -574,6 +600,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             destinationVC.timePreviouslyLogged = timeLogged
             destinationVC.foodItem = searchById[0]
             destinationVC.toggleAdjustOrAdd = "adjust"
+            
         }
     }
     
@@ -641,5 +668,71 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func loadImageButtonTapped(sender: UIButton) {
+        
+        //create action sheet
+        let optionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        
+        let photoLibraryOption = UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+            print("from library")
+            //shows the photo library
+            self.imagePicker.allowsEditing = true
+            self.imagePicker.sourceType = .PhotoLibrary
+            self.imagePicker.modalPresentationStyle = .Popover
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+        })
+        let cameraOption = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+            print("take a photo")
+            //shows the camera
+            self.imagePicker.allowsEditing = true
+            self.imagePicker.sourceType = .Camera
+            self.imagePicker.modalPresentationStyle = .Popover
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            
+        })
+        let cancelOption = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        optionSheet.addAction(photoLibraryOption)
+        optionSheet.addAction(cancelOption)
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) == true {
+            optionSheet.addAction(cameraOption)} else {
+            print ("I don't have a camera.")
+        }
+        
+        
+        self.presentViewController(optionSheet, animated: true, completion: nil)
+        
+    }
+    
+    
+    // MARK: - UIImagePickerControllerDelegate Methods
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        //handle media here i.e. do stuff with photo
+        
+        print("imagePickerController called")
+        
+        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        //imageImage.image = chosenImage
+        
+        //save to database
+        let intId = ModelManager.instance.addPhotoToDb()
+        let stringId = String(intId)
+        
+        let photo = PhotoHelper()
+        let path = photo.makeImagePath(stringId)
+        photo.saveImage(chosenImage, path: path)
+        
+        let d = photo.loadImageFromPath(path)
+        //imageImage.image = d!
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }

@@ -524,9 +524,12 @@
                                     <segue destination="39C-b6-kE5" kind="show" id="V8s-TV-8Up"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dV-Yt-Fhs">
-                                <rect key="frame" x="20" y="73" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dV-Yt-Fhs">
+                                <rect key="frame" x="20" y="73" width="42" height="30"/>
+                                <state key="normal" title="Image"/>
+                                <connections>
+                                    <action selector="loadImageButtonTapped:" destination="tTl-FL-Ge0" eventType="touchUpInside" id="isH-FK-4jr"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
