@@ -644,6 +644,7 @@ const int FrontViewPositionNone = 0xff;
     _frontViewPosition = FrontViewPositionLeft;
     _rearViewPosition = FrontViewPositionLeft;
     _rightViewPosition = FrontViewPositionLeft;
+    //CHANGE THIS FOR SLIDE WIDTH
     _rearViewRevealWidth = 260.0f;
     _rearViewRevealOverdraw = 60.0f;
     _rearViewRevealDisplacement = 40.0f;

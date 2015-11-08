@@ -94,7 +94,7 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         // Dispose of any resources that can be recreated.
     }
     
-    //-----------Add Item or Update Item-----------// !!!NEED TO IMPLEMENT UPDATE ITEM!!
+    //-----------Add Item or Update Item-----------//
     
     
     @IBAction func addItemToLog(sender: AnyObject) {

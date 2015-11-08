@@ -75,6 +75,9 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //holds (Nutrient, totalRightNow)
     var nutrientTotals : Dictionary<Int, (nutrient:Nutrient, total:Double)>?
     
+    //hold photo references for current day (filename,time logged)
+    var photosToday : [(String,String)]?
+    
     
     //--------Lifecycle Methods----------//
     
@@ -146,8 +149,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return dateInFormat
     }
     
-    //--------Change Calendar Day Methods--------//
-    //--------These dont take into account leap year yet...
+    //--------Calendar Day Methods--------//
   
     
     @IBAction func goBackADay(sender: AnyObject) {
@@ -248,18 +250,34 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
         {
             //self.tableView.separatorColor = UIColor.colorFromCode(0xDBE6EC)
             self.tableView.separatorColor = UIColor.clearColor()
+            
+            //START ADDING...
+            var count = 0
+            
+            self.photosToday = ModelManager.instance.getPhotosForDate(dateChosen)
+            //theres at least 1 reminder photo
+            if self.photosToday != nil {
+                count += (photosToday?.count)!
+                print("\(count) photos are logged today")
+            }
+            
+            
             //get the logged food items from the db
             self.logInfo =  ModelManager.instance.getLoggedItems(dateChosen)
             if self.logInfo != nil
             {
-                let count = self.logInfo!.1
-                return count
+                //was:
+                //let count = self.logInfo!.1
+                count += self.logInfo!.1
+                print("\(self.logInfo!.1) foods are logged")
+                
             }
-            else //have not logged any foods
-            {
-                print("no foods are logged")
-                return 0
-            }
+
+            //was an else here that returned 0 if no foods logged...
+            
+            print("\(count) total things are logged")
+            return count
+
         }
         else if itemOrNutrientFlag == "nutrient"
         {
@@ -278,22 +296,22 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if itemOrNutrientFlag == "nutrient"
         {
-            var cell : NutrientTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("nutrientCell") as! NutrientTableViewCell
+            let cell : NutrientTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("nutrientCell") as! NutrientTableViewCell
             
             //grab nutrient from of array of nutrients to show
-            var nutrientId = self.nutrientsToShow[indexPath.row]
+            let nutrientId = self.nutrientsToShow[indexPath.row]
             
             //grab associated element from dictionary of all nutrient totals
             //**** this dictionary should start out with all totals being 0
             //if there is no record in the nutrient total dictionary for this nutrientID
             //need to just say 0.0!
-            var nutrientCellInfo = self.nutrientTotals![nutrientId]
+            let nutrientCellInfo = self.nutrientTotals![nutrientId]
             
             if nutrientCellInfo != nil {
             
                 //grab the title String from nutrientTotals
                 
-                var id = nutrientCellInfo!.nutrient.nutrientId
+                let id = nutrientCellInfo!.nutrient.nutrientId
                 var title = nutrientCommonNames[id]
                 
                 if title == nil {
@@ -365,50 +383,134 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             return cell
         }
-        
+        //we are on item screen
         else
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
-            
-            
-            let foodItem = self.logInfo!.0[indexPath.row]
-            
-            cell.textLabel?.text = foodItem.foodDesc
             cell.backgroundColor = UIColor.clearColor()
+            cell.imageView!.image = nil
             
-            let wholeNum : Int = Int(foodItem.wholeNumber)
-            
-            let frac : String = fracToString(foodItem.fraction)
-            let measure = foodItem.measureDesc
-            
-            if wholeNum != 0
-            {
-                cell.detailTextLabel?.text = "\(wholeNum) \(frac) \(measure)"
+            var numOfPhotosToday = 0
+            if photosToday != nil {
+                numOfPhotosToday = (photosToday?.count)!
             }
-            else
-            {
-                cell.detailTextLabel?.text = "\(frac) \(measure)"
+                
+            if indexPath.row < numOfPhotosToday {
+                //make a reminder cell!
+                  
+                let photo = PhotoHelper()
+                let path = photo.makeImagePath(photosToday![indexPath.row].0)
+
+                let d = photo.loadImageFromPath(path)
+
+                let newImage = resizeImage(d!, toTheSize: CGSizeMake(44, 44))
+                let cellImageLayer: CALayer?  = cell.imageView!.layer
+                cellImageLayer!.cornerRadius = 21.75  //cell.imageView!.frame.size.width / 2.0
+                cellImageLayer!.masksToBounds = true
+                cell.imageView!.image = newImage
+
+                cell.textLabel?.text = "Reminder"
+                cell.detailTextLabel?.text = "Meal"
+                
+                //return cell
+                
             }
             
-            
+            else{
+                print("MMMMMKKKKK")
+                let foodItem = self.logInfo!.0[indexPath.row - numOfPhotosToday]
+                
+                cell.textLabel?.text = foodItem.foodDesc
+                
+                
+                let wholeNum : Int = Int(foodItem.wholeNumber)
+                
+                let frac : String = fracToString(foodItem.fraction)
+                let measure = foodItem.measureDesc
+                
+                if wholeNum != 0
+                {
+                    cell.detailTextLabel?.text = "\(wholeNum) \(frac) \(measure)"
+                }
+                else
+                {
+                    cell.detailTextLabel?.text = "\(frac) \(measure)"
+                }
+            }
             let hue = 1 - (CGFloat(indexPath.row)/CGFloat(nutrientsToShow.count))
+            //let hue = 1 - (CGFloat(indexPath.row - numOfPhotosToday)/CGFloat(nutrientsToShow.count))
 
             cell.detailTextLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9, alpha: 1.0)
             cell.textLabel?.textColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9, alpha: 1.0)
-
+            
+            
+//            if indexPath.row == 0 {
+//                
+//                let photo = PhotoHelper()
+//                let path = photo.makeImagePath("kkk")
+//                
+//                let d = photo.loadImageFromPath(path)
+//               
+//                let newImage = resizeImage(d!, toTheSize: CGSizeMake(44, 44))
+//                let cellImageLayer: CALayer?  = cell.imageView!.layer
+//                cellImageLayer!.cornerRadius = 21.75  //cell.imageView!.frame.size.width / 2.0
+//                cellImageLayer!.masksToBounds = true
+//                cell.imageView!.image = newImage
+//                
+//                cell.textLabel?.text = "Sushi Lunch"
+//                cell.detailTextLabel?.text = "Reminder"
+//
+//                
+//                return cell
+//            }
+            print("HHHHHHMMMM")
             return cell
         }
+    }
+    
+    func resizeImage(image:UIImage, toTheSize size:CGSize)->UIImage{
+        
+        
+        let scale = CGFloat(max(size.width/image.size.width,
+            size.height/image.size.height))
+        let width:CGFloat  = image.size.width * scale
+        let height:CGFloat = image.size.height * scale;
+        
+        let rr:CGRect = CGRectMake( 0, 0, width, height);
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0);
+        image.drawInRect(rr)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return newImage
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.Delete {
             //delete item from sql food_log table
+            var numOfPhotosToday = 0
+            if photosToday != nil {
+                numOfPhotosToday = (photosToday?.count)!
+            }
             
-            let time = self.logInfo!.0[indexPath.row].time
+            if indexPath.row < numOfPhotosToday {
+                //were deleting an image reminder
+                print("delete image reminder from row: \(indexPath.row)")
+                let time = self.photosToday![indexPath.row].1
+                
+                //delete from documents folder?! or will it just be overwritten....
+                
+                let isDeleted = ModelManager.instance.deletePhotoReminder(dateChosen, time: time)
+                print("The photo reference was deleted: \(isDeleted)")
+            }
             
-            ModelManager.instance.deleteItemFromFoodLog(dateChosen , time: time)
-            
+            else {
+                
+                let time = self.logInfo!.0[indexPath.row - numOfPhotosToday].time
+                
+                ModelManager.instance.deleteItemFromFoodLog(dateChosen , time: time)
+            }
             self.tableView.reloadData()
         }
         
@@ -456,12 +558,18 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let destinationVC = segue.destinationViewController as! PickAmountViewController
             
             let indexPath = self.tableView.indexPathForSelectedRow!
-            let chosenItemId = self.logInfo!.0[indexPath.row].foodId
+            
+            var numOfPhotosToday = 0
+            if photosToday != nil {
+                numOfPhotosToday = (photosToday?.count)!
+            }
+            
+            let chosenItemId = self.logInfo!.0[indexPath.row - numOfPhotosToday].foodId
             //now get the Food object for this id
             //from the allFoods[] global array...
             let searchById = allFoods.filter({f in f.id <= chosenItemId && f.id >= chosenItemId})
             
-            let timeLogged = self.logInfo!.0[indexPath.row].time
+            let timeLogged = self.logInfo!.0[indexPath.row - numOfPhotosToday].time
             
             destinationVC.timePreviouslyLogged = timeLogged
             destinationVC.foodItem = searchById[0]

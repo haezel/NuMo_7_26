@@ -53,6 +53,7 @@
 		8A72ADE61B703D260027C909 /* InputsTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADE51B703D260027C909 /* InputsTextViewController.swift */; };
 		8A72ADE81B703F8D0027C909 /* ChooseRDIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */; };
 		8A72ADEB1B73B44A0027C909 /* OmegaGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADEA1B73B44A0027C909 /* OmegaGraphViewController.swift */; };
+		8A8B1B811BED79410097F487 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B1B801BED79410097F487 /* PhotoHelper.swift */; };
 		8AA6C4101BDEA1CC00624FC8 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA6C40F1BDEA1CC00624FC8 /* Charts.framework */; };
 		8DCBCC372DFF43462D6659FA /* Pods_NuMo_7_26.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A638A75CFBD2338510A89C /* Pods_NuMo_7_26.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -130,6 +131,7 @@
 		8A72ADE51B703D260027C909 /* InputsTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputsTextViewController.swift; sourceTree = "<group>"; };
 		8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseRDIsViewController.swift; sourceTree = "<group>"; };
 		8A72ADEA1B73B44A0027C909 /* OmegaGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmegaGraphViewController.swift; sourceTree = "<group>"; };
+		8A8B1B801BED79410097F487 /* PhotoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
 		8AA6C40F1BDEA1CC00624FC8 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -314,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				8A72ACED1B65CBA60027C909 /* UIColor+ColorFromCode.swift */,
+				8A8B1B801BED79410097F487 /* PhotoHelper.swift */,
 				8A72ACF91B65CE4D0027C909 /* Util.swift */,
 			);
 			name = Helpers;
@@ -503,6 +506,7 @@
 				8A72AD241B681EA20027C909 /* PieChartCollectionViewCell.swift in Sources */,
 				8A72ACEC1B65CB5B0027C909 /* Food.swift in Sources */,
 				8A72ACD61B65B7990027C909 /* FMDatabase.m in Sources */,
+				8A8B1B811BED79410097F487 /* PhotoHelper.swift in Sources */,
 				8A72ACE21B65C7140027C909 /* LogItemViewController.swift in Sources */,
 				8A72AD211B66EFB70027C909 /* TheNutrientCollectionViewController.swift in Sources */,
 				8A72AD011B65E1130027C909 /* MyDayViewController.swift in Sources */,

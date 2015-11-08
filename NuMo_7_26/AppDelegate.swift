@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Util.copyFile("usda.sql3")
         
+    
+        
 //        // Return status bar to the screen & set its style.
 //        let application = UIApplication.sharedApplication()
 //        application.setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.None)

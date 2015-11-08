@@ -375,7 +375,7 @@ class ModelManager : NSObject
     {
         sharedInstance.database!.open()
         
-        //eventually needs to take into account date_logged as well
+        
         let isDeleted = sharedInstance.database!.executeUpdate("DELETE FROM food_log WHERE time_logged=? AND date_logged=?", withArgumentsInArray: [time, date])
         
         sharedInstance.database!.close()
@@ -641,53 +641,25 @@ class ModelManager : NSObject
     
     func getPreviousDate(currentDate: String) -> String {
         
-        var newDate : String
         
-        var myStringArr = currentDate.componentsSeparatedByString("-")
-        let oldyear = Int(myStringArr[0])
-        let oldmonth = Int(myStringArr[1])
-        let oldday = Int(myStringArr[2])
+        let calendar = NSCalendar.currentCalendar()
         
-        var newday = 100
-        var newmonth = 100
-        var newyear = -99
         
-        if oldday == 1
-        {
-            //newday = 30
-            if oldmonth == 1 {
-                newmonth = 12
-                newday = daysInMonths[newmonth]
-                newyear = oldyear! - 1
-            }
-            else {
-                newmonth = oldmonth! - 1
-                newday = daysInMonths[newmonth]
-                newyear = oldyear!
-            }
-        }
-        else
-        {
-            newday = oldday! - 1
-            newmonth = oldmonth!
-            newyear = oldyear!
-        }
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.dateFromString(currentDate)
         
-        if newday < 10 {
-            if newmonth < 10 {
-                newDate = "\(newyear)-0\(newmonth)-0\(newday)"
-            } else {
-                newDate = "\(newyear)-\(newmonth)-0\(newday)"
-            }
-        } else {
-            if newmonth < 10 {
-                newDate = "\(newyear)-0\(newmonth)-\(newday)"
-            } else {
-                newDate = "\(newyear)-\(newmonth)-\(newday)"
-            }
-        }
         
-        return newDate
+        let components = NSDateComponents()
+        components.day = -1
+        
+        print("-1 from \(currentDate): \(calendar.dateByAddingComponents(components, toDate: date!, options: []))")
+        print("-1 from \(currentDate): \(dateFormatter.stringFromDate(calendar.dateByAddingComponents(components, toDate: date!, options: [])!))")
+        
+        let theNewDate = dateFormatter.stringFromDate(calendar.dateByAddingComponents(components, toDate: date!, options: [])!)
+        
+        return theNewDate
+        
     }
     
     
@@ -901,6 +873,85 @@ class ModelManager : NSObject
         
         //return the food id for the new item
         return uniqueId
+    }
+    
+    
+    //----------Add Photo Reminder to database methods----------//
+    
+    func addPhotoToDb() -> Int {
+        
+        let date = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        //use globally chosen date
+        let dateInFormat = dateChosen
+        
+        ////get todays time in 17:07:40 format
+        let dateFormatter2 = NSDateFormatter()
+        dateFormatter2.dateFormat = "HH:mm:ss"
+        let timeInFormat = dateFormatter2.stringFromDate(date)
+        
+        sharedInstance.database!.open()
+    
+        let isInserted = sharedInstance.database!.executeUpdate("INSERT INTO photos (date_logged, time_logged) VALUES (?,?)", withArgumentsInArray: [dateInFormat, timeInFormat])
+        
+        print("was the photo inserted? \(isInserted)")
+        
+        
+        let theId: Int = Int(sharedInstance.database!.lastInsertRowId())
+        
+        sharedInstance.database!.close()
+        print("The ID was apparently \(theId)")
+        
+        
+        return theId
+        
+    }
+    
+    //--------------Get Photos for a date------------//
+    
+    func getPhotosForDate(theDate: String) -> [(String, String)]? {
+    
+        var arrayOfPhotos = [(String,String)]()
+        
+        sharedInstance.database!.open()
+        
+        let query2 = "SELECT * FROM photos WHERE date_logged=?"
+        let resultSet2: FMResultSet! = sharedInstance.database!.executeQuery(query2, withArgumentsInArray: [theDate])
+        
+        
+        
+        if resultSet2 != nil
+        {
+            print("Something in the result set for photos")
+            while resultSet2.next()
+            {   let picId = resultSet2.stringForColumn("id")
+               
+                let timeLogged = resultSet2.stringForColumn("time_logged")
+                
+                let idAndTime = (picId!,timeLogged!)
+                print(idAndTime)
+                
+                arrayOfPhotos.append(idAndTime)
+            }
+            return arrayOfPhotos
+        }
+        return nil
+    }
+    
+    // delete a photo on a date and time
+    
+    func deletePhotoReminder(date: String, time: String) -> Bool {
+    
+        sharedInstance.database!.open()
+        
+        let isDeleted = sharedInstance.database!.executeUpdate("DELETE FROM photos WHERE time_logged=? AND date_logged=?", withArgumentsInArray: [time, date])
+        
+        sharedInstance.database!.close()
+        
+        return isDeleted
+        
     }
 
 }
