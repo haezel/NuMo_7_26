@@ -31,8 +31,8 @@ class Util: NSObject {
                 alert.title = "Error Occured"
                 alert.message = error?.localizedDescription
             } else {
-                alert.title = "Successfully Copy"
-                alert.message = "Your database copy successfully"
+                alert.title = "Success"
+                alert.message = "Database Copied Successfully"
             }
             alert.delegate = nil
             alert.addButtonWithTitle("Ok")

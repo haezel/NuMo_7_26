@@ -533,6 +533,18 @@
                                 <color key="textColor" red="0.28235294117647058" green="0.78431372549019607" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXk-7W-cqC">
+                                <rect key="frame" x="270" y="61" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="2iC-N6-sdO"/>
+                                    <constraint firstAttribute="height" constant="60" id="Njq-hk-8d1"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" backgroundImage="selfieDefault"/>
+                                <connections>
+                                    <action selector="selfieButtonPressed:" destination="tTl-FL-Ge0" eventType="touchUpInside" id="zCo-7b-fXV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -544,6 +556,7 @@
                             <constraint firstItem="jOD-Ch-XjU" firstAttribute="centerY" secondItem="JHp-MD-bd1" secondAttribute="centerY" id="Hyt-fC-NGH"/>
                             <constraint firstItem="Zjz-w7-EAj" firstAttribute="firstBaseline" secondItem="QT2-7q-lNd" secondAttribute="firstBaseline" id="I3P-Wd-btI"/>
                             <constraint firstItem="Zjz-w7-EAj" firstAttribute="bottom" secondItem="QT2-7q-lNd" secondAttribute="bottom" id="PYf-rJ-JOu"/>
+                            <constraint firstItem="OXk-7W-cqC" firstAttribute="top" secondItem="fU0-hj-Ni5" secondAttribute="bottom" constant="5" id="PoG-pR-pQd"/>
                             <constraint firstItem="Zjz-w7-EAj" firstAttribute="leading" secondItem="uIf-ts-2fZ" secondAttribute="leadingMargin" id="PoJ-1g-S0r"/>
                             <constraint firstItem="Zjz-w7-EAj" firstAttribute="top" secondItem="BUi-mg-WZN" secondAttribute="bottom" constant="47" id="QAp-Nk-F7b"/>
                             <constraint firstItem="jOD-Ch-XjU" firstAttribute="centerY" secondItem="MiP-B6-BLA" secondAttribute="centerY" id="Rez-y5-zCT"/>
@@ -558,6 +571,7 @@
                             <constraint firstItem="jOD-Ch-XjU" firstAttribute="top" secondItem="fU0-hj-Ni5" secondAttribute="bottom" constant="25" id="c9j-M4-QKW"/>
                             <constraint firstItem="Sg4-f9-pcr" firstAttribute="top" secondItem="vMR-6q-DgX" secondAttribute="bottom" constant="1" id="ci3-Am-hlF"/>
                             <constraint firstItem="jOD-Ch-XjU" firstAttribute="leading" secondItem="JHp-MD-bd1" secondAttribute="trailing" constant="31" id="ho8-QJ-CXb"/>
+                            <constraint firstItem="OXk-7W-cqC" firstAttribute="centerX" secondItem="fU0-hj-Ni5" secondAttribute="centerX" id="iVl-5w-VI3"/>
                             <constraint firstAttribute="centerX" secondItem="jOD-Ch-XjU" secondAttribute="centerX" id="kkf-fx-TDH"/>
                             <constraint firstItem="LyC-9g-Cqu" firstAttribute="top" secondItem="Zjz-w7-EAj" secondAttribute="bottom" constant="-1" id="ktQ-qW-q6M"/>
                             <constraint firstItem="MiP-B6-BLA" firstAttribute="baseline" secondItem="JHp-MD-bd1" secondAttribute="baseline" constant="-1" id="uZg-SC-Gua"/>
@@ -581,6 +595,7 @@
                         <outlet property="dateLabel" destination="jOD-Ch-XjU" id="J39-1B-Vki"/>
                         <outlet property="itemNutrientSegControl" destination="fU0-hj-Ni5" id="vtD-Iw-NCi"/>
                         <outlet property="menuButton" destination="LOa-wl-Q9y" id="TEM-Ab-fOB"/>
+                        <outlet property="selfieButton" destination="OXk-7W-cqC" id="kNO-wJ-QjM"/>
                         <outlet property="tableView" destination="vMR-6q-DgX" id="VwN-aW-xMl"/>
                         <segue destination="Vzb-qw-dau" kind="show" identifier="goToNutrientDetail" id="oJ8-FH-iT3"/>
                         <segue destination="ozX-6l-2pM" kind="show" identifier="goToAdjustFoodAmount" id="a6O-RW-IOs"/>
@@ -1044,6 +1059,7 @@
         <image name="datebook" width="1024" height="1024"/>
         <image name="menu" width="22" height="22"/>
         <image name="pie" width="1024" height="1024"/>
+        <image name="selfieDefault" width="87" height="87"/>
         <image name="settings" width="1024" height="1024"/>
         <image name="utensils" width="1024" height="1024"/>
     </resources>

@@ -14,6 +14,10 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     let imagePicker = UIImagePickerController()
     
+    let selfiePicker = UIImagePickerController()
+    
+    var selfiePickerFlag = false
+    
     let daysInMonths = [0,31,28,31,30,31,30,31,31,30,31,30,31]
     let daysInMonthsLeap = [0,31,29,31,30,31,30,31,31,30,31,30,31]
     let daysInYear = 365
@@ -21,6 +25,8 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var nutrientsToShow = [208, 204, 203, 205, 209, 212, 210, 291, 303, 309, 301, 418, 401, 306, 307, 601, 269]
     
     var itemOrNutrientFlag = "item"
+    
+    @IBOutlet weak var selfieButton: UIButton!
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -85,8 +91,33 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let photo = PhotoHelper()
+        let path = photo.makeImagePath("selfie")
+
+        let theSelfie = photo.loadImageFromPath(path)
+        
+        if theSelfie != nil {
+            let newImage = resizeImage(theSelfie!, toTheSize: CGSizeMake(60, 60))
+            let cellImageLayer: CALayer?  = selfieButton.imageView!.layer
+            cellImageLayer!.cornerRadius = 30  //cell.imageView!.frame.size.width / 2.0
+            cellImageLayer!.masksToBounds = true
+            
+            selfieButton.setBackgroundImage(nil, forState: .Normal)
+            
+            selfieButton.setImage(newImage, forState: .Normal)
+        }
+        
+        
+        
+        
+        
+        
+        
 
         imagePicker.delegate = self
+        
+        selfiePicker.delegate = self
         
         //in order to use our custom nutrient cell nib
         let nib = UINib(nibName: "nutrientTableCell", bundle: nil)
@@ -692,6 +723,8 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func loadImageButtonTapped(sender: UIButton) {
         
+        self.selfiePickerFlag = false
+        
         //create action sheet
         let optionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
@@ -732,28 +765,97 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
+    @IBAction func selfieButtonPressed(sender: AnyObject) {
+        
+        self.selfiePickerFlag = true
+        
+        //create action sheet
+        let optionSheet = UIAlertController(title: "Add Profile Picture", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        
+        let photoLibraryOption = UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+            print("from library")
+            //shows the photo library
+            self.selfiePicker.allowsEditing = true
+            self.selfiePicker.sourceType = .PhotoLibrary
+            self.selfiePicker.modalPresentationStyle = .Popover
+            self.presentViewController(self.selfiePicker, animated: true, completion: nil)
+        })
+        let cameraOption = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+            print("take a photo")
+            //shows the camera
+            self.selfiePicker.allowsEditing = true
+            self.selfiePicker.sourceType = .Camera
+            self.selfiePicker.modalPresentationStyle = .Popover
+            self.presentViewController(self.selfiePicker, animated: true, completion: nil)
+            
+        })
+        let cancelOption = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        optionSheet.addAction(photoLibraryOption)
+        optionSheet.addAction(cancelOption)
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) == true {
+            optionSheet.addAction(cameraOption)} else {
+            print ("I don't have a camera.")
+        }
+        
+        
+        self.presentViewController(optionSheet, animated: true, completion: nil)
+        
+    }
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         //handle media here i.e. do stuff with photo
         
         print("imagePickerController called")
+        print(picker)
         
-        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
-        //imageImage.image = chosenImage
         
-        //save to database
-        let intId = ModelManager.instance.addPhotoToDb()
-        let stringId = String(intId)
+        if selfiePickerFlag == true {
+            print("selfie picker")
+            let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
+            
+            let photo = PhotoHelper()
+            let path = photo.makeImagePath("selfie")
+            photo.saveImage(chosenImage, path: path)
+            
+            //let theSelfie = photo.loadImageFromPath(path)
+            
+            let newImage = resizeImage(chosenImage, toTheSize: CGSizeMake(60, 60))
+            let cellImageLayer: CALayer?  = selfieButton.imageView!.layer
+            cellImageLayer!.cornerRadius = 30  //cell.imageView!.frame.size.width / 2.0
+            cellImageLayer!.masksToBounds = true
+            
+            selfieButton.setBackgroundImage(nil, forState: .Normal)
+            
+            
+            selfieButton.setImage(newImage, forState: .Normal)
+        }
         
-        let photo = PhotoHelper()
-        let path = photo.makeImagePath(stringId)
-        photo.saveImage(chosenImage, path: path)
         
-        let d = photo.loadImageFromPath(path)
-        //imageImage.image = d!
-        
+        else {
+            let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
+            //imageImage.image = chosenImage
+            
+            //save to database
+            let intId = ModelManager.instance.addPhotoToDb()
+            let stringId = String(intId)
+            
+            let photo = PhotoHelper()
+            let path = photo.makeImagePath(stringId)
+            photo.saveImage(chosenImage, path: path)
+            
+            let d = photo.loadImageFromPath(path)
+            //imageImage.image = d!
+        }
         dismissViewControllerAnimated(true, completion: nil)
+        
+
     }
 
 }

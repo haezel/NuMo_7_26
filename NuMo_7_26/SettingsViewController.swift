@@ -78,13 +78,13 @@ class SettingsViewController: XLFormViewController {
         
         form = XLFormDescriptor()
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("profile")
-        form.addFormSection(section)
-        
-        // TextFieldAndTextView
-        row = XLFormRowDescriptor(tag: Tags.TextFieldAndTextView.rawValue, rowType: XLFormRowDescriptorTypeButton, title: "About Me")
-        row.action.viewControllerClass = InputsTextViewController.self
-        section.addFormRow(row)
+//        section = XLFormSectionDescriptor.formSectionWithTitle("profile")
+//        form.addFormSection(section)
+//        
+//        // TextFieldAndTextView
+//        row = XLFormRowDescriptor(tag: Tags.TextFieldAndTextView.rawValue, rowType: XLFormRowDescriptorTypeButton, title: "About Me")
+//        row.action.viewControllerClass = InputsTextViewController.self
+//        section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Nutrients")
         //section.footerTitle = "ExamplesFormViewController.swift, Select an option to view another example"
