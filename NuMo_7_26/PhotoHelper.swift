@@ -38,6 +38,17 @@ class PhotoHelper{
         
     }
     
+    func deleteImageFromPath(path: String) {
+        let filemgr = NSFileManager.defaultManager()
+        do {
+            try filemgr.removeItemAtPath(path)
+        }
+        catch{
+            print("error deleting file...\(path)")
+            print(error)
+        }
+    }
+    
     
     //----------Creating the image path----------//
     

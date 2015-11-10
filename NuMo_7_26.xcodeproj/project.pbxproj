@@ -54,6 +54,8 @@
 		8A72ADE81B703F8D0027C909 /* ChooseRDIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */; };
 		8A72ADEB1B73B44A0027C909 /* OmegaGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72ADEA1B73B44A0027C909 /* OmegaGraphViewController.swift */; };
 		8A8B1B811BED79410097F487 /* PhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B1B801BED79410097F487 /* PhotoHelper.swift */; };
+		8A9592FC1BF142EB00C3DB93 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9592FB1BF142EB00C3DB93 /* Words.swift */; };
+		8A9592FE1BF17C0B00C3DB93 /* ViewPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9592FD1BF17C0B00C3DB93 /* ViewPhotoViewController.swift */; };
 		8AA6C4101BDEA1CC00624FC8 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA6C40F1BDEA1CC00624FC8 /* Charts.framework */; };
 		8DCBCC372DFF43462D6659FA /* Pods_NuMo_7_26.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A638A75CFBD2338510A89C /* Pods_NuMo_7_26.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -132,6 +134,8 @@
 		8A72ADE71B703F8D0027C909 /* ChooseRDIsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseRDIsViewController.swift; sourceTree = "<group>"; };
 		8A72ADEA1B73B44A0027C909 /* OmegaGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmegaGraphViewController.swift; sourceTree = "<group>"; };
 		8A8B1B801BED79410097F487 /* PhotoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoHelper.swift; sourceTree = "<group>"; };
+		8A9592FB1BF142EB00C3DB93 /* Words.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Words.swift; path = ../Words.swift; sourceTree = "<group>"; };
+		8A9592FD1BF17C0B00C3DB93 /* ViewPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPhotoViewController.swift; sourceTree = "<group>"; };
 		8AA6C40F1BDEA1CC00624FC8 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,6 +209,7 @@
 				8A72ACA71B65B71F0027C909 /* AppDelegate.swift */,
 				8A72ACA91B65B71F0027C909 /* ViewController.swift */,
 				8A72ACAB1B65B71F0027C909 /* Main.storyboard */,
+				8A9592FD1BF17C0B00C3DB93 /* ViewPhotoViewController.swift */,
 				8A72ACAE1B65B71F0027C909 /* Images.xcassets */,
 				8A72ACB01B65B71F0027C909 /* LaunchScreen.xib */,
 				8A72AD021B65E1F00027C909 /* NutrientTableViewCell.swift */,
@@ -315,6 +320,7 @@
 		8A72AD171B66DE170027C909 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8A9592FB1BF142EB00C3DB93 /* Words.swift */,
 				8A72ACED1B65CBA60027C909 /* UIColor+ColorFromCode.swift */,
 				8A8B1B801BED79410097F487 /* PhotoHelper.swift */,
 				8A72ACF91B65CE4D0027C909 /* Util.swift */,
@@ -502,6 +508,7 @@
 				8A72AD3A1B6D4D2F0027C909 /* NutrientGraphViewController.swift in Sources */,
 				8A72ACE61B65C7490027C909 /* PhotoReminderViewController.swift in Sources */,
 				8A72ACF01B65CDB80027C909 /* ModelManager.swift in Sources */,
+				8A9592FE1BF17C0B00C3DB93 /* ViewPhotoViewController.swift in Sources */,
 				8A72ACF81B65CE380027C909 /* FoodForTable.swift in Sources */,
 				8A72AD241B681EA20027C909 /* PieChartCollectionViewCell.swift in Sources */,
 				8A72ACEC1B65CB5B0027C909 /* Food.swift in Sources */,
@@ -512,6 +519,7 @@
 				8A72AD011B65E1130027C909 /* MyDayViewController.swift in Sources */,
 				8A72ADE81B703F8D0027C909 /* ChooseRDIsViewController.swift in Sources */,
 				8A72ACAA1B65B71F0027C909 /* ViewController.swift in Sources */,
+				8A9592FC1BF142EB00C3DB93 /* Words.swift in Sources */,
 				8A72ACDE1B65B8620027C909 /* SWRevealViewController.m in Sources */,
 				8A72ACF41B65CE0F0027C909 /* Nutrient.swift in Sources */,
 				8A72ADEB1B73B44A0027C909 /* OmegaGraphViewController.swift in Sources */,
@@ -662,8 +670,10 @@
 			baseConfigurationReference = 239FC9A359934328E840F94F /* Pods-NuMo_7_26.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Charts/build/Debug-iphoneos",
@@ -684,8 +694,10 @@
 			baseConfigurationReference = 7654A1320AB7BC20440EFA3E /* Pods-NuMo_7_26.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Charts/build/Debug-iphoneos",
@@ -696,6 +708,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NuMo_7_26/NuMo_7_26-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -403,6 +403,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
                   
                 let photo = PhotoHelper()
                 let path = photo.makeImagePath(photosToday![indexPath.row].0)
+                print("MAIN path: \(path)")
 
                 let d = photo.loadImageFromPath(path)
 
@@ -418,7 +419,7 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
             else{
-                print("MMMMMKKKKK")
+                
                 let foodItem = self.logInfo!.0[indexPath.row - numOfPhotosToday]
                 
                 cell.textLabel?.text = foodItem.foodDesc
@@ -464,20 +465,20 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //                
 //                return cell
 //            }
-            print("HHHHHHMMMM")
+            
             return cell
         }
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        var numOfPhotosToday = 0
-        if photosToday != nil {
-            numOfPhotosToday = (photosToday?.count)!
-        }
-        //for now photo cells are not highlightable
-        if indexPath.row < numOfPhotosToday {
-            return false
-        }
+//        var numOfPhotosToday = 0
+//        if photosToday != nil {
+//            numOfPhotosToday = (photosToday?.count)!
+//        }
+//        //for now photo cells are not highlightable
+//        if indexPath.row < numOfPhotosToday {
+//            return false
+//        }
         
         return true
     }
@@ -514,6 +515,9 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let time = self.photosToday![indexPath.row].1
                 
                 //delete from documents folder?! or will it just be overwritten....
+                let photo = PhotoHelper()
+                let path = photo.makeImagePath(photosToday![indexPath.row].0)
+                photo.deleteImageFromPath(path)
                 
                 let isDeleted = ModelManager.instance.deletePhotoReminder(dateChosen, time: time)
                 print("The photo reference was deleted: \(isDeleted)")
@@ -566,6 +570,8 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             if indexPath.row < numOfPhotosToday {
                 //for photo selections...
+                print("photo clicked")
+                self.performSegueWithIdentifier("goToViewPhoto", sender: tableView)
             }
             else {
                 self.performSegueWithIdentifier("goToAdjustFoodAmount", sender: tableView)
@@ -601,6 +607,21 @@ class MyDayViewController: UIViewController, UITableViewDelegate, UITableViewDat
             destinationVC.foodItem = searchById[0]
             destinationVC.toggleAdjustOrAdd = "adjust"
             
+        }
+        else if segue.identifier == "goToViewPhoto"
+        {
+            let destinationVC = segue.destinationViewController as! ViewPhotoViewController
+            
+            let indexPath = self.tableView.indexPathForSelectedRow!
+            
+            
+            let photo = PhotoHelper()
+            let path = photo.makeImagePath(photosToday![indexPath.row].0)
+            print("NEXT path: \(path)")
+            let d = photo.loadImageFromPath(path)
+            print("the image: \(d)")
+            
+            destinationVC.image = d
         }
     }
     

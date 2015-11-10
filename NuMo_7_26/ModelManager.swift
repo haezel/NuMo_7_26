@@ -197,10 +197,35 @@ class ModelManager : NSObject
     }
     
     
+    //-----------Get an Array of tuples(Nutrient, TotalInAmountChosen) for one food-----------//
+    //           returns an array of ALL nutrients
+    
+    func getNutrientContentForAmountOneFood(foodId : Int, amountInGrams: Double) -> Dictionary<Int, (nutrient:Nutrient, total:Double)> {
+    
+        let itsNutrients = getNutrients(foodId)
+        
+        var nutAmounts = Dictionary<Int, (nutrient:Nutrient, total:Double)>()
+
+        //var nutAmounts = [(Nutrient, Double)]()
+        
+        for nutrient in itsNutrients
+        {
+            let nutrientId = nutrient.nutrientId
+            let nutrientContentConsumed = (nutrient.amountPerHundredGrams/100.0) * amountInGrams
+            
+            nutAmounts[nutrientId] = (nutrient, nutrientContentConsumed)
+        
+        }
+        
+        
+        return nutAmounts
+        
+    }
+    
     
     //-----------Get an Array of Nutrients, Nutrient Amounts, and Nutrient Units for a particular food-----------//
     //                     -> and return the array of Nutrients
-    //           currently finds ALL nutrient info for the particular food - not just common nutrients           //
+    //                     finds ALL nutrient info for the particular food                                       //
     //           would need to use JOIN on common nutrient to narrow down...                                     //
     
     func getNutrients(foodId : Int) -> [Nutrient]

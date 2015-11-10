@@ -83,9 +83,11 @@ class TheNutrientCollectionViewController: UIViewController, UICollectionViewDat
         navigationItem.backBarButtonItem = backItem
         
         
-        self.nutrientRDAs = makePlayRDAs()
+        //self.nutrientRDAs = makePlayRDAs()
         self.nRDAs = ModelManager.instance.getAllNutrientRDAs()
         print(self.nRDAs)
+        
+        
         
     }
     

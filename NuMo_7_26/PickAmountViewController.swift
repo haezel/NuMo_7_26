@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Charts
 
 class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -16,11 +17,20 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     @IBOutlet weak var titleItemChosen: UILabel!
     
+    @IBOutlet weak var omegaChart: PieChartView!
+    
+    @IBOutlet weak var caloriesLabel: UILabel!
     //@IBOutlet weak var cancelUpdate: UIButton!
     
     var wholeNumbers = ["—", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50"]
     
     var fractionNumbers = ["—", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"]
+    
+    let nutrientsOmega6s = [672, 675, 685, 853, 855]
+    let nutrientsOmega3s = [851, 852, 631, 629, 621]
+    
+    //holds nutrient totals. key is nutrient Id (Nutrient, totalRightNow)
+    var nutrientContents : Dictionary<Int, (nutrient:Nutrient, total:Double)>?
     
     //item to hold currently chosen food and amount
     var logItem : FoodLog?
@@ -38,6 +48,36 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let id = self.foodItem!.id
+        
+        //---------testing new db function getNutrientContentForAmountOneFood
+        self.nutrientContents = ModelManager.instance.getNutrientContentForAmountOneFood(id, amountInGrams: 100)
+        
+        //variables to hold totals
+        let omega3 : Double = getOmega3()
+        let omega6 : Double = getOmega6()
+        
+        
+        let theOmegasAmounts = [omega6, omega3]
+        
+        
+        
+        let color2 = UIColor.colorFromCode(0xdf00ff)
+        let color1 = UIColor.colorFromCode(0x8000ff)
+        //let color2 = UIColor.colorFromCode(0x0994ff)
+        
+        let colors = [color1, color2]
+        
+        
+        //cell.backgroundColor = UIColor.colorFromCode(0xc9c9c9)
+        
+        //cell.setData("Omega Ratio", amounts: [2.0,2.0], labels: ["Oh", "kay"])
+        setData("Omega Ratio", amounts: theOmegasAmounts, labels: ["Omega 6","Omega 3 "], colorsUse: colors)
+        
+        
+        
         
         //titleItemChosen.font = UIFont(name: titleItemChosen.font.fontName, size: 15)
         //titleItemChosen.numberOfLines = 0
@@ -59,7 +99,8 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         self.titleItemChosen.text = foodItem?.desc
         
-        let id : Int = foodItem!.id
+        //let id : Int = foodItem!.id
+        
         getUnits(id)
         getNutrients(id)
         
@@ -298,7 +339,20 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     func makeFoodLogItem(grams : Double, whole : Double, frac : Double, measure : String)
     {
+    
         let id = self.foodItem!.id
+        
+        //---------testing new db function getNutrientContentForAmountOneFood
+        self.nutrientContents = ModelManager.instance.getNutrientContentForAmountOneFood(id, amountInGrams: grams)
+        
+        
+        caloriesLabel.text = String(format: "%.0f", self.nutrientContents![208]!.1)
+        
+        
+        
+        
+        
+        //---end test
         
         
         var timeInFormat = ""
@@ -377,5 +431,161 @@ class PickAmountViewController: UIViewController, UIPickerViewDataSource, UIPick
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func getOmega3() -> Double {
+        
+        //variables to hold totals
+        var omega3 : Double = 0.0
+        
+        
+        //-------Omega-3 Calculation------//
+        //    calculate total omega-3
+        
+        for nutrient in nutrientsOmega3s {
+            
+            //get nutrient object for the id
+            var nutrientCellInfo = self.nutrientContents![nutrient]
+            
+            //if nutrient 851 doesnt exist use 619 instead.
+            if nutrient == 851 {
+                if nutrientCellInfo != nil {
+                    omega3 += nutrientCellInfo!.total
+                } else {
+                    nutrientCellInfo = self.nutrientContents![619]
+                    if nutrientCellInfo != nil {
+                        omega3 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //do this for all the other nutrients
+            else {
+                if nutrientCellInfo != nil {
+                    //if it exists, add it to total!
+                    omega3 += nutrientCellInfo!.total
+                }
+            }
+        }
+        
+        return omega3
+    }
+    
+    func getOmega6() -> Double {
+        
+        
+        var omega6 : Double = 0.0
+        
+        //-------Omega-6 Calculation------//
+        // calculate total omega-6
+        for nutrient in nutrientsOmega6s {
+            
+            //get nutrient object for the id
+            var nutrientCellInfo = self.nutrientContents![nutrient]
+            
+            //if nutrient 675 doesnt exist use 619 instead.
+            if nutrient == 675 {
+                if nutrientCellInfo != nil {
+                    omega6 += nutrientCellInfo!.total
+                } else { //675 doesnt exist in db
+                    nutrientCellInfo = self.nutrientContents![618]
+                    if nutrientCellInfo != nil {
+                        omega6 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //if nutrient 855 doesnt exist use 619 instead.
+            else if nutrient == 855 {
+                if nutrientCellInfo != nil {
+                    omega6 += nutrientCellInfo!.total
+                } else { //855 doesnt exist in db
+                    nutrientCellInfo = self.nutrientContents![620]
+                    if nutrientCellInfo != nil {
+                        omega6 += nutrientCellInfo!.total
+                    }
+                }
+            }
+                
+                //do this for all the other nutrients
+            else {
+                if nutrientCellInfo != nil {
+                    //if it exists, add it to total!
+                    omega6 += nutrientCellInfo!.total
+                }
+            }
+        }
+        return omega6
+    }
+    
+    func setData(title : String, amounts : [Double], labels : [String], colorsUse : [UIColor]) {
+        
+        omegaChart.centerText = title
+        
+        
+        let theLabels = labels
+        let theValues = amounts
+        
+        //setChart(labels, values: amounts)
+        setChart(theLabels, values: theValues, colorsUse: colorsUse)
+    }
+    
+    func setChart(dataPoints: [String], values: [Double], colorsUse : [UIColor]) {
+        
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(value: values[i], xIndex: i)
+            dataEntries.append(dataEntry)
+        }
+        
+        
+        
+        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "")
+        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
+        omegaChart.data = pieChartData
+        
+        //        MAKES RANDOM COLORS
+        //        var colors: [UIColor] = []
+        //
+        //        //use random color scheme
+        //        for i in 0..<dataPoints.count {
+        //            let red = Double(arc4random_uniform(256))
+        //            let green = Double(arc4random_uniform(256))
+        //            let blue = Double(arc4random_uniform(256))
+        //
+        //            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+        //            colors.append(color)
+        //        }
+        
+        
+        
+        //pieChartView.backgroundColor = UIColor.colorFromCode(0x000000)
+        //pieChartView.
+        
+        //pieChartView.legend.setCustom(colors: [UIColor.colorFromCode(0xFFFFFF)], labels: ["FF"])
+        omegaChart.legend.textColor = UIColor.colorFromCode(0x555555)
+        
+        omegaChart.data?.setValueTextColor(UIColor.clearColor())
+        
+        omegaChart.legend.enabled = false
+    
+        omegaChart.legend.position = .BelowChartCenter
+        omegaChart.drawSliceTextEnabled = false
+        omegaChart.userInteractionEnabled = false
+        omegaChart.infoFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16.0)!
+        omegaChart.holeRadiusPercent = 0.75
+        omegaChart.drawHoleEnabled = true
+        omegaChart.holeColor = UIColor.colorFromCode(0xFFFFFF)
+        //        pieChartView.centerText = "Macronutrients"
+        
+        //pieChartView.centerTextFont = UIFont(name: "AvenirNextCondensed-Medium", size: 16.0)!
+        //pieChartView.centerTextColor = UIColor.colorFromCode(0xffffff)
+        
+        omegaChart.descriptionText = ""
+        pieChartDataSet.colors = colorsUse
+        //pieChartDataSet.setDrawValues = false
+        
+    }
+
 
 }

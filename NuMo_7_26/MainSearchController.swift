@@ -161,6 +161,29 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+//    //--------UISearchResultsUpdating methods--------//
+//    
+//    func updateSearchResultsForSearchController(searchController: UISearchController) {
+//        if self.searchController?.searchBar.text!.lengthOfBytesUsingEncoding(NSUTF32StringEncoding) > 0 {
+//            
+//            let searchBarText = self.searchController!.searchBar.text
+//            
+//            self.filterContentForSearchText(searchBarText!)
+//            
+//            // Reload a table with results.
+//            self.searchResultsController?.tableView.reloadData()
+//        }
+//    }
+//    
+//    func filterContentForSearchText(searchBarText : String) {
+//        self.filteredFoods = allFoods.filter({(food : Food) -> Bool in
+//            let stringMatch = food.desc.rangeOfString(searchBarText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+//            
+//            //let stringMatch = food.desc.uppercaseString.rangeOfString(searchBarText.uppercaseString)
+//            return (stringMatch != nil)
+//        })
+//    }
+    
     //--------UISearchResultsUpdating methods--------//
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
@@ -168,20 +191,78 @@ class MainSearchController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let searchBarText = self.searchController!.searchBar.text
             
-            self.filterContentForSearchText(searchBarText!)
+//            var characters = NSMutableCharacterSet.whitespaceAndNewlineCharacterSet()
+//            let words = searchBarText!.componentsSeparatedByCharactersInSet(characters)
+//            print("WORDS SEP:")
+//            print(words)
+            
+            let separatedWords = searchBarText?.words()
+            
+            
+            self.filterContentForSearchText(separatedWords!)
             
             // Reload a table with results.
             self.searchResultsController?.tableView.reloadData()
         }
     }
     
-    func filterContentForSearchText(searchBarText : String) {
-        self.filteredFoods = allFoods.filter({(food : Food) -> Bool in
-            let stringMatch = food.desc.rangeOfString(searchBarText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+    func filterContentForSearchText(searchBarTexts : [String]) {
+        
+
+        
+        var localFilteredFoods = [Food]()
+        //var stringMatch: Range<String.Index>?
+        
+        
+        for (i, word) in searchBarTexts.enumerate() {
             
-            //let stringMatch = food.desc.uppercaseString.rangeOfString(searchBarText.uppercaseString)
-            return (stringMatch != nil)
-        })
+            
+            
+            if i > 0 {
+                print("second wrod")
+                var mostLocalFilt = [Food]()
+                mostLocalFilt = localFilteredFoods.filter({(food : Food) -> Bool in
+                    let stringMatch = food.desc.rangeOfString(word, options: NSStringCompareOptions.CaseInsensitiveSearch)
+                    
+                    //let stringMatch = food.desc.uppercaseString.rangeOfString(searchBarText.uppercaseString)
+                    return (stringMatch != nil)
+                })
+                
+                
+                self.filteredFoods = mostLocalFilt
+                localFilteredFoods = mostLocalFilt
+
+//                //instersect the last word with this word
+//                let theIntersect = arrayOfCommonElements(localFilteredFoods, rhs: mostLocalFilt)
+                
+            }
+            
+            else{
+            
+                localFilteredFoods = allFoods.filter({(food : Food) -> Bool in
+                    let stringMatch = food.desc.rangeOfString(word, options: NSStringCompareOptions.CaseInsensitiveSearch)
+                    
+                    //let stringMatch = food.desc.uppercaseString.rangeOfString(searchBarText.uppercaseString)
+                    return (stringMatch != nil)
+                })
+            }
+        }
+        
+        self.filteredFoods = localFilteredFoods
+        
+        
+    }
+    
+    func arrayOfCommonElements <T, U where T: SequenceType, U: SequenceType, T.Generator.Element: Equatable, T.Generator.Element == U.Generator.Element> (lhs: T, rhs: U) -> [T.Generator.Element] {
+        var returnArray:[T.Generator.Element] = []
+        for lhsItem in lhs {
+            for rhsItem in rhs {
+                if lhsItem == rhsItem {
+                    returnArray.append(lhsItem)
+                }
+            }
+        }
+        return returnArray
     }
     
     //--------UISearchControllerDelegate methods--------//
